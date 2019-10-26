@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @area.name %>
+  <%= @area.user.email %>
+</p>
+
+<%= link_to 'Editar', edit_area_path(@area) %> |
+<%= link_to 'Volver', areas_path %>

@@ -8,10 +8,15 @@ Rails.application.routes.draw do
   end
   
   authenticated :user do
+    resources :areas
     # Routes for authenticated users
-    root to: 'welcome#index', as: :authenticated_root
+    root to: 'areas#index', as: :authenticated_root
+    #get "/areas", to: 'areas#index'
   end
 
+  unauthenticated :user do
+    get "/areas", to: redirect('login')
+  end
   root to: redirect('login')
 
 

@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<div style="text-align: center;">
+    <h1>Bienvenido al sistema de GAPCO</h1>
+    <p>Gestión de Acreditación del Programa CONAIC</p>
+    <br>
+    <p>Has iniciado sesión</p>
+
+</div>
+
+<h2>Áreas</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @areas.each do |area| %>
+      <tr>
+        <td><%= area.name %></td>
+        <td><%= link_to 'Ver', area %></td>
+        <td><%= link_to 'Editar', edit_area_path(area) %></td>
+        <td><%= link_to 'Eliminar', area, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el área de ' + area.name + '?'  } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Agregar Área', new_area_path %>
+<%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %>
