@@ -1,6 +1,7 @@
 class AreasController < ApplicationController
   before_action :authenticate_user!
   before_action :set_area, only: [:show, :edit, :update, :destroy]
+  layout "areas_layout"
 
   # GET /areas
   # GET /areas.json

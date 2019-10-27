@@ -1,13 +1,36 @@
-<h1>Nueva Área</h1>
 
-<%= form_with(model: @area, local: true) do |form| %>
-    <div>
-        <%= form.label :name %>
-        <%= form.text_field :name %>
-    </div>
-    <div>
-        <%= form.submit %>
-    </div>
-<%end%>
+ <!-- Page content -->
+ <div class="w3-container">
 
-<%= link_to 'Volver', areas_path %>
+   <div class="container-fluid">
+     <div class="jumbotron jumbotron-fluid"">
+       <div class="container">
+         <h1>Nueva Área</h1>
+         <p>Gestión de Acreditación del Programa CONAIC</p>
+       </div>
+    </div>
+   </div>
+   <div class="container">
+
+
+   <div class="form-group" style="width: 80%">
+       <%= form_with(model: @area, local: true) do |form| %>
+           <div >
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Nombre del área
+             <% end %>
+               <%= form.text_field :name, class: 'form-control' %>
+           </div>
+           <br>
+           <div>
+              <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
+                <i class="icon-ok icon-white"></i> Guardar área
+              <% end %>
+           </div>
+       <%end%>
+
+       <%= link_to '<div class="fa fa-arrow-left" aria-hidden="true">   Volver</div>'.html_safe, areas_path %>
+
+    </div>
+  </div>
+     </div>

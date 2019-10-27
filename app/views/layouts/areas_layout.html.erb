@@ -1,0 +1,142 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <title>GAPCO</title>
+     <%= csrf_meta_tags %>
+     <%= csp_meta_tag %>
+
+     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <head>
+    <title>GAPCO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+ <body>
+
+   <!-- Side bar -->
+   <div class="w3-sidebar w3-bar-block w3-card w3-animate-right"  style="display:none;right:0;" id="mySidebar">
+      <button class="w3-bar-item w3-button w3-large"> <div onclick="w3_close()" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-angle-double-right"></span> </button>
+      <div class="container">
+        <table class="table table-hover">
+          <col width="70%">
+          <thead>
+            <tr>
+              <th><h5>Alertas<h5></th>
+              <th></th>
+              <th><div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span></div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">Alerta # 1</td>
+              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
+            </tr>
+            <tr>
+              <td colspan="2">Alerta # 2</td>
+              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
+            </tr>
+            <tr>
+              <td colspan="2">Alerta # 3</td>
+              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+ <div id="main">
+
+   <!-- Navigation bar -->
+
+ <div class="w3">
+   <div style="margin-bottom: 5px;">
+     <nav class="navbar navbar-light bg-light" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-bottom: 15px;">
+       <a class="navbar-brand">GAPCO</a>
+       <form class="form-inline my-2 my-lg-0" style="align:right">
+         <div class="dropdown">
+           <div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-bell-o"></span></div>
+           <div class="dropdown-menu">
+             <a class="dropdown-item" href="#">Notificacion # 1</a>
+             <a class="dropdown-item" href="#">Notificacion # 2</a>
+             <a class="dropdown-item" href="#">Notificacion # 3</a>
+             <a class="dropdown-item" href="#">Notificacion # 4</a>
+           </div>
+         </div>
+
+         <div class="dropdown">
+         <div style="opacity: 1; margin-right: 50px;" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-cogs"></span></div>
+           <div class="dropdown-menu">
+             <a class="dropdown-item"><%= link_to  "Editar cuenta", :edit %></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item"><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %></a>
+           </div>
+         </div>
+
+         <button type="button" id="openNav" class="w3-button w3 w3-xlarge" onclick="w3_open()">&#9776;</button>
+       </form>
+     </nav>
+   </div>
+ </div>
+
+
+ <!-- Page content -->
+  <%= yield %>
+
+   <!-- Modal de creacion de alertas -->
+  <div class="modal fade" id="myModal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+
+       <!-- Modal Header -->
+       <div class="modal-header">
+         <h4 class="modal-title">Crear alerta</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+
+       <!-- Modal body -->
+       <div class="modal-body">
+         Aqui estara la informacion para crear una alerta
+       </div>
+
+       <!-- Modal footer -->
+       <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-dismiss="modal">Crear alerta</button>
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+       </div>
+
+     </div>
+   </div>
+  </div>
+ </div>
+
+ <script>
+ function w3_open() {
+   document.getElementById("main").style.marginRight = "15%";
+   document.getElementById("mySidebar").style.width = "15%";
+   document.getElementById("mySidebar").style.display = "block";
+   document.getElementById("openNav").style.display = 'none';
+ }
+ function w3_close() {
+   document.getElementById("main").style.marginRight = "0%";
+   document.getElementById("mySidebar").style.display = "none";
+   document.getElementById("openNav").style.display = "inline-block";
+ }
+ </script>
+
+ </body>
+ </html>
