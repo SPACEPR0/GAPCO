@@ -5,6 +5,7 @@
     <p>Gestión de Acreditación del Programa CONAIC</p>
     <br>
     <p>Has iniciado sesión</p>
+    
 
 </div>
 
@@ -33,4 +34,15 @@
 <br>
 
 <%= link_to 'Agregar Área', new_area_path %>
-<%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %>
+
+<div>
+
+  <li>
+    <%= link_to  "Editar cuenta", :edit %>
+  </li>
+
+  <li>
+    <%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %>
+  </li>
+
+</div>

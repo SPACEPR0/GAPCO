@@ -8,7 +8,21 @@
     </h2>
     <ul>
       <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <%if message == "Current password can't be blank"%>
+          <li>Contraseña actual en blanco</li>
+        <%elsif message == "Email can't be blank"%>
+          <li>Correo electrónico en blanco</li>
+        <%elsif message == "Password is too short (minimum is 6 characters)"%>
+          <li>La nueva contraseña es muy corta (Mínimo <%=@minimum_password_length%> caracteres)</li>
+        <%elsif message == "Password confirmation doesn't match Password"%>
+          <li>La contraseña nueva y la de confirmación no coinciden</li>
+        <%elsif message == "Password can't be blank"%>
+          <li>Contraseña en blanco</li>
+        <%elsif message == "Email has already been taken"%>
+          <li>El correo electrónico ya está registrado</li>
+        <%else%>
+          <li><%= message %></li>
+        <%end%>
       <% end %>
     </ul>
   </div>

@@ -1,0 +1,39 @@
+<h2>Crear cuenta</h2>
+
+<%= form_for(:user) do |form| %>
+
+    <div class="field">
+        <%= form.label :firstname, "Nombre" %><br />
+        <%= form.text_field :firstname, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= form.label :lastname, "Apellido" %><br />
+        <%= form.text_field :lastname, autofocus: true %>
+    </div>
+
+    <div class="field">
+        <%= form.label :email, "Correo electrónico" %><br />
+        <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+        <%= form.label :password, "Contraseña" %>
+        <% if @minimum_password_length %>
+        <em>(Mínimo <%= @minimum_password_length%> caracteres)</em>
+        <% end %><br />
+        <%= form.password_field :password, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+        <%= form.label :password_confirmation, "Confirmar contraseña" %><br />
+        <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit "Finalizar" %>
+    </div>
+
+    <%= link_to 'Regresar', root_path %>   
+
+<%end%>
