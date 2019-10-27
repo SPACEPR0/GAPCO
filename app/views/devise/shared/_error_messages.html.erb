@@ -20,6 +20,10 @@
           <li>Contraseña en blanco</li>
         <%elsif message == "Email has already been taken"%>
           <li>El correo electrónico ya está registrado</li>
+        <%elsif message == "Firstname can't be blank"%>
+          <li>Nombre en blanco</li>
+        <%elsif message == "Lastname can't be blank"%>
+          <li>Apellido en blanco</li>
         <%else%>
           <li><%= message %></li>
         <%end%>
