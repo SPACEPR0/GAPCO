@@ -7,9 +7,11 @@
      <div class="jumbotron jumbotron-fluid"">
        <div class="container">
          <p>
-           <strong>Name:</strong>
-           <%= @area.name %>
-           <%= @area.user.email %>
+           <strong>Nombre:</strong>
+           <%= @area.name%>
+           <strong>Responsable:</strong>
+           <%= @area.user.firstname%>
+           <%= @area.user.lastname%>
          </p>
      </div>
    </div>
