@@ -1,0 +1,85 @@
+    <!-- Page content -->
+    <div class="w3-container">
+
+        <div class="container-fluid">
+            <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1>Editar usuario </h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="form-group" style="width: 80%">
+            <%= form_for(@user, url: edit_user_path(@user), html:{method: :post}) do |form| %>
+                <%if @user.errors.any?%>
+                    <%if @user.errors.full_messages.length > 1%>
+                        <h2>Ocurrieron <%=@user.errors.full_messages.length%> errores: </h2>
+                    <%else%>
+                        <h2>Ocurrió un error: </h2>
+                    <%end%>
+                    <ul>
+                        <% @user.errors.full_messages.each do |message|%>
+                            <%if message == "Firstname can't be blank"%>
+                                <li>Nombre en blanco</li>
+                            <%elsif message == "Lastname can't be blank"%>
+                                <li>Apellido en blanco</li>
+                            <%elsif message == "Email can't be blank"%>
+                                <li>Correo electrónico en blanco</li>
+                            <%elsif message == "Email has already been taken"%>
+                                <li>El correo electrónico ya está registrado y pertenece a otro usuario</li>
+                            <%elsif message == "Password can't be blank"%>
+                                <li>Contraseña en blanco</li>
+                            <%elsif message == "Password is too short (minimum is 6 characters)"%>
+                                <li>La nueva contraseña es muy corta (Mínimo <%=@minimum_password_length%> caracteres)</li>
+                            <%elsif message == "Password confirmation doesn't match Password"%>
+                                <li>La contraseña nueva y la de confirmación no coinciden</li>
+                            <%else%>
+                                <li><%= message %></li>
+                            <%end%>
+                        <%end%>
+                    </ul>
+                <%end%>
+
+                <div >
+                    <%= label_tag(type: 'tag') do %>
+                    <i class="icon-ok icon-white"></i> Nombre
+                    <% end %>
+                    <%= form.text_field :firstname, class: 'form-control' %>
+                </div>
+
+                <div>
+                    <%= label_tag(type: 'tag') do %>
+                    <i class="icon-ok icon-white"></i> Apellido
+                    <% end %>
+                    <%= form.text_field :lastname, class: 'form-control' %>
+                </div>
+
+                <div >
+                    <%= label_tag(type: 'tag') do %>
+                    <i class="icon-ok icon-white"></i> Correo electrónico
+                    <% end %>
+                    <%= form.text_field :email, class: 'form-control' %>
+                </div>
+
+                <div>
+                    <%= label_tag(type: 'tag') do %>
+                    <i class="icon-ok icon-white"></i> Rol
+                    <% end %>
+                    <div>
+                        <%= form.select :role, options_for_select({"Responsable" => 1, "Coordinador" => 0}), class:'form-control'%>
+                    </div>
+                </div>
+
+                <br>
+                <div>
+                    <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
+                        <i class="icon-ok icon-white"></i> Guardar cambios
+                    <% end %>
+                </div>
+            <%end%>
+            <br>
+
+            <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, users_path %>
+        </div>
+    </div>

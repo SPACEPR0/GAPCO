@@ -10,6 +10,8 @@
       <% resource.errors.full_messages.each do |message| %>
         <%if message == "Current password can't be blank"%>
           <li>Contraseña actual en blanco</li>
+        <%elsif message == "Current password is invalid"%>
+          <li>La contraseña actual es inválida</li>
         <%elsif message == "Email can't be blank"%>
           <li>Correo electrónico en blanco</li>
         <%elsif message == "Password is too short (minimum is 6 characters)"%>
@@ -19,7 +21,7 @@
         <%elsif message == "Password can't be blank"%>
           <li>Contraseña en blanco</li>
         <%elsif message == "Email has already been taken"%>
-          <li>El correo electrónico ya está registrado</li>
+          <li>El correo electrónico ya está registrado y pertenece a otro usuario</li>
         <%elsif message == "Firstname can't be blank"%>
           <li>Nombre en blanco</li>
         <%elsif message == "Lastname can't be blank"%>

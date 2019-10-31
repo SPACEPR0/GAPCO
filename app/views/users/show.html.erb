@@ -1,0 +1,35 @@
+ <!-- Page content -->
+ <div class="w3-container">
+
+   <div class="container-fluid">
+     <div class="jumbotron jumbotron-fluid"">
+       <div class="container">
+         <p>
+           <strong>Nombres:</strong>
+           <%= @user.firstname%>
+           <strong>Apellidos:</strong>
+           <%= @user.lastname%>
+           <strong>Rol:</strong>
+           <% if @user.role == 0%>
+              Coordinador
+            <%else%>
+              Responsable
+            <%end%>
+         </p>
+          <p>
+           <strong>Correo electrónico:</strong>
+           <%= @user.email%>
+         </p>
+     </div>
+   </div>
+  </div>
+
+
+   <div class="container">
+
+
+     <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar</button>'.html_safe, edit_user_path(@user) %> |
+     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
+   </div>
+
+  </div>

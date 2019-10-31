@@ -17,9 +17,10 @@ class Users::RegistrationsController < ApplicationController
    end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+   def edit
+    redirtect_to :edit_myaccount
+     super
+   end
 
   # PUT /resource
   # def update
