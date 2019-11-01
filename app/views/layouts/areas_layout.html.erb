@@ -22,9 +22,9 @@
   <head>
     <title>GAPCO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
   </head>
  <body>
+ 
 
    <!-- Side bar -->
    <div class="w3-sidebar w3-bar-block w3-card w3-animate-right"  style="display:none;right:0;" id="mySidebar">
@@ -79,7 +79,7 @@
          <div class="dropdown">
          <div style="opacity: 1; margin-right: 50px;" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-cogs"></span></div>
            <div class="dropdown-menu">
-             <a class="dropdown-item"><%= link_to 'Ver usuarios', index_path_url %></a>
+             <a class="dropdown-item"><%= link_to 'Ver usuarios', index_url %></a>
              <a class="dropdown-item" href="#"></a>
              <a class="dropdown-item" href="#"></a>
              <a class="dropdown-item" href="#"></a>
@@ -103,6 +103,8 @@
 
 
  <!-- Page content -->
+  <p class="notice"><%= notice %></p>
+
   <%= yield %>
 
    <!-- Modal de creacion de alertas -->

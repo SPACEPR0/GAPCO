@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]    
+  layout "areas_layout"
   def index
     @users  = User.all
   end
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to :index_path, notice: 'El usuario se ha eliminado exitosamente.' }
+      format.html { redirect_to :index, notice: 'El usuario se ha eliminado exitosamente.' }
       format.json { head :no_content }
     end
   end

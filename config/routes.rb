@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     delete 'logout', to: 'devise/sessions#destroy'
     get 'users/new', to: 'users#new', as: :sign_up
     post 'users/new', to: 'users#create'
-    get 'users', to: 'users#index', as: :index_path
+    get 'users', to: 'users#index', as: :index
     patch "users/:id", to: "users#update"
     post 'users/:id/edit', to: 'users#update'
   end
