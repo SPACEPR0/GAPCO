@@ -80,6 +80,15 @@
             </div>
 
             <br>
+
+            <div >
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Responsable del área
+             <% end %>
+             <%= form.select :area_ids, Area.all.collect { |a| [a.name, a.id] }, {include_blank: true}, class:'form-control' %>
+           </div>
+           <br>
+
             <div>
                 <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
                     <i class="icon-ok icon-white"></i> Guardar cambios

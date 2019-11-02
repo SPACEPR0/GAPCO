@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   
   authenticated :user do
     resources :areas
+    resources :recommendations
     # Routes for authenticated users
     root to: 'areas#index', as: :authenticated_root
     #get "/areas", to: 'areas#index'

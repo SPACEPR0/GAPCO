@@ -9,7 +9,6 @@
          <h1>Bienvenido al sistema de GAPCO</h1>
          <p>Gestión de Acreditación del Programa CONAIC</p>
          <br>
-         <p>Sesión iniciada</p>
      </div>
    </div>
    </div>
@@ -33,7 +32,7 @@
        <tbody>
          <% @areas.each do |area| %>
            <tr>
-             <td><%= area.name %></td>
+              <td><%= link_to area.name, area %></td>
              <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, area %></td>
              <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_area_path(area) %></td>
              <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, area, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el área de ' + area.name + '?'  } %></td>

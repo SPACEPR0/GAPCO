@@ -27,11 +27,10 @@ class AreasController < ApplicationController
   # POST /areas.json
   def create
     @area = Area.new(area_params)
-    @area.user = current_user
 
     respond_to do |format|
       if @area.save
-        format.html { redirect_to @area, notice: 'El área ha sido creada exitosamente.' }
+        format.html { redirect_to @area }
         format.json { render :show, status: :created, location: @area }
       else
         format.html { render :new }
@@ -45,7 +44,7 @@ class AreasController < ApplicationController
   def update
     respond_to do |format|
       if @area.update(area_params)
-        format.html { redirect_to @area, notice: 'El área ha sido actualizada exitosamente.' }
+        format.html { redirect_to @area }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
@@ -59,7 +58,7 @@ class AreasController < ApplicationController
   def destroy
     @area.destroy
     respond_to do |format|
-      format.html { redirect_to areas_url, notice: 'El área se ha eliminado exitosamente.' }
+      format.html { redirect_to areas_url }
       format.json { head :no_content }
     end
   end
@@ -72,6 +71,6 @@ class AreasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def area_params
-      params.require(:area).permit(:name)
+      params.require(:area).permit(:name, :user_id)
     end
 end

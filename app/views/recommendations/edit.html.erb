@@ -1,0 +1,32 @@
+<div class="w3-container">
+
+        <div class="container-fluid">
+            <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1>Editar recomendación </h1>
+            </div>
+        </div>
+</div>
+
+
+ <div class="form-group" style="width: 80%">
+       <%= form_with(model: @recommendation, local: true) do |form| %>
+           <div >
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Nombre de la recomendación
+             <% end %>
+               <%= form.text_field :name, class: 'form-control' %>
+           </div>
+           <br>
+           <div>
+              <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
+                <i class="icon-ok icon-white"></i> Guardar recomendación
+              <% end %>
+           </div>
+       <%end%>
+       <br>
+
+       <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
+
+
+    </div>
