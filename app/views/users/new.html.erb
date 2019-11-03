@@ -35,8 +35,11 @@
                             <li>La nueva contraseña es muy corta (Mínimo <%=@minimum_password_length%> caracteres)</li>
                         <%elsif message == "Password confirmation doesn't match Password"%>
                             <li>La contraseña nueva y la de confirmación no coinciden</li>
+                         <%elsif message == "Areas is invalid"%>
+                            <li>La opción '---Sin áreas---' no puede incluirse en las áreas asignadas al usuario. Intente de nuevo</li>
                         <%else%>
                             <li><%= message %></li>
+                            
                         <%end%>
                     <%end%>
                 </ul>
@@ -83,9 +86,13 @@
 
             <div >
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Responsable del área
+               <i class="icon-ok icon-white"></i>  Asignar áreas
+               <br />
+               <i class="icon-ok icon-white"></i> *Para seleccionar más de una mantenga presionada la tecla 'Ctrl'
+               <br />
+               <i class="icon-ok icon-white"></i> *Para no asignar áreas deje en blanco o seleccione únicamente la opción: '---Sin áreas---'
              <% end %>
-             <%= form.select :area_ids, Area.all.collect { |a| [a.name, a.id] }, {include_blank: true}, class:'form-control' %>
+             <%= form.collection_select(:area_ids, Area.all, :id, :name,{:include_blank => '---Sin áreas---'}, {:multiple=>true,class:'form-control'})  %>
            </div>
            <br>
 
