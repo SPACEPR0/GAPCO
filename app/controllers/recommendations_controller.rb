@@ -1,6 +1,6 @@
 class RecommendationsController < ApplicationController
   before_action :set_recommendation, only: [:show, :edit, :update, :destroy]
-
+  layout "areas_layout"
   # GET /recommendations
   # GET /recommendations.json
   def index
@@ -69,6 +69,6 @@ class RecommendationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recommendation_params
-      params.require(:recommendation).permit(:name, :area_id)
+      params.require(:recommendation).permit(:name, :area_id, :number)
     end
 end

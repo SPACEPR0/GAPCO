@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_225345) do
+ActiveRecord::Schema.define(version: 2019_11_05_211959) do
 
   create_table "areas", force: :cascade do |t|
     t.string "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_225345) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "area_id"
+    t.integer "number"
     t.index ["area_id"], name: "index_recommendations_on_area_id"
   end
 

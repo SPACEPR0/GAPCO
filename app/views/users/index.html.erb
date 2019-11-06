@@ -48,20 +48,21 @@
             <%if user.areas.length == 0%>
               <td>Sin áreas asignadas</td>
             <%else%>
-              <td>
-              <select name = "area" onChange="window.location.href=this.value" class='form-control'>
-                <option selected="selected" value = <%=index_path%>>Seleccione un área para consultarla</option>
-                <%= user.areas.each do |area|%>
-                  <option value = <%=area_path(area)%>><%=area.name%> </option>
-                <%end%>
-              </select>                
+                <td>
+                <ul style="list-style-type:none;">
+                 <% user.areas.each do |area|%>
+                 <li><%= link_to area.name, area%></li> 
+                 <%end%>
+                </ul>
               </td>
-              
-      
             <%end%>
-
-            <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_user_path(user) %></td>
-            <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, user, method: :delete, data: { confirm: '¿Está seguro que desea eliminar a '+user.firstname+' '+user.lastname+'?'} %></td>
+           <% if current_user.role == 0 then %>
+             <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_user_path(user) %></td>
+             <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, user, method: :delete, data: { confirm: '¿Está seguro que desea eliminar a '+user.firstname+' '+user.lastname+'?'} %></td>
+           <%else%>
+             <td></td>
+             <td></td>
+           <%end%>
            </tr>
          <% end %>
        </tbody>

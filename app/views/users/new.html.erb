@@ -81,21 +81,7 @@
                     <%= form.select :role, options_for_select({"Responsable" => 1, "Coordinador" => 0}), class:'form-control'%>
                 </div>
             </div>
-
             <br>
-
-            <div >
-             <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i>  Asignar áreas
-               <br />
-               <i class="icon-ok icon-white"></i> *Para seleccionar más de una mantenga presionada la tecla 'Ctrl'
-               <br />
-               <i class="icon-ok icon-white"></i> *Para no asignar áreas deje en blanco o seleccione únicamente la opción: '---Sin áreas---'
-             <% end %>
-             <%= form.collection_select(:area_ids, Area.all, :id, :name,{:include_blank => '---Sin áreas---'}, {:multiple=>true,class:'form-control'})  %>
-           </div>
-           <br>
-
             <div>
                 <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
                     <i class="icon-ok icon-white"></i> Guardar cambios

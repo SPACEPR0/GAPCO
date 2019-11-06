@@ -20,22 +20,35 @@
          <tr>
            <th scope="col">
              Categorías CONAIC para revisión y seguimiento
-             <p style="opacity: 0.5;">Responsable de area</p>
            </th>
+           <th scope="col" style="opacity: 0.5;">Responsable de área</th>
            <th scope="col"></th>
            <th scope="col"></th>
+           <% if current_user.role == 0 %> 
            <th scope="col">
              <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_area_path  %>
            </th>
+           <%else%>
+           <th></th>
+           <%end%>
          </tr>
        </thead>
        <tbody>
          <% @areas.each do |area| %>
            <tr>
               <td><%= link_to area.name, area %></td>
+              <td><%= area.user.firstname%> <%= area.user.lastname%></td>
              <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, area %></td>
-             <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_area_path(area) %></td>
-             <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, area, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el área de ' + area.name + '?'  } %></td>
+             <% if (current_user == area.user || current_user.role == 0) then %>
+              <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_area_path(area) %></td>
+             <%else%>
+              <td></td>
+             <%end%>
+             <% if current_user.role == 0 %>
+              <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, area, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el área de ' + area.name + '?'  } %></td>
+             <%else%>
+              <td></td>
+             <%end%>
            </tr>
          <% end %>
        </tbody>

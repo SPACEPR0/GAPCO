@@ -20,8 +20,9 @@
 
    <div class="container">
 
-
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar Área</button>'.html_safe, edit_area_path(@area) %> |
+     <% if (current_user == @area.user || current_user.role == 0) then %>
+       <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar Área</button>'.html_safe, edit_area_path(@area) %> |
+     <%end%>
      <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
    </div>
    <br>
@@ -34,20 +35,30 @@
            </th>
            <th scope="col"></th>
            <th scope="col"></th>
-           <th scope="col">
-             <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_recommendation_path(:area_id => @area.id) %>
-             <!-- <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_recommendation_path(:recommendation => { :area_id => @area.id })  %> -->
-           </th>
+           <th scope="col"></th>
+           <% if (current_user == @area.user || current_user.role == 0) then %>
+              <th scope="col">
+                <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_recommendation_path(:area_id => @area.id) %>
+                <!-- <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_recommendation_path(:recommendation => { :area_id => @area.id })  %> -->
+              </th>
+            <%else%>
+              <th></th>
+            <%end%>
          </tr>
        </thead>
        <tbody>
          <% @area.recommendations.each do |r| %>
            <tr>
-              <td><%= r.id %> </td>
-              <td><%= r.name %></td>
+              <td><%= r.number %> </td>
+              <td><%= link_to r.name, r %></td>
               <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, r %></td>
+              <% if (current_user == @area.user || current_user.role == 0) then %>
               <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_recommendation_path(r) %></td>
               <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, r, method: :delete, data: { confirm: '¿Está seguro que desea eliminar la recomendación de ' + r.name + '?'  } %></td>
+              <%else%>
+              <td></td>
+              <td></td>
+              <%end%>
            </tr>
          <% end %>
        </tbody>

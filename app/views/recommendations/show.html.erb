@@ -1,34 +1,65 @@
 <!-- Page content -->
  <div class="w3-container">
-  <p id="notice"><%= notice %></p>
+   <p id="notice"><%= notice %></p>
 
    <div class="container-fluid">
      <div class="jumbotron jumbotron-fluid"">
        <div class="container">
-         <h1>Recomendación: <%= @recommendation.name%></h1>
+         <h1>Recomendación <%=@recommendation.number%>. <%= @recommendation.name%></h1>
          <br>
          <p>
-           <strong> Área: </strong>
+           <strong>Área: </strong>
            <%= @recommendation.area.name%>
          </p>
          <p>
-           <strong>Responsable:</strong>
+           <strong>Responsable: </strong>
            <%= @recommendation.area.user.firstname%>
            <%= @recommendation.area.user.lastname%>
          </p>
-       </div>
-      </div>
-    </div>
+     </div>
+   </div>
+   </div>
 
 
     <div class="container">
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar Recomendación </button>'.html_safe, edit_recommendation_path(@recommendation) %> |
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, areas_path(@recommendation.area_id) %>
+    <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>
+     <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar Recomendación</button>'.html_safe, edit_recommendation_path(@recommendation) %>
+    <%end%>
+     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
     </div>
+   <br>
+
+   <div class="container-fluid">
+     <table class="table table-hover" style="width: 80%;" align="center">
+       <thead>
+         <tr>
+           <th scope="col">
+             <strong>Evidencias:</strong>
+           </th>
+           <th scope="col"></th>
+           <th scope="col"></th>
+           <th scope="col"></th>
+           <th scope="col">
+             <%= link_to '<span class="fa fa-plus"></span>'.html_safe %>
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+           <tr>
+              <td> 05/11/19 </td>
+              <td> Nombre de evidencia </td>
+              <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe%></td>
+              <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>
+              <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe%></td>
+              <td><%= link_to '<span class="fa fa-times"></span>'.html_safe%></td>
+              <%else%>
+              <td></td>
+              <td></td>
+              <%end%>
+           </tr>
+       </tbody>
+     </table>
+   </div>
    
 
-
-
-  <p id="notice"><%= notice %></p>
-
-</div>
+  </div>

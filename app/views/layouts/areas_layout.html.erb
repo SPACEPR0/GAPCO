@@ -64,7 +64,9 @@
  <div class="w3">
    <div style="margin-bottom: 5px;">
      <nav class="navbar navbar-light bg-light" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-bottom: 15px;">
-       <a class="navbar-brand">GAPCO</a>
+       <form class="form-inline my-2 my-lg-0" style="align:left">
+         <a class="navbar-brand"><%= link_to 'GAPCO'.html_safe, root_path%></a>
+       </form>
        <form class="form-inline my-2 my-lg-0" style="align:right">
          <div class="dropdown">
            <div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-bell-o"></span></div>
@@ -83,10 +85,12 @@
              <a class="dropdown-item" href="#"></a>
              <a class="dropdown-item" href="#"></a>
              <a class="dropdown-item" href="#"></a>
-              <a class="dropdown-item"><%= link_to 'Crear cuenta nueva', :sign_up %></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item" href="#"></a>
+             <% if current_user.role == 0 %>
+               <a class="dropdown-item"><%= link_to 'Crear cuenta nueva', :sign_up %></a>
+               <a class="dropdown-item" href="#"></a>
+               <a class="dropdown-item" href="#"></a>
+               <a class="dropdown-item" href="#"></a>
+             <%end%>
              <a class="dropdown-item"><%= link_to  "Editar mi cuenta", :edit_myaccount %></a>
              <a class="dropdown-item" href="#"></a>
              <a class="dropdown-item" href="#"></a>
