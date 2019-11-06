@@ -3,7 +3,8 @@
         <div class="container-fluid">
             <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1>Editar recomendación </h1>
+                <h1>Editar recomendación #<%= @recommendation.number%> </h1>
+                <p>Área: <%=@recommendation.area.name%></p>
             </div>
         </div>
 </div>
@@ -11,12 +12,6 @@
 
  <div class="form-group" style="width: 80%">
        <%= form_with(model: @recommendation, local: true) do |form| %>
-           <div >
-             <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Número de la recomendación
-             <% end %>
-               <%= form.text_field :number, class: 'form-control' %>
-           </div>
            <div >
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Nombre de la recomendación
