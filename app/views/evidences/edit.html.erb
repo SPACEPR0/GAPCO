@@ -1,0 +1,59 @@
+<h1>Editing Evidence</h1>
+
+<%= form_with(model: @evidence, local: true) do |form| %>
+  <% if @evidence.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@evidence.errors.count, "error") %> prohibited this evidence from being saved:</h2>
+
+      <ul>
+        <% @evidence.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :recommendation_id, :value => @evidence.recommendation_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<!-- Listing all documents -->
+<div id="evidence_docs">
+  <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles %>
+</div>
+
+<!-- Form to add document/image -->
+
+<%= form_with(model: Evidencefile.new) do |form| %>
+
+  <div class="form">
+    <%= form.label :documento %>
+    <%= form.file_field :document %>
+  </div>
+
+  <div class="form">
+    <%= form.hidden_field :evidence_id, :value => @evidence.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Agregar adjunto' %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Back', @evidence %>

@@ -1,0 +1,6 @@
+<p>
+  <% if evidencefile.document.attachment then %>
+  <span> <%= image_tag evidencefile.document %> </span>
+  <% end %>
+  <span> <%= link_to 'Delete', evidencefile, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el archivo?', remote: true }, class: "delete_file" %> </span>
+</p>

@@ -1,0 +1,26 @@
+<%= form_with(model: evidencefile, local: true) do |form| %>
+  <% if evidencefile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(evidencefile.errors.count, "error") %> prohibited this evidencefile from being saved:</h2>
+
+      <ul>
+        <% evidencefile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form">
+    <%= form.label :documento %>
+    <%= form.file_field :document %>
+  </div>
+
+  <div class="form">
+    <%= form.hidden_field :evidence_id, :value => @evidence.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Agregar adjunto' %>
+  </div>
+<% end %>

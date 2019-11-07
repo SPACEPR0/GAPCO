@@ -14,11 +14,13 @@ Rails.application.routes.draw do
     post 'users/:id/edit', to: 'users#update'
   end
 
-  
-  
+
+
   authenticated :user do
     resources :areas
     resources :recommendations
+    resources :evidences
+    resources :evidencefiles, only: [:create, :destroy]
     # Routes for authenticated users
     root to: 'areas#index', as: :authenticated_root
     #get "/areas", to: 'areas#index'

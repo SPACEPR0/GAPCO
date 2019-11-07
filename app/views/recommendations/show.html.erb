@@ -40,26 +40,28 @@
            <th scope="col"></th>
            <th scope="col"></th>
            <th scope="col">
-             <%= link_to '<span class="fa fa-plus"></span>'.html_safe %>
+             <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_evidence_path(:recommendation_id => @recommendation.id) %>
            </th>
          </tr>
        </thead>
        <tbody>
-           <tr>
-              <td> 05/11/19 </td>
-              <td> Nombre de evidencia </td>
-              <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe%></td>
-              <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>
-              <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe%></td>
-              <td><%= link_to '<span class="fa fa-times"></span>'.html_safe%></td>
-              <%else%>
-              <td></td>
-              <td></td>
-              <%end%>
-           </tr>
+         <% @recommendation.evidences.each do |evidence| %>
+          <tr>
+            <td> <%= evidence.created_at %> </td>
+            <td> <%= evidence.title %> </td>
+            <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, evidence%></td>
+            <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>
+            <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_evidence_path(evidence)%></td>
+            <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, evidence, method: :delete, data: { confirm: '¿Está seguro que desea eliminar la evidencia de ' + evidence.title + '?'  }%></td>
+            <% else %>
+            <td></td>
+            <td></td>
+            <% end %>
+          </tr>
+         <% end %>
        </tbody>
      </table>
    </div>
-   
+
 
   </div>

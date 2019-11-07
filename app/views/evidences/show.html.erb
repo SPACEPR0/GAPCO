@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @evidence.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @evidence.description %>
+</p>
+
+<% @evidence.evidencefiles.each do |f|%>
+<p>
+  <% if f.document.attachment then %>
+  <span> <%= image_tag f.document %> </span>
+  <% end %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', edit_evidence_path(@evidence) %> |
+<%= link_to 'Back', @evidence.recommendation %>
