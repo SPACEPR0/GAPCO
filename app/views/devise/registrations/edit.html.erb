@@ -1,77 +1,82 @@
-<div class="w3-container">
 
-  <div class="container-fluid">
-      <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-          <h1>Editar mi cuenta </h1>
-      </div>
-  </div>
-</div>
+<!-- Page content -->
+ <p class="notice"><%= notice %></p>
 
-<div class="container">
 
-  <div class="form-group" style="width: 70%">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+ <div class="w3-container">
 
-      <div>
-          <%= label_tag(type: 'tag') do %>
-          <i class="icon-ok icon-white"></i> Nombre
-          <% end %>
-          <%= f.text_field :firstname, class: 'form-control' %>
-      </div>
+   <div class="container-fluid">
+       <div class="jumbotron jumbotron-fluid">
+       <div class="container">
+           <h1>Editar mi cuenta </h1>
+       </div>
+   </div>
+ </div>
 
-      <div>
-          <%= label_tag(type: 'tag') do %>
-          <i class="icon-ok icon-white"></i> Apellido
-          <% end %>
-          <%= f.text_field :lastname, class: 'form-control' %>
-      </div>
+ <div class="container">
 
-      <div>
-          <%= label_tag(type: 'tag') do %>
-          <i class="icon-ok icon-white"></i> Correo electrónico
-          <% end %>
-          <%= f.email_field :email, class: 'form-control' %>
-      </div>
+   <div class="form-group" style="width: 70%">
+     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
+       <div>
+           <%= label_tag(type: 'tag') do %>
+           <i class="icon-ok icon-white"></i> Nombre
+           <% end %>
+           <%= f.text_field :firstname, class: 'form-control' %>
+       </div>
 
-      <div>
-          <%= label_tag(type: 'tag') do %>
-          <i class="icon-ok icon-white"></i> Contraseña <em>(Mínimo 6 caracteres)</em><br />
-          <% end %>
-          <%= f.password_field :password, class: 'form-control' %>
-      </div>
+       <div>
+           <%= label_tag(type: 'tag') do %>
+           <i class="icon-ok icon-white"></i> Apellido
+           <% end %>
+           <%= f.text_field :lastname, class: 'form-control' %>
+       </div>
 
-      <div>
-          <%= label_tag(type: 'tag') do %>
-          <i class="icon-ok icon-white"></i> Confirmar contraseña
-          <% end %>
-          <%= f.password_field :password_confirmation, class: 'form-control' %>
-      </div>   
+       <div>
+           <%= label_tag(type: 'tag') do %>
+           <i class="icon-ok icon-white"></i> Correo electrónico
+           <% end %>
+           <%= f.email_field :email, class: 'form-control' %>
+       </div>
 
-      <div>
-          <%= label_tag(type: 'tag') do %>
-          <i class="icon-ok icon-white"></i> Contraseña actual (Se necesita para confirmar los cambios)
-          <% end %>
-          <%= f.password_field :current_password, class: 'form-control' %>
-      </div>   
+       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+       <% end %>
 
-      <br>
-      <div class="actions">
-        <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
-            <i class="icon-ok icon-white"></i> Guardar cambios
-        <% end %>
-      </div>
+       <div>
+           <%= label_tag(type: 'tag') do %>
+           <i class="icon-ok icon-white"></i> Contraseña <em>(Mínimo 6 caracteres)</em><br />
+           <% end %>
+           <%= f.password_field :password, class: 'form-control' %>
+       </div>
 
-      <br>
-      <div class="actions">
-        <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
-      </div>
-    <% end %>
+       <div>
+           <%= label_tag(type: 'tag') do %>
+           <i class="icon-ok icon-white"></i> Confirmar contraseña
+           <% end %>
+           <%= f.password_field :password_confirmation, class: 'form-control' %>
+       </div>
 
-  </div>
-</div>
+       <div>
+           <%= label_tag(type: 'tag') do %>
+           <i class="icon-ok icon-white"></i> Contraseña actual (Se necesita para confirmar los cambios)
+           <% end %>
+           <%= f.password_field :current_password, class: 'form-control' %>
+       </div>
+
+       <br>
+       <div class="actions">
+         <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
+             <i class="icon-ok icon-white"></i> Guardar cambios
+         <% end %>
+       </div>
+
+       <br>
+       <div class="actions">
+         <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
+       </div>
+     <% end %>
+
+   </div>
+ </div>
