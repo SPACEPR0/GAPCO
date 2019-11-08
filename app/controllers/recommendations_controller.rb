@@ -10,6 +10,8 @@ class RecommendationsController < ApplicationController
   # GET /recommendations/1
   # GET /recommendations/1.json
   def show
+    @goal = Goal.new 
+    @goal.recommendation_id = @recommendation.id
   end
 
   # GET /recommendations/new

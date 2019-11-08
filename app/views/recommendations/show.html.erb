@@ -32,6 +32,25 @@
     </div>
    <br>
 
+   <div class="container">
+     
+     <div class="p-3 mb-2 bg-light text-dark">
+     <div>
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#container_goals" aria-expanded="true" aria-controls="collapseOne">
+       METAS
+       </button>
+         <!-- Button trigger modal -->
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#mynewgoal">
+            <span class="fa fa-plus">
+        </button>
+      </div>
+      
+      <div class="container in" id="container_goals">
+        <%= render @recommendation.goals %>
+      </div>
+    </div>
+  </div>
+
    <div class="container-fluid">
      <table class="table table-hover" style="width: 80%;" align="center">
        <thead>
@@ -68,3 +87,24 @@
 
 
   </div>
+
+
+
+<!-- Modal -->
+
+
+<div class="modal fade" id="mynewgoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Crear Meta</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <%=render partial: 'goals/form' %>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
