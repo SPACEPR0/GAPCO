@@ -50,7 +50,7 @@
        <tbody>
          <% @recommendation.evidences.each do |evidence| %>
           <tr>
-            <td> <%= evidence.created_at %> </td>
+            <td> <%= evidence.day%> </td>
             <td> <%= evidence.title %> </td>
             <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, evidence%></td>
             <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>

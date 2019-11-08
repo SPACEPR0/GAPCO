@@ -6,10 +6,10 @@
   <div class="jumbotron jumbotron-fluid"">
     <div class="container">
       <h1>Editar evidencia</h1>
-      <h1>Área:</h1>
+      <h1>Área: <%=@evidence.recommendation.area.name%></h1>
       <br>
       <p>
-        <strong>Responsable:</strong>
+        <strong>Responsable: <%=@evidence.recommendation.area.user.firstname%> <%=@evidence.recommendation.area.user.lastname%></strong>
       </p>
       <p>
       </p>
@@ -48,7 +48,12 @@
       <% end %>
         <%= form.text_field :description, class: 'form-control' %>
     </div>
-
+    <div>
+             <%= label_tag(type: 'tag') do %>
+              <i class="icon-ok icon-white"></i> Fecha
+            <% end %>
+             <%= form.date_field (:day) %>
+          </div>
     <div class="field">
       <%= form.hidden_field :recommendation_id, :value => @evidence.recommendation_id %>
     </div>

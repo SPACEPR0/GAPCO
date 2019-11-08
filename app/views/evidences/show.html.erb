@@ -6,10 +6,13 @@
   <div class="jumbotron jumbotron-fluid"">
     <div class="container">
       <h1>Evidencia: <%= @evidence.title%></h1>
-      <h1>Área: </h1>
+      <h1>Área: <%=@evidence.recommendation.area.name%></h1>
       <br>
       <p>
-        <strong>Responsable:</strong>
+        <strong>Responsable: <%=@evidence.recommendation.area.user.firstname%> <%=@evidence.recommendation.area.user.lastname%></strong>
+      </p>
+      <p>
+        <strong>Fecha: <%=@evidence.day%></strong>
       </p>
 
   </div>

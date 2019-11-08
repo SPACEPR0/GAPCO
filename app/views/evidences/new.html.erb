@@ -6,10 +6,11 @@
   <div class="jumbotron jumbotron-fluid"">
     <div class="container">
       <h1>Agregar evidencia</h1>
-      <h1>Área:</h1>
+      <% r = Recommendation.find(params[:recommendation_id])%>
+      <h1>Área: <%=r.area.name%></h1>
       <br>
       <p>
-        <strong>Responsable:</strong>
+        <strong>Responsable: <%=r.area.user.firstname%> <%=r.area.user.lastname%></strong>
       </p>
       <p>
       </p>
@@ -44,6 +45,13 @@
               <i class="icon-ok icon-white"></i> Descripción
             <% end %>
               <%= form.text_field :description, class: 'form-control' %>
+          </div>
+          <br>
+          <div>
+             <%= label_tag(type: 'tag') do %>
+              <i class="icon-ok icon-white"></i> Fecha
+            <% end %>
+             <%= form.date_field (:day) %>
           </div>
           <div class="field">
             <%= form.hidden_field :recommendation_id, :value => params[:recommendation_id] %>
