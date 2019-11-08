@@ -71,14 +71,21 @@
                     </div>
                 </div>
                 <br>
+
+                <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                  <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a usuarios</button>'.html_safe, users_path %>
+                 <div class="input-group">
+                   <div class="input-group-prepend">
+                     <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+                         <i class="icon-ok icon-white"></i> Guardar cambios
+                     <% end %>
+                   </div>
+                 </div>
+               </div>
                 <div>
-                    <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
-                        <i class="icon-ok icon-white"></i> Guardar cambios
-                    <% end %>
-                </div>
+              </div>
             <%end%>
             <br>
 
-            <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, users_path %>
         </div>
     </div>

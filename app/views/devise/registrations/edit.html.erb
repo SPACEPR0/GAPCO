@@ -46,18 +46,20 @@
 
        <div>
            <%= label_tag(type: 'tag') do %>
-           <i class="icon-ok icon-white"></i> Contraseña <em>(Mínimo 6 caracteres)</em><br />
+           <i class="icon-ok icon-white"></i> Introduce una nueva contraseña <em>(Mínimo 6 caracteres)</em><br />
            <% end %>
            <%= f.password_field :password, class: 'form-control' %>
        </div>
 
        <div>
            <%= label_tag(type: 'tag') do %>
-           <i class="icon-ok icon-white"></i> Confirmar contraseña
+           <i class="icon-ok icon-white"></i> Confirmar contraseña nueva
            <% end %>
            <%= f.password_field :password_confirmation, class: 'form-control' %>
        </div>
-
+       <br>
+       <br>
+       <br>
        <div>
            <%= label_tag(type: 'tag') do %>
            <i class="icon-ok icon-white"></i> Contraseña actual (Se necesita para confirmar los cambios)
@@ -66,16 +68,18 @@
        </div>
 
        <br>
-       <div class="actions">
-         <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
-             <i class="icon-ok icon-white"></i> Guardar cambios
-         <% end %>
-       </div>
 
-       <br>
-       <div class="actions">
-         <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
-       </div>
+       <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+         <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+                <i class="icon-ok icon-white"></i> Guardar cambios
+            <% end %>
+          </div>
+        </div>
+      </div>
+
      <% end %>
 
    </div>

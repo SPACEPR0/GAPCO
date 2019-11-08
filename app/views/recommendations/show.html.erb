@@ -6,11 +6,8 @@
      <div class="jumbotron jumbotron-fluid"">
        <div class="container">
          <h1>Recomendación #<%=@recommendation.number%>: <%= @recommendation.name%></h1>
+         <h2>Área: <%= @recommendation.area.name%> </h2>
          <br>
-         <p>
-           <strong>Área: </strong>
-           <%= @recommendation.area.name%>
-         </p>
          <p>
            <strong>Responsable: </strong>
            <%= @recommendation.area.user.firstname%>
@@ -22,10 +19,16 @@
 
 
     <div class="container">
-    <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar Recomendación</button>'.html_safe, edit_recommendation_path(@recommendation) %>
-    <%end%>
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver al área</button>'.html_safe, @recommendation.area %>
+       <div class="input-group">
+         <div class="input-group-prepend">
+           <% if (current_user == @recommendation.area.user || current_user.role == 0) then %>
+            <%= link_to '<button type="button" class="btn btn-outline-primary">Editar Recomendación</button>'.html_safe, edit_recommendation_path(@recommendation) %>
+           <%end%>
+         </div>
+       </div>
+     </div>
     </div>
    <br>
 

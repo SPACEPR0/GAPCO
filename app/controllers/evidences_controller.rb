@@ -1,5 +1,6 @@
 class EvidencesController < ApplicationController
   before_action :set_evidence, only: [:show, :edit, :update, :destroy]
+  layout "areas_layout"
 
   # GET /evidences
   # GET /evidences.json

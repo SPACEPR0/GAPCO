@@ -8,6 +8,9 @@
         </div>
 </div>
 
+<div class="container">
+
+
 
  <div class="form-group" style="width: 80%">
        <%= form_with(model: @recommendation, local: true) do |form| %>
@@ -32,15 +35,24 @@
            <div>
             <%= form.hidden_field :area_id, :value => params[:area_id] %>
            </div>
-           <div>
-              <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
-                <i class="icon-ok icon-white"></i> Guardar recomendación
-              <% end %>
-           </div>
+
+           <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+             <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver al área</button>'.html_safe, Area.find(params[:area_id]) %>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                   <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+                     <i class="icon-ok icon-white"></i> Guardar recomendación
+                   <% end %>
+              </div>
+            </div>
+          </div>
+
        <%end%>
        <br>
 
-       <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
 
+
+    </div>
+  </div>
 
     </div>

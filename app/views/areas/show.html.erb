@@ -1,10 +1,9 @@
-
  <!-- Page content -->
  <div class="w3-container">
    <p id="notice"><%= notice %></p>
 
    <div class="container-fluid">
-     <div class="jumbotron jumbotron-fluid"">
+     <div class="jumbotron jumbotron-fluid">
        <div class="container">
          <h1>Área: <%= @area.name%></h1>
          <br>
@@ -20,10 +19,17 @@
 
    <div class="container">
 
-     <% if (current_user == @area.user || current_user.role == 0) then %>
-       <%= link_to '<button type="button" class="btn btn-outline-secondary">Editar Área</button>'.html_safe, edit_area_path(@area) %> |
-     <%end%>
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
+     <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+       <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a áreas</button>'.html_safe, root_path %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <% if (current_user == @area.user || current_user.role == 0) then %>
+          <%= link_to '<button align="right" type="button" class="btn btn-outline-primary">Editar Área</button>'.html_safe, edit_area_path(@area) %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+
    </div>
    <br>
    <div class="container-fluid">
@@ -64,6 +70,6 @@
        </tbody>
      </table>
    </div>
-   
+
 
    </div>

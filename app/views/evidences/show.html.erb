@@ -1,22 +1,56 @@
-<p id="notice"><%= notice %></p>
+<!-- Page content -->
+<div class="w3-container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @evidence.title %>
-</p>
+<div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid"">
+    <div class="container">
+      <h1>Evidencia: <%= @evidence.title%></h1>
+      <h1>Área: </h1>
+      <br>
+      <p>
+        <strong>Responsable:</strong>
+      </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @evidence.description %>
-</p>
+  </div>
+</div>
+</div>
+<div class="container">
 
-<% @evidence.evidencefiles.each do |f|%>
-<p>
-  <% if f.document.attachment then %>
-  <span> <%= image_tag f.document %> </span>
+
+<div class="form-group" style="width: 80%">
+
+  <p>
+    <strong>Nombre de la evidencia:</strong>
+    <%= @evidence.title %>
+  </p>
+  <p>
+    <strong>Descripción:</strong>
+    <%= @evidence.description %>
+  </p>
+
+  <% @evidence.evidencefiles.each do |f|%>
+  <p>
+    <% if f.document.attachment then %>
+    <span> <%= image_tag f.document %> </span>
+    <% end %>
+  </p>
   <% end %>
-</p>
-<% end %>
 
-<%= link_to 'Edit', edit_evidence_path(@evidence) %> |
-<%= link_to 'Back', @evidence.recommendation %>
+<br>
+
+  <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+    <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a la recomendación</button>'.html_safe, @evidence.recommendation %>
+     <div class="input-group-prepend">
+       <%= link_to '<button type="button" class="btn btn-outline-primary">Editar evidencia</button>'.html_safe, edit_evidence_path(@evidence) %> <div class="input-group">
+
+     </div>
+   </div>
+  </div>
+
+
+
+</div>
+
+ </div>
+</div>

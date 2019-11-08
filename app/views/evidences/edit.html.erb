@@ -1,59 +1,97 @@
-<h1>Editing Evidence</h1>
+<!-- Page content -->
+<div class="w3-container">
+  <p id="notice"><%= notice %></p>
 
-<%= form_with(model: @evidence, local: true) do |form| %>
-  <% if @evidence.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@evidence.errors.count, "error") %> prohibited this evidence from being saved:</h2>
-
-      <ul>
-        <% @evidence.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+<div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid"">
+    <div class="container">
+      <h1>Editar evidencia</h1>
+      <h1>Área:</h1>
+      <br>
+      <p>
+        <strong>Responsable:</strong>
+      </p>
+      <p>
+      </p>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :recommendation_id, :value => @evidence.recommendation_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<!-- Listing all documents -->
-<div id="evidence_docs">
-  <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles %>
 </div>
-
-<!-- Form to add document/image -->
-
-<%= form_with(model: Evidencefile.new) do |form| %>
-
-  <div class="form">
-    <%= form.label :documento %>
-    <%= form.file_field :document %>
-  </div>
-
-  <div class="form">
-    <%= form.hidden_field :evidence_id, :value => @evidence.id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Agregar adjunto' %>
-  </div>
-<% end %>
+</div>
+<div class="container">
 
 
-<%= link_to 'Back', @evidence %>
+<div class="form-group" style="width: 80%">
+
+  <%= form_with(model: @evidence, local: true) do |form| %>
+    <% if @evidence.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@evidence.errors.count, "error") %> prohibited this evidence from being saved:</h2>
+
+        <ul>
+          <% @evidence.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= label_tag(type: 'tag') do %>
+        <i class="icon-ok icon-white"></i> Título de la evidencia
+      <% end %>
+        <%= form.text_field :title, class: 'form-control' %>
+    </div>
+
+    <br>
+    <div>
+      <%= label_tag(type: 'tag') do %>
+        <i class="icon-ok icon-white"></i> Descripción
+      <% end %>
+        <%= form.text_field :description, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.hidden_field :recommendation_id, :value => @evidence.recommendation_id %>
+    </div>
+    <br>
+
+    <!-- Listing all documents -->
+    <div id="evidence_docs">
+      <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles %>
+    </div>
+    <!-- Form to add document/image -->
+
+    <%= form_with(model: Evidencefile.new) do |form| %>
+
+      <div class="form">
+        <%= form.label :documento %>
+        <%= form.file_field :document %>
+      </div>
+      <br>
+
+      <div class="form">
+        <%= form.hidden_field :evidence_id, :value => @evidence.id %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit 'Agregar adjunto' %>
+      </div>
+    <% end %>
+
+    <br>
+    <br>
+
+    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+      <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a la evidencia</button>'.html_safe, @evidence %>
+     <div class="input-group">
+       <div class="input-group-prepend">
+         <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+           <i class="icon-ok icon-white"></i> Guardar evidencia
+         <% end %>
+       </div>
+     </div>
+   </div>
+ </div>
+  <% end %>
+             </div>
+           </div>
+         </div>

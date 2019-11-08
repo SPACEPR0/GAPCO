@@ -1,7 +1,6 @@
-
-
- <!-- Page content -->
+<!-- Page content -->
  <div class="w3-container">
+   <p id="notice"><%= notice %></p>
 
    <div class="container-fluid">
      <div class="jumbotron jumbotron-fluid"">
@@ -24,7 +23,7 @@
            <th scope="col" style="opacity: 0.5;">Responsable de área</th>
            <th scope="col"></th>
            <th scope="col"></th>
-           <% if current_user.role == 0 %> 
+           <% if current_user.role == 0 %>
            <th scope="col">
              <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_area_path  %>
            </th>
@@ -56,4 +55,3 @@
    </div>
 
    </div>
-   

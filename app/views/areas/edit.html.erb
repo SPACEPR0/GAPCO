@@ -1,42 +1,59 @@
-
- <!-- Page content -->
+<!-- Page content -->
  <div class="w3-container">
+   <p id="notice"><%= notice %></p>
 
    <div class="container-fluid">
      <div class="jumbotron jumbotron-fluid">
        <div class="container">
-         <h1>Editar Área </h1>
-         <p>Gestión de Acreditación del Programa CONAIC</p>
+           <h1>Área: <%= @area.name%></h1>
+           <br>
+           <p>
+             <strong>Responsable:</strong>
+             <%= @area.user.firstname%>
+             <%= @area.user.lastname%>
+           </p>
         </div>
       </div>
    </div>
+
   <div class="container">
 
 
    <div class="form-group" style="width: 80%">
        <%= form_with(model: @area) do |form| %>
+       <h1>Editar Área </h1>
            <div>
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Nombre del área
              <% end %>
                <%= form.text_field :name, class: 'form-control' %>
            </div>
-           <div >
+           <br>
+           <div>
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Responsable del área
              <% end %>
              <%= form.select :user_id, User.all.collect { |u| [u.firstname, u.id] }, class:'form-control'%>
            </div>
            <br>
-           <div>
-              <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
-                <i class="icon-ok icon-white"></i> Guardar cambios
-              <% end %>
-           </div>
+           <br>
+
+           <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+              <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver al área</button>'.html_safe, @area %>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                   <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+                     <i class="icon-ok icon-white"></i> Guardar cambios
+                   <% end %>
+              
+              </div>
+            </div>
+          </div>
+
        <%end%>
        <br>
 
-       <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, areas_path %>
+
 
     </div>
   </div>

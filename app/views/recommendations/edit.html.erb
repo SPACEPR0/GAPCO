@@ -1,16 +1,26 @@
 <div class="w3-container">
-
+    <p id="notice"><%= notice %></p>
         <div class="container-fluid">
             <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1>Editar recomendación #<%= @recommendation.number%> </h1>
-                <p>Área: <%=@recommendation.area.name%></p>
+                <h1>Área: <%= @recommendation.area.name%> </h1>
+                <h2>Recomendación #<%=@recommendation.number%>: <%= @recommendation.name%></h2>
+                <br>
+                <p>
+                  <strong>Responsable: </strong>
+                  <%= @recommendation.area.user.firstname%>
+                  <%= @recommendation.area.user.lastname%>
+                </p>
             </div>
         </div>
 </div>
 
+<div class="container">
+
+
 
  <div class="form-group" style="width: 80%">
+   <h1>Editar recomendación #<%= @recommendation.number%> </h1>
        <%= form_with(model: @recommendation, local: true) do |form| %>
            <div >
              <%= label_tag(type: 'tag') do %>
@@ -19,15 +29,23 @@
                <%= form.text_field :name, class: 'form-control' %>
            </div>
            <br>
-           <div>
-              <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
-                <i class="icon-ok icon-white"></i> Guardar recomendación
-              <% end %>
-           </div>
+
+           <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+             <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a la recomendación</button>'.html_safe, @recommendation %>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+                  <i class="icon-ok icon-white"></i> Guardar cambios
+                <% end %>
+              </div>
+            </div>
+          </div>
+
        <%end%>
        <br>
 
-       <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
 
 
     </div>
+  </div>
+</div>

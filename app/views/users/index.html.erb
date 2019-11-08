@@ -8,8 +8,8 @@
         </div>
 
   </div>
- 
- <div class="w3-container">
+  </div>
+
    <div class="container-fluid">
      <table class="table table-hover" style="width: 70%;" align="center">
        <thead>
@@ -51,7 +51,7 @@
                 <td>
                 <ul style="list-style-type:none;">
                  <% user.areas.each do |area|%>
-                 <li><%= link_to area.name, area%></li> 
+                 <li><%= link_to area.name, area%></li>
                  <%end%>
                 </ul>
               </td>
@@ -69,7 +69,6 @@
      </table>
    </div>
    <div class="container-fluid" style="width: 70%;">
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
+     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
    </div>
-    
    </div>
