@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
   authenticated :user do
     resources :areas
-    resources :recommendations
+    resources :recommendations do
+      resources :goals
+    end
+    resources :goals
+
     resources :evidences
     resources :evidencefiles, only: [:create, :destroy]
     # Routes for authenticated users

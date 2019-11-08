@@ -1,0 +1,35 @@
+<%= form_with(model: @goal, remote: true) do |form| %>
+  <% if @goal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@goal.errors.count, "error") %> prohibited this goal from being saved:</h2>
+
+      <ul>
+        <% @goal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <% form.label :title%>Título:
+    <%= form.text_field :title %>
+  </div>
+  <br>
+  <div class="field">
+    <% form.label :actions %> Acciones:
+    <%= form.text_area :actions, class:"form-control"%>
+  </div>
+
+  <div class="field" style="display:none">
+    <%= form.label :recommendation_id %> <br>
+    <%= form.text_field :recommendation_id %>
+    
+  </div>
+  
+
+  <div class="actions">
+    <br>
+    <%= form.submit "Crear", class: "btn btn-primary"%>
+  </div>
+<% end %>

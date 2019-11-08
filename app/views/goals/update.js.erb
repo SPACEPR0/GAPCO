@@ -1,0 +1,5 @@
+$("#myupdategoal_<%= @goal.id %>").modal('hide');
+$("#goal_<%= @goal.id %>").fadeOut(500, function(){
+    $(this).remove();
+    $("#container_goals").append('<%= j render @goal %>')
+});

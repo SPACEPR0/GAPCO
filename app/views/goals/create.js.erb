@@ -1,0 +1,6 @@
+$("#mynewgoal").modal('hide');
+$(".goal_title").val('');
+$(".goal_actions").val('');
+
+$("#container_goals").append('<%= j render @goal %>');
+$("#goal_<%= @goal.id %>").hide().fadeIn(1000);
