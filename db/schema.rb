@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_08_020701) do
+ActiveRecord::Schema.define(version: 2019_11_08_030506) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 2019_11_08_020701) do
     t.index ["recommendation_id"], name: "index_evidences_on_recommendation_id"
   end
 
+  create_table "goals", force: :cascade do |t|
+    t.string "title"
+    t.text "actions"
+    t.integer "recommendation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recommendation_id"], name: "index_goals_on_recommendation_id"
+  end
+
   create_table "recommendations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -85,5 +94,6 @@ ActiveRecord::Schema.define(version: 2019_11_08_020701) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "evidencefiles", "evidences"
   add_foreign_key "evidences", "recommendations"
+  add_foreign_key "goals", "recommendations"
   add_foreign_key "recommendations", "areas"
 end

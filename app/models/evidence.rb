@@ -1,4 +1,4 @@
 class Evidence < ApplicationRecord
   belongs_to :recommendation
-  has_many :evidencefiles
+  has_many :evidencefiles, :dependent => :destroy
 end
