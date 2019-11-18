@@ -20,22 +20,18 @@
            <div>
              <% a = Area.find(params[:area_id])%>
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Número de la recomendación
+               <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
-               <%= form.text_field :number, value: a.recommendations.length + 1, class: 'form-control' %>
+               <%= form.text_field :number, value: a.number + "." + (a.recommendations.length + 1).to_s, class: 'form-control' %>
            </div>
            <br>
            <div >
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Nombre de la recomendación
+               <i class="icon-ok icon-white"></i> Nombre de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
-               <%= form.text_field :name, class: 'form-control' %>
+               <%= form.text_field :name, required: true, class: 'form-control' %>
            </div>
            <br>
-           <div>
-            <%= form.hidden_field :area_id, :value => params[:area_id] %>
-           </div>
-
            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
              <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver al área</button>'.html_safe, Area.find(params[:area_id]) %>
             <div class="input-group">

@@ -35,9 +35,9 @@
       <% end %>
           <div>
             <%= label_tag(type: 'tag') do %>
-              <i class="icon-ok icon-white"></i> Título de la evidencia
+              <i class="icon-ok icon-white"></i> Título de la evidencia <font color="red">   (Obligatorio)</font>
             <% end %>
-              <%= form.text_field :title, class: 'form-control' %>
+              <%= form.text_field :title, required: true, class: 'form-control' %>
           </div>
           <br>
           <div>
@@ -49,9 +49,9 @@
           <br>
           <div>
              <%= label_tag(type: 'tag') do %>
-              <i class="icon-ok icon-white"></i> Fecha
+              <i class="icon-ok icon-white"></i> Fecha <font color="red">   (Obligatorio)</font>
             <% end %>
-             <%= form.date_field (:day) %>
+             <%= form.date_field (:day), required: true %>
           </div>
           <div class="field">
             <%= form.hidden_field :recommendation_id, :value => params[:recommendation_id] %>

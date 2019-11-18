@@ -4,7 +4,7 @@
             <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1>Área: <%= @recommendation.area.name%> </h1>
-                <h2>Recomendación #<%=@recommendation.number%>: <%= @recommendation.name%></h2>
+                <h2>Recomendación <%=@recommendation.number%>: <%= @recommendation.name%></h2>
                 <br>
                 <p>
                   <strong>Responsable: </strong>
@@ -20,7 +20,7 @@
 
 
  <div class="form-group" style="width: 80%">
-   <h1>Editar recomendación #<%= @recommendation.number%> </h1>
+   <h4>Editar recomendación:</h4>
        <%= form_with(model: @recommendation, local: true) do |form| %>
            <div >
              <%= label_tag(type: 'tag') do %>

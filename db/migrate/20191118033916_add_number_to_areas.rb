@@ -1,0 +1,5 @@
+class AddNumberToAreas < ActiveRecord::Migration[6.0]
+  def change
+    add_column :areas, :number, :string
+  end
+end
