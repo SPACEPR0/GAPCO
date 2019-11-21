@@ -18,12 +18,12 @@ Rails.application.routes.draw do
 
   authenticated :user do
     resources :areas
-    resources :recommendations do
+    resources :recommendations, except: :index do
       resources :goals
     end
     resources :goals
 
-    resources :evidences
+    resources :evidences, except: :index
     resources :evidencefiles, only: [:create, :destroy]
     # Routes for authenticated users
     root to: 'areas#index', as: :authenticated_root

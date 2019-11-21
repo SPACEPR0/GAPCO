@@ -1,6 +1,12 @@
-<p>
-  <% if evidencefile.document.attachment then %>
-  <span> <%= image_tag evidencefile.document %> </span>
-  <% end %>
-  <span> <%= link_to 'Delete', evidencefile, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el archivo?', remote: true }, class: "delete_file" %> </span>
-</p>
+<% if evidencefile.document.attachment then %>
+<div class="tile">
+    <% if evidencefile.document.filename.to_s.end_with? '.pdf'%>
+      <%= image_tag "doc-icon.png" %>
+    <% else %>
+      <%= image_tag evidencefile.document %>
+    <% end %>
+    <% if delete_icon %>
+      <%= link_to '<i style="position: absolute;top: 0px; right: 0px;" class="fa fa-times"></i>'.html_safe, evidencefile, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el archivo \''+evidencefile.document.filename.to_s+'\'?', remote: true }, class: "delete_file" %>
+    <% end %>
+</div>
+<% end %>

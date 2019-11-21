@@ -28,6 +28,12 @@
              <% end %>
                <%= form.text_field :name, class: 'form-control' %>
            </div>
+           <div>  
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Plazo
+             <% end %>
+               <%= form.date_field :time_limit %>
+           </div>
            <br>
 
            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">

@@ -23,7 +23,7 @@
        <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a áreas</button>'.html_safe, root_path %>
       <div class="input-group">
         <div class="input-group-prepend">
-          <% if (current_user == @area.user || current_user.role == 0) then %>
+          <% if (current_user.role == 0) then %>
           <%= link_to '<button align="right" type="button" class="btn btn-outline-primary">Editar Área</button>'.html_safe, edit_area_path(@area) %>
           <%end%>
         </div>

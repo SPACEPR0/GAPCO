@@ -1,6 +1,5 @@
 <!-- Page content -->
  <div class="w3-container">
-   <p id="notice"><%= notice %></p>
 
    <div class="container-fluid">
      <div class="jumbotron jumbotron-fluid"">
@@ -38,7 +37,7 @@
               <td><%= link_to area.name, area %></td>
               <td><%= area.user.firstname%> <%= area.user.lastname%></td>
              <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, area %></td>
-             <% if (current_user == area.user || current_user.role == 0) then %>
+             <% if (current_user.role == 0) then %>
               <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_area_path(area) %></td>
              <%else%>
               <td></td>

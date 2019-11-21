@@ -25,41 +25,57 @@ class EvidencesController < ApplicationController
   # POST /evidences
   # POST /evidences.json
   def create
-    @evidence = Evidence.new(evidence_params)
+    recommendation = Recommendation.find(evidence_params[:recommendation_id])
+    if (current_user = recommendation.area.user || current_user.role == 0) then
+      @evidence = Evidence.new(evidence_params)
 
-    respond_to do |format|
-      if @evidence.save
-        format.html { redirect_to @evidence.recommendation }
-        format.json { render :show, status: :created, location: @evidence }
-      else
-        format.html { render :new }
-        format.json { render json: @evidence.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @evidence.save
+          format.html { redirect_to @evidence.recommendation }
+          format.json { render :show, status: :created, location: @evidence }
+        else
+          format.html { render :new }
+          format.json { render json: @evidence.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
   end
 
   # PATCH/PUT /evidences/1
   # PATCH/PUT /evidences/1.json
   def update
-    respond_to do |format|
-      if @evidence.update(evidence_params)
-        format.html { redirect_to @evidence.recommendation }
-        format.json { render :show, status: :ok, location: @evidence }
-      else
-        format.html { render :edit }
-        format.json { render json: @evidence.errors, status: :unprocessable_entity }
+    if (current_user.role == 0 || current_user = @evidence.recommendation.area.user) then
+      respond_to do |format|
+        if @evidence.update(evidence_params)
+          format.html { redirect_to @evidence.recommendation }
+          format.json { render :show, status: :ok, location: @evidence }
+        else
+          format.html { render :edit }
+          format.json { render json: @evidence.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
   end
 
   # DELETE /evidences/1
   # DELETE /evidences/1.json
   def destroy
-    @recommendation = @evidence.recommendation
-    @evidence.destroy
-    respond_to do |format|
-      format.html { redirect_to @recommendation }
-      format.json { head :no_content }
+    if (current_user.role == 0 || current_user = @evidence.recommendation.area.user) then
+      @recommendation = @evidence.recommendation
+      @evidence.destroy
+      respond_to do |format|
+        format.html { redirect_to @recommendation }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
   end
 

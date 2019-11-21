@@ -31,6 +31,12 @@
              <% end %>
                <%= form.text_field :name, class: 'form-control' %>
            </div>
+           <div>
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Plazo
+             <% end %>
+               <%= form.date_field :time_limit %>
+           </div>
            <br>
            <div>
             <%= form.hidden_field :area_id, :value => params[:area_id] %>
