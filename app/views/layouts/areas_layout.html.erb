@@ -52,7 +52,9 @@
                   <% break %>
                 <% end %>
               <% end %>
-              <%= render alerts[0,i] %>
+              <% if i>0 %>
+                <%= render alerts[0,i] %>
+              <% end %>
           </tbody>
         </table>
       </div>
