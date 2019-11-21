@@ -5,16 +5,20 @@
 <div class="container-fluid">
   <div class="jumbotron jumbotron-fluid"">
     <div class="container">
-      <h1>Evidencia: <%= @evidence.title%></h1>
-      <h1>Área: <%=@evidence.recommendation.area.name%></h1>
-      <br>
-      <p>
-        <strong>Responsable: <%=@evidence.recommendation.area.user.firstname%> <%=@evidence.recommendation.area.user.lastname%></strong>
-      </p>
-      <p>
-        <strong>Fecha: <%=@evidence.day%></strong>
-      </p>
-
+     <h1>Evidencia: <%= @evidence.title%></h1>
+     <br>
+     <p>
+        <strong>Recomendación:</strong> <%=@evidence.recommendation.number%>. <%=@evidence.recommendation.name%>
+     </p>
+     <p>
+        <strong>Área:</strong> <%=@evidence.recommendation.area.number%>. <%=@evidence.recommendation.area.name%>
+     </p>
+     <p>
+        <strong>Responsable:</strong> <%=@evidence.recommendation.area.user.firstname%> <%=@evidence.recommendation.area.user.lastname%>
+     </p>
+     <p>
+        <strong>Fecha:</strong> <%=@evidence.day%>
+     </p>
   </div>
 </div>
 </div>
@@ -22,21 +26,19 @@
 
 
 <div class="form-group" style="width: 80%">
-
-  <p>
-    <strong>Nombre de la evidencia:</strong>
-    <%= @evidence.title %>
-  </p>
-  <p>
-    <strong>Descripción:</strong>
-    <%= @evidence.description %>
-  </p>
+  <%if @evidence.description != "" %>
+    <h4>Descripción</h4>
+    <p>
+      <%= @evidence.description %>
+    </p>
+  <%end%>
 
   <div class="container" id="evidence_docs">
     <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles, locals: {delete_icon: false} %>
   </div>
 
 <br>
+
 
   <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a la recomendación</button>'.html_safe, @evidence.recommendation %>

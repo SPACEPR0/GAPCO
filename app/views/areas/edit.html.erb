@@ -22,11 +22,19 @@
    <div class="form-group" style="width: 80%">
        <%= form_with(model: @area) do |form| %>
        <h1>Editar Área </h1>
+           <br>
            <div>
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Nombre del área
              <% end %>
                <%= form.text_field :name, class: 'form-control' %>
+           </div>
+           <br>
+           <div>
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Descripción del área
+             <% end %>
+               <%= form.text_field :description, class: 'form-control' %>
            </div>
            <br>
            <div>

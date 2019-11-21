@@ -47,30 +47,30 @@
 
             <div >
                 <%= label_tag(type: 'tag') do %>
-                <i class="icon-ok icon-white"></i> Nombre
+                <i class="icon-ok icon-white"></i> Nombre <font color="red">   (Obligatorio)</font>
                 <% end %>
-                <%= form.text_field :firstname, class: 'form-control' %>
+                <%= form.text_field :firstname, required: true, class: 'form-control' %>
             </div>
 
             <div>
                 <%= label_tag(type: 'tag') do %>
-                <i class="icon-ok icon-white"></i> Apellido
+                <i class="icon-ok icon-white"></i> Apellido <font color="red">   (Obligatorio)</font>
                 <% end %>
-                <%= form.text_field :lastname, class: 'form-control' %>
+                <%= form.text_field :lastname, required: true, class: 'form-control' %>
             </div>
 
             <div >
                 <%= label_tag(type: 'tag') do %>
-                <i class="icon-ok icon-white"></i> Correo electrónico
+                <i class="icon-ok icon-white"></i> Correo electrónico <font color="red">   (Obligatorio)</font>
                 <% end %>
-                <%= form.text_field :email, class: 'form-control' %>
+                <%= form.text_field :email, required: true, class: 'form-control' %>
             </div>
 
             <div>
                 <%= label_tag(type: 'tag') do %>
-                <i class="icon-ok icon-white"></i> Contraseña <em>(Mínimo 6 caracteres)</em><br />
+                <i class="icon-ok icon-white"></i> Contraseña <em>(Mínimo 6 caracteres)</em>  <font color="red">   (Obligatorio)</font><br />
                 <% end %>
-                <%= form.text_field :password, class: 'form-control' %>
+                <%= form.text_field :password, required: true, class: 'form-control' %>
             </div>
 
             <div>

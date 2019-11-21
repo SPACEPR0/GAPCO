@@ -5,12 +5,16 @@
    <div class="container-fluid">
      <div class="jumbotron jumbotron-fluid">
        <div class="container">
-         <h1>Área: <%= @area.name%></h1>
+         <h1>Área <%=@area.number%>: <%= @area.name%></h1>
          <br>
          <p>
            <strong>Responsable:</strong>
            <%= @area.user.firstname%>
            <%= @area.user.lastname%>
+         </p>
+         <p>
+           <strong>Descripción:</strong>
+           <%= @area.description%>
          </p>
      </div>
    </div>

@@ -13,12 +13,15 @@
 
 
    <div class="container-fluid">
+   <p scope="col"><strong>Categorías CONAIC para revisión y seguimiento</strong></p>
      <table class="table table-hover" style="width: 80%;" align="center">
        <thead>
          <tr>
-           <th scope="col">
+           <!--<th scope="col">
              Categorías CONAIC para revisión y seguimiento
-           </th>
+           </th> -->
+           <th scope="col"></th>
+           <th scope="col"></th>
            <th scope="col" style="opacity: 0.5;">Responsable de área</th>
            <th scope="col"></th>
            <th scope="col"></th>
@@ -27,13 +30,14 @@
              <%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_area_path  %>
            </th>
            <%else%>
-           <th></th>
+           <th scope="col"></th>
            <%end%>
          </tr>
        </thead>
        <tbody>
          <% @areas.each do |area| %>
            <tr>
+              <td><%= link_to area.number, area %>. </td>
               <td><%= link_to area.name, area %></td>
               <td><%= area.user.firstname%> <%= area.user.lastname%></td>
              <td><%= link_to '<span class="fa fa-eye"></span>'.html_safe, area %></td>

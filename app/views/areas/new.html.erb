@@ -11,21 +11,38 @@
        </div>
     </div>
    </div>
-   <div class="container">
-
+  
+  <div class="container">
+   
+   
 
    <div class="form-group" style="width: 80%">
        <%= form_with(model: @area, local: true) do |form| %>
-           <div >
+           <div>
+             <% a = Area.all.length%>
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Nombre del área
+               <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
+             <% end %>
+               <%= form.text_field :number, value: (a + 1).to_s, class: 'form-control' %>
+           </div>
+           <br>
+           <div>
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Nombre del área <font color="red">   (Obligatorio)</font>
              <% end %>
                <%= form.text_field :name, class: 'form-control' %>
+          </div>
+          <br>
+           <div>
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Descripción del área
+             <% end %>
+               <%= form.text_field :description, class: 'form-control' %>
            </div>
            <br>
            <div >
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Responsable del área
+               <i class="icon-ok icon-white"></i> Responsable del área <font color="red">   (Obligatorio)</font>
              <% end %>
              <%= form.select :user_id, User.all.collect { |u| [u.firstname, u.id] }, class:'form-control'%>
            </div>
@@ -44,9 +61,6 @@
           </div>
        <%end%>
        <br>
-
-
-
     </div>
   </div>
-  </div>
+</div>
