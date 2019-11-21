@@ -1,25 +1,53 @@
-<h2>Change your password</h2>
+<!-- Page content -->
+<div class="w3-container">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+  <div class="container-fluid" style="margin-top: 43px;">
+    <div class="jumbotron jumbotron-fluid"">
+      <div class="container">
+        <h1>Bienvenido al sistema de GAPCO</h1>
+        <p>Gestión de Acreditación del Programa CONAIC</p>
+        <br>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+<div class='container'>
+  <h1>Cambie su contraseña</h1>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
 
-<%= render "devise/shared/links" %>
+    <div class="field">
+      <%= label_tag(type: 'tag') do %>
+       <br>
+       <i class="icon-ok icon-white"></i> Nueva contraseña
+       <% end %>
+      <% if @minimum_password_length %>
+        <em>(Mínimo <%= @minimum_password_length %> caracteres)</em><br />
+      <% end %>
+      <%= f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "current-password",  :style => "width:70%"  %>
+    </div>
+
+    <div class="field">
+      <%= label_tag(type: 'tag') do %>
+       <i class="icon-ok icon-white"></i> Confirmar nueva contraseña
+       <% end %>
+       <br>
+      <%= f.password_field :password_confirmation, class: 'form-control', autofocus: true, autocomplete: "new-password",  :style => "width:70%" %>
+    </div>
+
+    <div>
+        <br>
+        <%= button_tag(type: 'submit', class: "btn btn-outline-secondary") do %>
+          <i class="icon-ok icon-white"></i> Cambiar mi contraseña
+        <% end %>
+        <br>
+        <br>
+     </div>
+  <% end %>
+
+  <br>
+  <br>
+  <%= render "devise/shared/links" %>
+</div>
