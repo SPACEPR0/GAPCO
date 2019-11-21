@@ -67,7 +67,7 @@ class EvidencefilesController < ApplicationController
   # DELETE /evidencefiles/1
   # DELETE /evidencefiles/1.json
   def destroy
-    if (current_user == @evidencefile.evidence.recommendations.area.user || current_user.role == 0)
+    if (current_user == @evidencefile.evidence.recommendation.area.user || current_user.role == 0)
       @evidence = @evidencefile.evidence
       @evidencefile.destroy
       respond_to do |format|
