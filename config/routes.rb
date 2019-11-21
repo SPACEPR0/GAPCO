@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  
   devise_for :users#, :skip => [:registrations]
 
   devise_scope :user do
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
       resources :goals
     end
     resources :goals
+    resources :alerts
 
     resources :evidences
     resources :evidencefiles, only: [:create, :destroy]

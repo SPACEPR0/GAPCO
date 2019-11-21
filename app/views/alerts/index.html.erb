@@ -1,0 +1,52 @@
+<div class="w3-container">
+
+<p id="notice"><%= notice %></p>
+
+<h1>Alertas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Contenido</th>
+      <th>Fecha límite</th>
+      <th>Vigente</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <% alerts = Alert.all.order(expiration: :desc) %>
+    <% i = -1 %>
+    <% alerts.each do |a|%>
+    <% i = i + 1 %>
+      <% if (Date.parse(a.expiration.to_s) < Date.today) %>
+        <% break %>
+      <% end %>
+  <% end %>
+
+  <tbody>
+    <% @alerts.order(expiration: :desc).each do |alert| %>
+      <tr>
+        <td><%= alert.content %></td>
+        <td><%= alert.expiration %></td>
+        <td>
+        <% if (Date.parse(alert.expiration.to_s) < Date.today) %>
+          No
+        <% else %>
+          Sí
+        <% end %>
+        </td>
+        <td><%if current_user.role == 0%>
+                <%= link_to '<span class="fa fa-times"></span>'.html_safe, alert, method: :delete, remote: true, data: { confirm: '¿Está seguro?' } %>
+                E
+            <% else %>
+                E
+            <%end%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to  'INICIO' , root_path %>
+</div>

@@ -30,28 +30,27 @@
    <div class="w3-sidebar w3-bar-block w3-card w3-animate-right"  style="display:none;right:0;" id="mySidebar">
       <button class="w3-bar-item w3-button w3-large"> <div onclick="w3_close()" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-angle-double-right"></span> </button>
       <div class="container">
-        <table class="table table-hover">
+        <table class="table table-hover" id = "alerts_table">
           <col width="70%">
           <thead>
             <tr>
               <th><h5>Alertas<h5></th>
               <th></th>
-              <th><div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span></div></th>
+              <th><div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span></div>
+                <%= link_to '<span class="fa fa-reorder"></span>'.html_safe, alerts_path %>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colspan="2">Alerta # 1</td>
-              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
-            </tr>
-            <tr>
-              <td colspan="2">Alerta # 2</td>
-              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
-            </tr>
-            <tr>
-              <td colspan="2">Alerta # 3</td>
-              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
-            </tr>
+              <% alerts = Alert.all.order(expiration: :desc) %>
+              <% i = -1 %>
+              <% alerts.each do |a|%>
+              <% i = i + 1 %>
+                <% if (Date.parse(a.expiration.to_s) < Date.today) %>
+                  <% break %>
+                <% end %>
+              <% end %>
+              <%= render alerts[0,i] %>
           </tbody>
         </table>
       </div>
@@ -124,14 +123,11 @@
 
        <!-- Modal body -->
        <div class="modal-body">
-         Aqui estara la informacion para crear una alerta
+        <%=render partial: 'alerts/form' %>
        </div>
 
-       <!-- Modal footer -->
-       <div class="modal-footer">
-         <button type="button" class="btn btn-primary" data-dismiss="modal">Crear alerta</button>
-         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-       </div>
+      
+       
 
      </div>
    </div>
