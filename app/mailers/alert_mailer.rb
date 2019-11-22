@@ -1,6 +1,6 @@
 class AlertMailer < ApplicationMailer
     
-    def self.send_alert(emails, alert)
+    def self.send_newalert(emails, alert)
         @emails = emails
         emails.each do |e|
             alert_email(e, alert).deliver_now
