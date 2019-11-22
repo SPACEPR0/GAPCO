@@ -1,6 +1,10 @@
-$("#myModal").modal('hide');
-$(".alert_content").val('');
-$(".alert_expiration").val('');
+if ($(".alert_content").val() != ''  && $(".alert_expiration").val() != '' ){
+    $("#myModal").modal('hide');
+    $(".alert_content").val('');
+    $(".alert_expiration").val('');
+    $("#alerts_table").prepend('<%=j render @alert%>');
+    $("#alert_<%= @alert.id %>").hide().fadeIn(1000);
 
-$("#alerts_table").prepend('<%=j render @alert%>');
-$("#alert_<%= @alert.id %>").hide().fadeIn(1000);
+}else{
+    alert("No se aceptan campos vacíos");
+}
