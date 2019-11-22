@@ -37,9 +37,7 @@
         </td>
         <td><%if current_user.role == 0%>
                 <%= link_to '<span class="fa fa-times"></span>'.html_safe, alert, method: :delete, remote: true, data: { confirm: '¿Está seguro?' } %>
-                E
-            <% else %>
-                E
+            
             <%end%></td>
       </tr>
     <% end %>
