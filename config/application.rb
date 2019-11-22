@@ -11,7 +11,8 @@ module GAPCO
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
     config.to_prepare do
-      Devise::RegistrationsController.layout "areas_layout"
+      #Devise::RegistrationsController.layout "areas_layout"
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "areas_layout" }
     end
 
     # Settings in config/environments/* take precedence over those specified here.

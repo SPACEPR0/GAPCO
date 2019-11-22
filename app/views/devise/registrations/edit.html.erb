@@ -3,6 +3,134 @@
  <p class="notice"><%= notice %></p>
 
 
+   <!-- Side bar -->
+   <div class="w3-sidebar w3-bar-block w3-card w3-animate-right"  style="display:none;right:0;" id="mySidebar">
+      <button class="w3-bar-item w3-button w3-large"> <div onclick="w3_close()" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-angle-double-right"></span> </button>
+      <div class="container">
+        <table class="table table-hover" id = "alerts_table">
+          <col width="70%">
+          <thead>
+            <tr>
+              <th><h5>Alertas<h5></th>
+              <th></th>
+              <th>
+                <% if current_user.role == 0 %>
+                <div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span>
+                </div>
+                <%end%>
+                <%= link_to '<span class="fa fa-reorder"></span>'.html_safe, alerts_path %>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+              <% alerts = Alert.all.order(expiration: :desc) %>
+              <% i = 0 %>
+              <% alerts.each do |a|%>
+              <% i = i + 1 %>
+                <% if (Date.parse(a.expiration.to_s) < Date.today) %>
+                  <% i = i - 1 %>
+                  <% break %>
+                <% end %>
+              <% end %>
+              <% i.times do |j| %>
+                <% alert = alerts[j] %>
+                <% if alert.usersNO[current_user.id] != 0 %>
+                  <%= render partial: "alerts/alert", locals: { alert: alert }%>
+                <% end %>
+              <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+ <div id="main">
+
+   <!-- Navigation bar -->
+
+ <div class="w3">
+   <div style="margin-bottom: 5px;">
+     <nav class="navbar navbar-light bg-light" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-bottom: 15px;">
+       <form class="form-inline my-2 my-lg-0" style="align:left">
+         <a class="navbar-brand"><%= link_to 'GAPCO'.html_safe, root_path%></a>
+       </form>
+       <form class="form-inline my-2 my-lg-0" style="align:right">
+         <div class="dropdown">
+           <div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-bell-o"></span></div>
+           <div class="dropdown-menu">
+             <a class="dropdown-item" href="#">Notificacion # 1</a>
+             <a class="dropdown-item" href="#">Notificacion # 2</a>
+             <a class="dropdown-item" href="#">Notificacion # 3</a>
+             <a class="dropdown-item" href="#">Notificacion # 4</a>
+           </div>
+         </div>
+
+         <div class="dropdown">
+         <div style="opacity: 1; margin-right: 50px;" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-cogs"></span></div>
+           <div class="dropdown-menu">
+             <a class="dropdown-item"><%= link_to 'Ver usuarios', index_url %></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item" href="#"></a>
+             <% if current_user.role == 0 %>
+               <a class="dropdown-item"><%= link_to 'Crear cuenta nueva', :sign_up %></a>
+               <a class="dropdown-item" href="#"></a>
+               <a class="dropdown-item" href="#"></a>
+               <a class="dropdown-item" href="#"></a>
+             <%end%>
+             <a class="dropdown-item"><%= link_to  "Editar mi cuenta", :edit_myaccount %></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item" href="#"></a>
+             <a class="dropdown-item"><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %></a>
+           </div>
+         </div>
+
+         <button type="button" id="openNav" class="w3-button w3 w3-small" onclick="w3_open()">&#9776;</button>
+       </form>
+     </nav>
+   </div>
+ </div>
+
+   <!-- Modal de creacion de alertas -->
+  <div class="modal fade" id="myModal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+
+       <!-- Modal Header -->
+       <div class="modal-header">
+         <h4 class="modal-title">Crear alerta</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+
+       <!-- Modal body -->
+       <div class="modal-body">
+        <%=render partial: '/alerts/form' %>
+       </div>
+
+      
+       
+
+     </div>
+   </div>
+  </div>
+ </div>
+
+ <script>
+ function w3_open() {
+   document.getElementById("main").style.marginRight = "15%";
+   document.getElementById("mySidebar").style.width = "15%";
+   document.getElementById("mySidebar").style.display = "block";
+   document.getElementById("openNav").style.display = 'none';
+ }
+ // Falta añadir que solo se abra si hay alertas al principio
+ w3_open()
+ function w3_close() {
+   document.getElementById("main").style.marginRight = "0%";
+   document.getElementById("mySidebar").style.display = "none";
+   document.getElementById("openNav").style.display = "inline-block";
+ }
+ </script>
+
  <div class="w3-container">
 
    <div class="container-fluid">
@@ -84,3 +212,4 @@
 
    </div>
  </div>
+ 
