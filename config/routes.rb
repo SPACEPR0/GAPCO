@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     end
     resources :goals
     resources :alerts
+    patch '/hide/:id', to: 'alerts#hide', as: 'hide'
+    patch '/unhide/:id', to: 'alerts#unhide', as: 'unhide'
+
 
     resources :evidences, except: :index
     resources :evidencefiles, only: [:create, :destroy]

@@ -45,15 +45,19 @@
           </thead>
           <tbody>
               <% alerts = Alert.all.order(expiration: :desc) %>
-              <% i = -1 %>
+              <% i = 0 %>
               <% alerts.each do |a|%>
               <% i = i + 1 %>
                 <% if (Date.parse(a.expiration.to_s) < Date.today) %>
+                  <% i = i - 1 %>
                   <% break %>
                 <% end %>
               <% end %>
-              <% if i>0 %>
-                <%= render alerts[0,i] %>
+              <% i.times do |j| %>
+                <% alert = alerts[j] %>
+                <% if alert.usersNO[current_user.id] != 0 %>
+                  <%= render alert %>
+                <% end %>
               <% end %>
           </tbody>
         </table>

@@ -5,6 +5,25 @@ class AlertsController < ApplicationController
   # GET /alerts
   # GET /alerts.json
 
+  def hide
+    @alert = Alert.find(params[:id])
+    @alert.usersNO[current_user.id]=0
+    @alert.save
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unhide
+    @alert = Alert.find(params[:id])
+    @alert.usersNO[current_user.id]=1
+    @alert.save
+    
+    respond_to do |format|
+      format.js
+    end
+  end
   
   def index
     @alerts = Alert.all
