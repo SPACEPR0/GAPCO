@@ -38,7 +38,11 @@
             <tr>
               <th><h5>Alertas<h5></th>
               <th></th>
-              <th><div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span></div>
+              <th>
+                <% if current_user.role == 0 %>
+                <div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span>
+                </div>
+                <%end%>
                 <%= link_to '<span class="fa fa-reorder"></span>'.html_safe, alerts_path %>
               </th>
             </tr>
