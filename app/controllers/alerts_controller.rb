@@ -50,6 +50,8 @@ class AlertsController < ApplicationController
 
     respond_to do |format|
       if @alert.save
+        emails = User.where(:role => 1).pluck(:email)
+        AlertMailer.send_newalert(emails, @alert)
         format.html { redirect_to @alert, notice: 'Alert was successfully created.' }
         format.json { render :show, status: :created, location: @alert }
         format.js

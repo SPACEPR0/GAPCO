@@ -31,6 +31,8 @@ class AreasController < ApplicationController
 
       respond_to do |format|
         if @area.save
+          emails = User.where(:role => 1).pluck(:email)
+          AlertMailer.send_newalert(emails, @alert)
           format.html { redirect_to @area }
           format.json { render :show, status: :created, location: @area }
         else
