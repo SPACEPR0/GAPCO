@@ -22,6 +22,13 @@
  <div class="form-group" style="width: 80%">
    <h4>Editar recomendación:</h4>
        <%= form_with(model: @recommendation, local: true) do |form| %>
+           <div>
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red"></font>
+             <% end %>
+               <%= form.text_field :number, class: 'form-control' %>
+           </div>
+           <br>
            <div >
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Nombre de la recomendación
@@ -30,7 +37,7 @@
            </div>
            <div>  
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Plazo
+               <i class="icon-ok icon-white"></i> Fecha límite
              <% end %>
                <%= form.date_field :time_limit %>
            </div>

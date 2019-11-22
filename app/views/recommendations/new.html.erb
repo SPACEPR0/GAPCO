@@ -22,7 +22,7 @@
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
-               <%= form.text_field :number, value: a.number + "." + (a.recommendations.length + 1).to_s, class: 'form-control' %>
+               <%= form.text_field :number, value: a.number + ".", class: 'form-control' %>
            </div>
            <br>
            <div >
@@ -33,7 +33,7 @@
            </div>
            <div>
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Plazo
+               <i class="icon-ok icon-white"></i> Fecha límite
              <% end %>
                <%= form.date_field :time_limit %>
            </div>

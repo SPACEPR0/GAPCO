@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_192620) do
+ActiveRecord::Schema.define(version: 2019_11_22_181250) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_192620) do
     t.integer "area_id"
     t.string "number"
     t.date "time_limit"
+    t.date "time_beg"
     t.index ["area_id"], name: "index_recommendations_on_area_id"
   end
 

@@ -50,11 +50,11 @@ class AlertsController < ApplicationController
 
     respond_to do |format|
       if @alert.save
-        emails = User.where(:role => 1).pluck(:email)
-        AlertMailer.send_newalert(emails, @alert)
         format.html { redirect_to @alert, notice: 'Alert was successfully created.' }
         format.json { render :show, status: :created, location: @alert }
         format.js
+        send_alertmail
+        
       else
         format.html { render :new }
         format.json { render json: @alert.errors, status: :unprocessable_entity }
@@ -87,7 +87,16 @@ class AlertsController < ApplicationController
       format.js
     end
   end
-
+  def send_alertmail
+    begin  
+      emails = User.where(:role => 1).pluck(:email)
+      AlertMailer.send_newalert(emails, @alert)
+    rescue Net::OpenTimeout => e
+      puts "no se envió mail"
+    rescue ApplicationMailer => a
+      puts "no se envió mail" 
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_alert
