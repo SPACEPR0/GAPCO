@@ -87,16 +87,7 @@ class AlertsController < ApplicationController
       format.js
     end
   end
-  def send_alertmail
-    begin  
-      emails = User.where(:role => 1).pluck(:email)
-      AlertMailer.send_newalert(emails, @alert)
-    rescue Net::OpenTimeout => e
-      puts "no se envió mail"
-    rescue ApplicationMailer => a
-      puts "no se envió mail" 
-    end
-  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_alert
@@ -107,4 +98,16 @@ class AlertsController < ApplicationController
     def alert_params
       params.require(:alert).permit(:content, :expiration)
     end
+    
+    def send_alertmail
+      begin  
+        emails = User.where(:role => 1).pluck(:email)
+        AlertMailer.send_newalert(emails, @alert)
+      rescue Net::OpenTimeout => e
+        puts "no se envió mail"
+      rescue ApplicationMailer => a
+        puts "no se envió mail" 
+      end
+    end
+    
 end

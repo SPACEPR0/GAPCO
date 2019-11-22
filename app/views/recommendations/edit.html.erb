@@ -34,9 +34,14 @@
                <i class="icon-ok icon-white"></i> Nombre de la recomendación
              <% end %>
                <%= form.text_field :name, class: 'form-control' %>
+               <br>
            </div>
-           <div>  
+           <div>
              <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Fecha de inicio
+             <% end %>
+               <%= form.date_field :time_beg %>
+               <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Fecha límite
              <% end %>
                <%= form.date_field :time_limit %>
