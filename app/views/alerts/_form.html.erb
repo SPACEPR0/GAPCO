@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <% form.label :content %> Mensaje: 
+    <% form.label :content %> Mensaje: <font color="red">   (Campo obligatorio)</font> 
     <%= form.text_area :content, class:"form-control alert_content" %>
   </div>
 
   <div class="field">
     <br>
-    <% form.label :expiration %> Válida hasta:
+    <% form.label :expiration %> Válida hasta: <font color="red">   (Campo obligatorio)</font>
     <%= form.date_field :expiration, class: "form control alert_expiration"%>
   </div>
 
