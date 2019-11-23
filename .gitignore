@@ -33,4 +33,4 @@ yarn-debug.log*
 # Ignore application configuration
 /config/application.yml
 development.sqlite3.*
-
+/pdfs/*.pdf
