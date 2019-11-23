@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   authenticated :user do
     resources :areas
+    post 'areas/:id.pdf', to: 'areas#report', as: :report
+    get 'areas/:id.pdf', to: 'areas#report'
     resources :recommendations, except: :index do
       resources :goals
     end

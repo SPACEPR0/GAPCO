@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    
+</head>
+<body>
+   
+    <h1 style="font-family:'Lato'; sans-serif; font-size:50px" align="center">EVIDENCIA</h1>
+    <br>
+    
+    <div style="width:100%;" >
+        <div>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
+        </div>
+        <br><br>
+
+        <div>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;"><b>DESCRIPCIÓN:</b> <%=@evidencia.description%></pre>
+        </div>
+        <br><br> <br><br><br>
+        
+        <div>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:center;"><b>Fecha:</b> <%=@evidencia.day.strftime("%d/%m/%y")%></pre>
+
+        </div>
+        <br><br><br>
+        
+        <%if @evidencia.evidencefiles.length == 0%>
+            <div>
+                <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:25px; text-align:center;"><u><b>(NO EXISTEN ARCHIVOS CARGADOS EN ESTA EVIDENCIA)</b></u></pre>
+            </div>
+        <%end%>
+
+        <%@evidencia.evidencefiles.each do |file|%>
+            <%if file.document.filename.to_s.exclude? "pdf" then%>
+                
+                <img style="display:block; margin-left:auto; margin-right:auto; width:100%" src="<%=ActiveStorage::Blob.service.send(:path_for, file.document.key)%>", width="auto", height="auto"> 
+                <br>
+                
+            <%end%>
+        <%end%>
+
+    </div>
+
+    
+
+
+      
+</body>
+</html>
