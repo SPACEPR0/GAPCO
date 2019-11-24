@@ -38,6 +38,12 @@ class GoalsController < ApplicationController
         format.js
       end
     end
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @goal.recommendation.area.user, actor:current_user, action: " agregó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " agregó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal)
+    end
   end
 
   # PATCH/PUT /goals/1
@@ -54,11 +60,23 @@ class GoalsController < ApplicationController
         format.js
       end
     end
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @goal.recommendation.area.user, actor:current_user, action: " editó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " editó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal)
+    end
   end
 
   # DELETE /goals/1
   # DELETE /goals/1.json
   def destroy
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @goal.recommendation.area.user, actor:current_user, action: " eliminó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal.recommendation)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal.recommendation)
+    end
     @goal.destroy
     respond_to do |format|
       format.html { redirect_to goals_url, notice: 'Goal was successfully destroyed.' }

@@ -1,0 +1,195 @@
+<!-- Page content -->
+<div class="w3-container">
+
+
+  <div class="container-fluid">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1>Notificaciones </h1>
+        <br>
+        <p>
+          <strong>Responsable:</strong>
+          <%= current_user.firstname%>
+          <%= current_user.lastname%>
+        </p>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="container">
+    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <%= link_to '<button type="button" class="btn btn-outline-secondary">Ir a áreas </button>'.html_safe, root_path %>
+       <div class="input-group">
+         <div class="input-group-prepend">
+          </div>
+       </div>
+     </div>
+     <div class="input-group">
+       <%= link_to '<button type="button" class="btn btn-outline-primary">Eliminar notificaciones </button>'.html_safe, remove_all_notifications_path, method: :get %>
+
+     </div>
+   </div>
+
+  </div>
+  <br>
+  <div class="container-fluide">
+    <table class="table table-hover" style="width: 80%;" align="center">
+      <thead>
+        <tr>
+          <th scope="col">
+            <strong>Usuario</strong>
+          </th>
+          <th scope="col">Actividad</th>
+          <th scope="col">Área</th>
+          <th scope="col">Recommendación</th>
+          <th scope="col">Evidencia</th>
+          <th scope="col">Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% current_user.notifications.reverse.each do |notification| %>
+        <!-- Evidences notifications -->
+          <% if notification.action.include? "agregó una evidencia" or notification.action.include? "editó una evidencia" then %>
+          <tr>
+             <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+             <td><%= notification.action %></td>
+             <td>
+              <% unless notification.notifiable.nil? %>
+                <%= link_to notification.notifiable.recommendation.area.name,  notification.notifiable.recommendation.area %>
+              <% end %>
+            </td>
+            <td>
+             <% unless notification.notifiable.nil? %>
+               <%= link_to notification.notifiable.recommendation.name,  notification.notifiable.recommendation %>
+             <% end %>
+           </td>
+           <td>
+            <% unless notification.notifiable.nil? %>
+              <%= link_to notification.notifiable.title,  notification.notifiable %>
+            <% end %>
+          </td>
+             <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+
+          </tr>
+          <% end %>
+          <% if notification.action.include? "eliminó una evidencia" then %>
+          <tr>
+             <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+             <td><%= notification.action %></td>
+             <td>
+             <% unless notification.notifiable.nil? %>
+               <%= link_to notification.notifiable.area.name,  notification.notifiable %>
+             <% end %>
+           </td>
+           <td>
+             <% unless notification.notifiable.nil? %>
+               <%= link_to notification.notifiable.name,  notification.notifiable %>
+             <% end %>
+           </td>
+             <td></td>
+             <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+          </tr>
+          <% end %>
+
+          <!-- Recommendations notifications -->
+            <% if notification.action.include? "agregó una recomendación" or notification.action.include? "editó una recomendación" then %>
+            <tr>
+               <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+               <td><%= notification.action %></td>
+               <td>
+                <% unless notification.notifiable.nil? %>
+                  <%= link_to notification.notifiable.area.name,  notification.notifiable.area %>
+                <% end %>
+              </td>
+              <td>
+               <% unless notification.notifiable.nil? %>
+                 <%= link_to notification.notifiable.name,  notification.notifiable %>
+               <% end %>
+             </td>
+             <td>
+            </td>
+               <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+
+            </tr>
+            <% end %>
+            <% if notification.action.include? "eliminó una recomendación" then %>
+            <tr>
+               <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+               <td><%= notification.action %></td>
+               <td>
+                 <% unless notification.notifiable.nil? %>
+                 <%= link_to notification.notifiable.name,  notification.notifiable %>
+                 <% end %>
+               </td>
+               <td></td>
+               <td></td>
+               <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+            </tr>
+            <% end %>
+
+            <!-- Areas notifications -->
+              <% if notification.action.include? "creó el área" or notification.action.include? "editó el área de" then %>
+              <tr>
+                 <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+                 <td><%= notification.action %></td>
+                 <td>
+                  <% unless notification.notifiable.nil? %>
+                    <%= link_to notification.notifiable.name,  notification.notifiable %>
+                  <% end %>
+                </td>
+                <td></td>
+               <td></td>
+                 <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+
+              </tr>
+              <% end %>
+              <% if notification.action.include? "eliminó el área" then %>
+              <tr>
+                 <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+                 <td><%= notification.action %></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+              </tr>
+              <% end %>
+
+              <!-- Goals notifications -->
+                <% if notification.action.include? "creó una meta" or notification.action.include? "editó una meta" then %>
+                <tr>
+                   <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+                   <td><%= notification.action %></td>
+                   <td>
+                    <% unless notification.notifiable.nil? %>
+                      <%= link_to notification.notifiable.recommendation.area.name,  notification.notifiable.recommendation.area %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% unless notification.notifiable.nil? %>
+                      <%= link_to notification.notifiable.recommendation.name,  notification.notifiable.recommendation %>
+                    <% end %>
+                  </td>
+                 <td></td>
+                   <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+
+                </tr>
+                <% end %>
+                <% if notification.action.include? "eliminó una meta" then %>
+                <tr>
+                   <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+                   <td><%= notification.action %></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+                </tr>
+                <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+  </div>

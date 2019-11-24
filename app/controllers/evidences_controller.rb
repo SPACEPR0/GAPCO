@@ -36,6 +36,13 @@ class EvidencesController < ApplicationController
         format.json { render json: @evidence.errors, status: :unprocessable_entity }
       end
     end
+
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @evidence.recommendation.area.user, actor:current_user, action: " agregó una evidencia a " + @evidence.recommendation.name.to_s, notifiable: @evidence)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " agregó una evidencia a " + @evidence.recommendation.name.to_s, notifiable: @evidence)
+    end
   end
 
   # PATCH/PUT /evidences/1
@@ -50,17 +57,33 @@ class EvidencesController < ApplicationController
         format.json { render json: @evidence.errors, status: :unprocessable_entity }
       end
     end
+
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @evidence.recommendation.area.user, actor:current_user, action: " editó una evidencia en " + @evidence.recommendation.name.to_s, notifiable: @evidence)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " editó una evidencia en " + @evidence.recommendation.name.to_s, notifiable: @evidence)
+    end
   end
 
   # DELETE /evidences/1
   # DELETE /evidences/1.json
   def destroy
     @recommendation = @evidence.recommendation
+
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @evidence.recommendation.area.user, actor:current_user, action: " eliminó una evidencia en " + @evidence.recommendation.name.to_s, notifiable: @recommendation)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una evidencia en " + @evidence.recommendation.name.to_s, notifiable: @recommendation)
+    end
+
     @evidence.destroy
     respond_to do |format|
       format.html { redirect_to @recommendation }
       format.json { head :no_content }
     end
+
   end
 
   private

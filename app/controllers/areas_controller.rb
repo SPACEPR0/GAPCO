@@ -37,6 +37,9 @@ class AreasController < ApplicationController
         format.json { render json: @area.errors, status: :unprocessable_entity }
       end
     end
+
+    # Create notifications
+    Notification.create(recipient: @area.user, actor:current_user, action: " creó el área " + @area.name.to_s, notifiable: @area)
   end
 
   # PATCH/PUT /areas/1
@@ -51,11 +54,20 @@ class AreasController < ApplicationController
         format.json { render json: @area.errors, status: :unprocessable_entity }
       end
     end
+
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @area.user, actor:current_user, action: " editó el área de " + @area.name.to_s, notifiable: @area)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " editó el área de " + @area.name.to_s, notifiable: @area)
+    end
   end
 
   # DELETE /areas/1
   # DELETE /areas/1.json
   def destroy
+    # Create notifications
+    Notification.create(recipient: @area.user, actor:current_user, action: " eliminó el área de " + @area.name.to_s, notifiable: @area.user)
     @area.destroy
     respond_to do |format|
       format.html { redirect_to areas_url }
