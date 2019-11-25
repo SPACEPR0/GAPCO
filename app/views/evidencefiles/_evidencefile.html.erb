@@ -1,12 +1,14 @@
 <% if evidencefile.document.attachment then %>
-<div class="tile">
+<div class="tile selectable-tile">
+  <a href="<%= rails_blob_path(evidencefile.document, disposition: "preview") %>" target="_blank">
     <% if evidencefile.document.filename.to_s.end_with? '.pdf'%>
-      <%= image_tag "doc-icon.png" %>
+    <%= image_tag "doc-icon.png" %>
     <% else %>
-      <%= image_tag evidencefile.document %>
+    <%= image_tag evidencefile.document %>
     <% end %>
     <% if delete_icon %>
-      <%= link_to '<i style="position: absolute;top: 0px; right: 0px;" class="fa fa-times"></i>'.html_safe, evidencefile, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el archivo \''+evidencefile.document.filename.to_s+'\'?', remote: true }, class: "delete_file" %>
+    <%= link_to '<i style="position: absolute;top: 0px; right: 0px;" class="fa fa-times"></i>'.html_safe, evidencefile, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el archivo \''+evidencefile.document.filename.to_s+'\'?', remote: true }, class: "delete_file" %>
     <% end %>
+  </a>
 </div>
 <% end %>

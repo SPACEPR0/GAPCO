@@ -1,0 +1,7 @@
+<div class="form">
+  <%= f.hidden_field :_destroy %>
+  <%= link_to '<i style="position: absolute;top: 0px; right: 0px;" class="fa fa-times"></i>'.html_safe, '#', class: 'remove_record', style: 'visibility: hidden;' %>
+  <div class="">
+    <%= f.file_field :document, class: 'filefield', onchange: 'file_input_change(this)' %>
+  </div>
+</div>
