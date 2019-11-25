@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  
   devise_for :users#, :skip => [:registrations]
 
   devise_scope :user do
@@ -19,12 +20,18 @@ Rails.application.routes.draw do
 
   authenticated :user do
     resources :areas
-    resources :recommendations do
+    post 'areas/:id.pdf', to: 'areas#report', as: :report
+    get 'areas/:id.pdf', to: 'areas#report'
+    resources :recommendations, except: :index do
       resources :goals
     end
     resources :goals
+    resources :alerts
+    patch '/hide/:id', to: 'alerts#hide', as: 'hide'
+    patch '/unhide/:id', to: 'alerts#unhide', as: 'unhide'
 
-    resources :evidences
+
+    resources :evidences, except: :index
     resources :evidencefiles, only: [:create, :destroy]
     # Routes for authenticated users
     root to: 'areas#index', as: :authenticated_root

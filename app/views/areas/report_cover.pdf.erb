@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    
+</head>
+<style>
+    .module {
+        position:absolute;
+        width: 100px;
+        height:12.5 in;
+        border-left-style: solid;
+        -webkit-border-image: 
+        -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 84, 204, 1)), to(rgba(0, 84, 204, .4))) 1 5%;
+        
+    }
+
+    .module2{
+        position:absolute;
+        margin-left:100px;
+        width: 20px;
+        height:12.5 in;
+        border-left-style: solid;
+        -webkit-border-image: 
+        -webkit-gradient(linear, 0 0, 0 100%, from(rgba(242, 202, 4, 1)), to(rgba(242, 202, 4, .4))) 1 5%;
+        
+    }
+</style>
+
+
+<body>
+    <div align="left" class="module">
+    </div>
+    <div align="left" class="module2">
+    </div>
+
+    
+   <div style="margin-left:300px">
+
+    <img style="margin-left:77px" src="<%=Rails.root.join('logos', 'logounison.png')%>" width="300px" height="300px">
+    <h1 style=" font-family: 'Lato'; sans-serif; margin-left:-150px; font-size:59px;">UNIVERSIDAD DE SONORA</h1>
+    <h2 style="font-family: 'Lato'; sans-serif; margin-left:-80px; font-size:45px;">UNIDAD REGIONAL CENTRO</h2>
+    
+    <br>
+   <p style="margin-left:-140px; text-align:center; font-family:arial; font-size:30px">LICENCIATURA EN CIENCIAS DE LA COMPUTACIÓN</p>
+    <br>
+   <p style="margin-left:-160px; text-align:center; font-family:arial; font-size:30px">INFORME DE SEGUIMIENTO PARA LAS RECOMENDACIONES DEL ÁREA DE <%=@reported_area.name.upcase%></b></p>
+    </div>
+    <br><br><br>
+    <div>
+        <div style="float:left; margin-left:145px; width:430px; height:20%">
+            <br><br><br><br><br>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20; text-align:justify;"><b>RESPONSABLE</b>: <%=User.find(@reported_area.user_id).firstname%> <%=User.find(@reported_area.user_id).lastname%></pre>
+            <pre style="font-family:arial; font-size:20"><b>PERÍODO:</b> <%=@reported_area.report_date_1.strftime("%d/%m/%y")%>  -  <%=@reported_area.report_date_2.strftime("%d/%m/%y")%></pre>
+        </div>
+        <div>
+            <img style="margin-left:75px" src="<%=Rails.root.join('logos', 'logolcc.jpg')%>" width="28.5%" height="auto">
+        </div>
+    </div>  
+    
+    <div style="display:block; clear:both; page-break-after:always;">
+        
+    </div>
+    <div>
+      <div>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>ÁREA</b></pre>
+      </div>
+
+      <div>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:40px; text-align:center;"><b><%=@reported_area.number%>.</b>  <%=@reported_area.name%></pre>
+      </div>
+      <br>
+       <div>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
+      </div>
+
+      <div>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;"><%=@reported_area.description%></pre>
+      </div>
+
+      <%if @reported_area.recommendations.length == 0%>
+        <br><br><br><br><br>
+        <div>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:25px; text-align:center;"><u><b>(NO EXISTEN RECOMENDACIONES EN ESTA ÁREA)</b></u></pre>
+        </div>
+      <%end%>
+
+
+    </div>
+
+</body>
+</html>

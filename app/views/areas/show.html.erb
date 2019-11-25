@@ -16,6 +16,10 @@
            <strong>Descripción:</strong>
            <%= @area.description%>
          </p>
+         <% if (current_user == @area.user || current_user.role == 0) then %>
+            <button data-toggle="modal" align="right" type="button" class="btn btn-outline-primary" data-target="#myupdategoal_<%= @area.id%>">Generar reporte</button>
+            
+         <%end%>
      </div>
    </div>
    </div>
@@ -27,7 +31,7 @@
        <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a áreas</button>'.html_safe, root_path %>
       <div class="input-group">
         <div class="input-group-prepend">
-          <% if (current_user == @area.user || current_user.role == 0) then %>
+          <% if (current_user.role == 0) then %>
           <%= link_to '<button align="right" type="button" class="btn btn-outline-primary">Editar Área</button>'.html_safe, edit_area_path(@area) %>
           <%end%>
         </div>
@@ -74,6 +78,43 @@
        </tbody>
      </table>
    </div>
+    <%= form_for(@area, :url=>{:action=>:report}) do |form| %>
+    <div class="modal fade" id="myupdategoal_<%= @area.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Periodo del reporte</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <table>
+              <tr>
+                   <div class="field" align="center">
+                      <% form.label :report_date_1%>Fecha inicial:  
+                      <%= form.date_field (:report_date_1), required: true, :value => Time.new,class: 'form-control'%>
+                    </div>
+                   <br>
+                    <div class="field" align="center">
+                      
+                      <% form.label :report_date_2%>Fecha final:
+                      <span style="padding-left:9px">
+                        <%= form.date_field (:report_date_2), required: true, :value => Time.new, class: 'form-control'%>
+                      </span>
+                    </div>
+              </tr>
+            </table>
+           
+            
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" id="myupdatebutton_<%= @area.id%>" class="btn btn-default" data-dismiss="modal">Salir</button>
+            <%= form.submit "Crear", class: "btn btn-primary", data: {disable_with: "Generando reporte..."}%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%end%>
 
 
    </div>

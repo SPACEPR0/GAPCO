@@ -1,0 +1,16 @@
+
+    <tr id = "alert_<%= alert.id %>">
+        <td colspan="2"><%=alert.content%>
+        <br>
+        <b>Fecha límite: <%=alert.expiration.strftime("%d/%m/%Y")%></b>
+        
+        </td>
+        <th>
+            <%if current_user.role == 0%>
+                <%= link_to '<span class="fa fa-times"></span>'.html_safe, alert, method: :delete, remote: true, data: { confirm: '¿Está seguro?' } %>            
+            <%end%>
+            <% if alert.id != nil %>
+            <%= link_to '<span class="fa fa-eye-slash"></span>'.html_safe, hide_path(alert), method: :patch, remote: true %>
+            <% end %>
+        </th>
+    </tr>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]    
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "areas_layout"
   def index
     @users  = User.all
@@ -13,24 +13,30 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'El usuario ha sido actualizado exitosamente.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if (current_user.role == 0) then
+      respond_to do |format|
+
+        if @user.update(user_params)
+          format.html { redirect_to @user, notice: 'El usuario ha sido actualizado exitosamente.' }
+          format.json { render :show, status: :ok, location: @user }
+        else
+          format.html { render :edit }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
   end
-  
+
 
   def new
       @user=User.new
   end
 
   def create
+    if (current_user.role == 0) then
       @user = User.new(user_params)
 
       respond_to do |format|
@@ -43,13 +49,23 @@ class UsersController < ApplicationController
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
+    end
   end
 
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to :index, notice: 'El usuario se ha eliminado exitosamente.' }
-      format.json { head :no_content }
+    if (current_user.role == 0) then
+      @user.destroy
+
+      respond_to do |format|
+        format.html { redirect_to :index, notice: 'El usuario se ha eliminado exitosamente.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
   end
 

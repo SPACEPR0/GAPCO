@@ -11,6 +11,8 @@
      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+     <%= stylesheet_link_tag "evidences" %>
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -30,28 +32,37 @@
    <div class="w3-sidebar w3-bar-block w3-card w3-animate-right"  style="display:none;right:0;" id="mySidebar">
       <button class="w3-bar-item w3-button w3-large"> <div onclick="w3_close()" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-angle-double-right"></span> </button>
       <div class="container">
-        <table class="table table-hover">
+        <table class="table table-hover" id = "alerts_table">
           <col width="70%">
           <thead>
             <tr>
               <th><h5>Alertas<h5></th>
               <th></th>
-              <th><div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span></div></th>
+              <th>
+                <% if current_user.role == 0 %>
+                <div data-toggle="modal" data-target="#myModal" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-plus"></span>
+                </div>
+                <%end%>
+                <%= link_to '<span class="fa fa-reorder"></span>'.html_safe, alerts_path %>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colspan="2">Alerta # 1</td>
-              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
-            </tr>
-            <tr>
-              <td colspan="2">Alerta # 2</td>
-              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
-            </tr>
-            <tr>
-              <td colspan="2">Alerta # 3</td>
-              <th><div style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-times"></span></div></th>
-            </tr>
+              <% alerts = Alert.all.order(expiration: :desc) %>
+              <% i = 0 %>
+              <% alerts.each do |a|%>
+              <% i = i + 1 %>
+                <% if (Date.parse(a.expiration.to_s) < Date.today) %>
+                  <% i = i - 1 %>
+                  <% break %>
+                <% end %>
+              <% end %>
+              <% i.times do |j| %>
+                <% alert = alerts[j] %>
+                <% if alert.usersNO[current_user.id] != 0 %>
+                  <%= render alert %>
+                <% end %>
+              <% end %>
           </tbody>
         </table>
       </div>
@@ -68,21 +79,26 @@
          <a class="navbar-brand"><%= link_to 'GAPCO'.html_safe, root_path%></a>
        </form>
        <form class="form-inline my-2 my-lg-0" style="align:right">
+         <a id='demo'><font <%if current_user.notifications.unread.length>0 then%>color="red"<%end%>> <%= current_user.notifications.unread.length %></font> </a>
          <div class="nav-item btn-group" data-behavior="notifications">
-           <div href='' style="opacity: 1" onclick="myFunction()" onmouseover = "this.style.opacity = .5" onmouseout = "this.style.opacity = 1"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown"><a></a> <span class="fa fa-bell-o"></span></div>
+           <div href='' style="opacity: 1" onmouseover = "this.style.opacity = .5" onmouseout = "this.style.opacity = 1"  class="nav-link" id="notificationsDropdown" role="button" data-toggle="dropdown"><a></a> <span class="fa fa-bell-o"></span></div>
          <div class="dropdown">
 
            <div class="dropdown-menu dropdown-menu-right">
            <% current_user.notifications.last(5).reverse.each do |notification| %>
                  <div class="dropdown-item">
                  <%= notification.actor.firstname %>
+                 <% if notification.notifiable then %>
+                  <%= link_to notification.action, notification.notifiable %>
+                 <% else %>
                  <%= notification.action %>
+                 <% end %>
                  <div style="align: right">
-                   <%= notification.created_at.strftime("%d - %b - %y") %>
+                   <%= notification.created_at.strftime("%d - %b - %y -- %T") %>
                  </div>
                </div>
              <% end %>
-             <a class="dropdown-item"><%= link_to 'Ver notificaciones', notifications_show_url %></a>
+             <a class="dropdown-item"><%= link_to 'Ver notificaciones', notifications_show_url %> <% if current_user.notifications.unread.length > 5 then %> (<%= current_user.notifications.unread.length - 5 %> nuevas) <%end%></a>
             </div>
            </div>
          </div>
@@ -115,7 +131,6 @@
    </div>
  </div>
 
-
  <!-- Page content -->
   <p class="notice"><%= notice %></p>
 
@@ -134,14 +149,11 @@
 
        <!-- Modal body -->
        <div class="modal-body">
-         Aqui estara la informacion para crear una alerta
+        <%=render partial: 'alerts/form' %>
        </div>
 
-       <!-- Modal footer -->
-       <div class="modal-footer">
-         <button type="button" class="btn btn-primary" data-dismiss="modal">Crear alerta</button>
-         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-       </div>
+
+
 
      </div>
    </div>
@@ -149,26 +161,30 @@
  </div>
 
  <script>
- function w3_open() {
-   document.getElementById("main").style.marginRight = "15%";
-   document.getElementById("mySidebar").style.width = "15%";
-   document.getElementById("mySidebar").style.display = "block";
-   document.getElementById("openNav").style.display = 'none';
- }
- // Falta añadir que solo se abra si hay alertas al principio
- w3_open()
- function w3_close() {
-   document.getElementById("main").style.marginRight = "0%";
-   document.getElementById("mySidebar").style.display = "none";
-   document.getElementById("openNav").style.display = "inline-block";
- }
+   function w3_open() {
+     document.getElementById("main").style.marginRight = "15%";
+     document.getElementById("mySidebar").style.width = "15%";
+     document.getElementById("mySidebar").style.display = "block";
+     document.getElementById("openNav").style.display = 'none';
+   }
+   // Falta añadir que solo se abra si hay alertas al principio
+   w3_open()
+   function w3_close() {
+     document.getElementById("main").style.marginRight = "0%";
+     document.getElementById("mySidebar").style.display = "none";
+     document.getElementById("openNav").style.display = "inline-block";
+   }
  </script>
 
  <script>
-function myFunction() {
-  document.getElementById("demo").innerHTML = 0;
-}
-</script>
+   $("#notificationsDropdown").click(function() {
+     $.get("<%=mark_as_read_notifications_path%>",function(){
+       document.getElementById("demo").color = "black";
+       document.getElementById("demo").innerHTML = 0;
+     });
+   });
+
+ </script>
 
  </body>
  </html>

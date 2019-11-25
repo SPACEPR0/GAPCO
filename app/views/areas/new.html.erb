@@ -37,14 +37,14 @@
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Descripción del área
              <% end %>
-               <%= form.text_field :description, class: 'form-control' %>
+               <%= form.text_area(:description, cols: 5, rows: 10, class: 'form-control') %>
            </div>
            <br>
            <div >
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Responsable del área <font color="red">   (Obligatorio)</font>
              <% end %>
-             <%= form.select :user_id, User.all.collect { |u| [u.firstname, u.id] }, class:'form-control'%>
+             <%= form.select :user_id, User.all.collect { |u| [u.firstname.to_s+" "+u.lastname.to_s, u.id] }, class:'form-control'%>
            </div>
            <br>
 

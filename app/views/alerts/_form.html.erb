@@ -1,0 +1,30 @@
+
+<%= form_with(model: @alert, remote: true) do |form| %>
+  <% if @alert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@alert.errors.count, "error") %> prohibited this alert from being saved:</h2>
+
+      <ul>
+        <% @alert.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <% form.label :content %> Mensaje: <font color="red">   (Campo obligatorio)</font> 
+    <%= form.text_area :content, class:"form-control alert_content" %>
+  </div>
+
+  <div class="field">
+    <br>
+    <% form.label :expiration %> Válida hasta: <font color="red">   (Campo obligatorio)</font>
+    <%= form.date_field :expiration, class: "form control alert_expiration"%>
+  </div>
+
+  <div class="actions">
+    <br>
+    <%= form.submit "Crear", class: "btn btn-primary"%>
+  </div>
+<% end %>

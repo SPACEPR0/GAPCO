@@ -17,7 +17,7 @@
         <strong>Responsable:</strong> <%=@evidence.recommendation.area.user.firstname%> <%=@evidence.recommendation.area.user.lastname%>
      </p>
      <p>
-        <strong>Fecha:</strong> <%=@evidence.day%>
+        <strong>Fecha:</strong> <%=@evidence.day.strftime("%d/%m/%Y")%>
      </p>
   </div>
 </div>
@@ -33,21 +33,19 @@
     </p>
   <%end%>
 
-  <% @evidence.evidencefiles.each do |f|%>
-  <p>
-    <% if f.document.attachment then %>
-    <span> <%= image_tag f.document %> </span>
-    <% end %>
-  </p>
-  <% end %>
+  <div class="container" id="evidence_docs">
+    <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles, locals: {delete_icon: false} %>
+  </div>
+
 <br>
 
 
   <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver a la recomendación</button>'.html_safe, @evidence.recommendation %>
      <div class="input-group-prepend">
-       <%= link_to '<button type="button" class="btn btn-outline-primary">Editar evidencia</button>'.html_safe, edit_evidence_path(@evidence) %> <div class="input-group">
-
+        <% if (current_user.role == 0 || @evidence.recommendation.area.user == current_user) then %>
+          <%= link_to '<button type="button" class="btn btn-outline-primary">Editar evidencia</button>'.html_safe, edit_evidence_path(@evidence) %> <div class="input-group">
+        <% end %>
      </div>
    </div>
   </div>

@@ -22,7 +22,7 @@
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
-               <%= form.text_field :number, value: a.number + "." + (a.recommendations.length + 1).to_s, class: 'form-control' %>
+               <%= form.text_field :number, value: a.number.to_s + ".", class: 'form-control' %>
            </div>
            <br>
            <div >
@@ -30,6 +30,16 @@
                <i class="icon-ok icon-white"></i> Nombre de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
                <%= form.text_field :name, required: true, class: 'form-control' %>
+           </div>
+           <div>
+             <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Fecha de inicio
+             <% end %>
+               <%= form.date_field :time_beg %>
+               <%= label_tag(type: 'tag') do %>
+               <i class="icon-ok icon-white"></i> Fecha límite
+             <% end %>
+               <%= form.date_field :time_limit %>
            </div>
            <br>
            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">

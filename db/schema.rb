@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_174245) do
+ActiveRecord::Schema.define(version: 2019_11_23_203430) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,13 +33,23 @@ ActiveRecord::Schema.define(version: 2019_11_21_174245) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "alerts", force: :cascade do |t|
+    t.text "content"
+    t.date "expiration"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "usersNO"
+  end
+
   create_table "areas", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.string "number"
-    t.string "description"
+    t.text "description"
+    t.date "report_date_1"
+    t.date "report_date_2"
     t.index ["user_id"], name: "index_areas_on_user_id"
   end
 
@@ -87,6 +97,8 @@ ActiveRecord::Schema.define(version: 2019_11_21_174245) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "area_id"
     t.string "number"
+    t.date "time_limit"
+    t.date "time_beg"
     t.index ["area_id"], name: "index_recommendations_on_area_id"
   end
 

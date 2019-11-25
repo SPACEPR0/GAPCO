@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   layout "areas_layout"
 
   def index
-    @notifications = Notification.where(recipient: current_user).unread
+    @notifications = Notification.where(recipient: current_user)
   end
 
   def remove_all
@@ -18,8 +18,7 @@ class NotificationsController < ApplicationController
   end
 
   def mark_as_read
-    @notifications = Notification.where(recipient: current_user).unread
-    @notifications.where(read_at: nil).each do |notification|
+    Notification.where(recipient: current_user).each do |notification|
       notification.update(read_at: Time.zone.now)
     end
     head :no_content

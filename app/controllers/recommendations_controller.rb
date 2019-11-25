@@ -26,16 +26,22 @@ class RecommendationsController < ApplicationController
   # POST /recommendations
   # POST /recommendations.json
   def create
-    @recommendation = Recommendation.new(recommendation_params)
-    respond_to do |format|
-      if @recommendation.save
+    area = Area.find(recommendation_params[:area_id])
+    if (current_user == area.user || current_user.role == 0) then
+      @recommendation = Recommendation.new(recommendation_params)
+      respond_to do |format|
+        if @recommendation.save
 
-        format.html { redirect_to @recommendation.area }
-        format.json { render :show, status: :created, location: @recommendation.area }
-      else
-        format.html { render :new }
-        format.json { render json: @recommendation.errors, status: :unprocessable_entity }
+          format.html { redirect_to @recommendation.area }
+          format.json { render :show, status: :created, location: @recommendation.area }
+        else
+          format.html { render :new }
+          format.json { render json: @recommendation.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
     # Create notifications
     if (current_user.role === 0)then
@@ -48,14 +54,19 @@ class RecommendationsController < ApplicationController
   # PATCH/PUT /recommendations/1
   # PATCH/PUT /recommendations/1.json
   def update
-    respond_to do |format|
-      if @recommendation.update(recommendation_params)
-        format.html { redirect_to @recommendation.area }
-        format.json { render :show, status: :ok, location: @recommendation.area }
-      else
-        format.html { render :edit }
-        format.json { render json: @recommendation.errors, status: :unprocessable_entity }
+    if (current_user == @recommendation.area.user || current_user.role == 0) then
+      respond_to do |format|
+        if @recommendation.update(recommendation_params)
+          format.html { redirect_to @recommendation.area }
+          format.json { render :show, status: :ok, location: @recommendation.area }
+        else
+          format.html { render :edit }
+          format.json { render json: @recommendation.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
     # Create notifications
     if (current_user.role === 0)then
@@ -68,18 +79,22 @@ class RecommendationsController < ApplicationController
   # DELETE /recommendations/1
   # DELETE /recommendations/1.json
   def destroy
-
-    # Create notifications
-    if (current_user.role === 0)then
-      Notification.create(recipient: @recommendation.area.user, actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
+    if (current_user == @recommendation.area.user || current_user.role == 0) then
+      # Create notifications
+      if (current_user.role === 0)then
+        Notification.create(recipient: @recommendation.area.user, actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
+      else
+        Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
+      end
+      
+      @recommendation.destroy
+      respond_to do |format|
+        format.html { redirect_to areas_url }
+        format.json { head :no_content }
+      end
     else
-      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
-    end
-
-    @recommendation.destroy
-    respond_to do |format|
-      format.html { redirect_to areas_url }
-      format.json { head :no_content }
+      redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
+      return
     end
 
   end
@@ -92,6 +107,6 @@ class RecommendationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recommendation_params
-      params.require(:recommendation).permit(:name, :area_id, :number)
+      params.require(:recommendation).permit(:name, :area_id, :number, :time_limit, :time_beg)
     end
 end

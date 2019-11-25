@@ -46,7 +46,7 @@
       <%= label_tag(type: 'tag') do %>
         <i class="icon-ok icon-white"></i> Descripción
       <% end %>
-        <%= form.text_field :description, class: 'form-control' %>
+         <%= form.text_area(:description, cols: 5, rows: 10, class: 'form-control') %>
     </div>
     <div>
              <%= label_tag(type: 'tag') do %>
@@ -72,16 +72,9 @@
  </div>
   <% end %>
 
-  <!-- Listing all documents -->
-  <div id="evidence_docs">
-    <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles %>
-  </div>
-
-  <br>
-  <br>
   <!-- Form to add document/image -->
 
-  <%= form_with(model: Evidencefile.new) do |form| %>
+  <%= form_with(model: Evidencefile.new, id: "docs_form") do |form| %>
 
   <div class="form">
     <%= form.label :documento %>
@@ -97,6 +90,15 @@
     <%= form.submit 'Agregar adjunto' %>
   </div>
   <% end %>
+  <br>
+  <br>
+  <!-- Listing all documents -->
+  <div id="evidence_docs">
+    <%= render partial: 'evidencefiles/evidencefile', collection: @evidence.evidencefiles, locals: {delete_icon: true} %>
+  </div>
+
+  <br>
+  <br>
              </div>
            </div>
          </div>
