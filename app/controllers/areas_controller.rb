@@ -190,17 +190,18 @@ class AreasController < ApplicationController
 
             #Ahora, se buscan las evidencias en pdf
             ev.evidencefiles.each do |f|
+              if f.document.attachment then
+                if f.document.filename.to_s.include? "pdf" then
 
-              if f.document.filename.to_s.include? "pdf" then
+                  IO.copy_stream(open(ActiveStorage::Blob.service.send(:path_for, f.document.key)), Rails.root.join('pdfs',
+                  "evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"))
 
-                IO.copy_stream(open(ActiveStorage::Blob.service.send(:path_for, f.document.key)), Rails.root.join('pdfs',
-                "evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"))
+                  pdf = CombinePDF.new
+                  pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
+                  pdf << CombinePDF.load(Rails.root.join('pdfs',"evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"), allow_optional_content: true)
+                  pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
 
-                pdf = CombinePDF.new
-                pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
-                pdf << CombinePDF.load(Rails.root.join('pdfs',"evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"), allow_optional_content: true)
-                pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
-
+                end
               end
             end
           end

@@ -27,18 +27,20 @@
         </div>
         <br><br><br>
         
-        <%if @evidencia.evidencefiles.length == 0%>
+        <%if @evidencia.evidencefiles.length == 1%>
             <div>
                 <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:25px; text-align:center;"><u><b>(NO EXISTEN ARCHIVOS CARGADOS EN ESTA EVIDENCIA)</b></u></pre>
             </div>
         <%end%>
 
         <%@evidencia.evidencefiles.each do |file|%>
-            <%if file.document.filename.to_s.exclude? "pdf" then%>
-                
-                <img style="display:block; margin-left:auto; margin-right:auto; width:100%" src="<%=ActiveStorage::Blob.service.send(:path_for, file.document.key)%>", width="auto", height="auto"> 
-                <br>
-                
+            <%if file.document.attachment%>
+                <%if file.document.filename.to_s.exclude? "pdf" then%>
+                    
+                    <img style="display:block; margin-left:auto; margin-right:auto; width:100%" src="<%=ActiveStorage::Blob.service.send(:path_for, file.document.key)%>", width="auto", height="auto"> 
+                    <br>
+                    
+                <%end%>
             <%end%>
         <%end%>
 
