@@ -43,6 +43,12 @@ class RecommendationsController < ApplicationController
       redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
       return
     end
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @recommendation.area.user, actor:current_user, action: " agregó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " agregó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation)
+    end
   end
 
   # PATCH/PUT /recommendations/1
@@ -62,12 +68,25 @@ class RecommendationsController < ApplicationController
       redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
       return
     end
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @recommendation.area.user, actor:current_user, action: " editó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " editó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation)
+    end
   end
 
   # DELETE /recommendations/1
   # DELETE /recommendations/1.json
   def destroy
     if (current_user == @recommendation.area.user || current_user.role == 0) then
+      # Create notifications
+      if (current_user.role === 0)then
+        Notification.create(recipient: @recommendation.area.user, actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
+      else
+        Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
+      end
+      
       @recommendation.destroy
       respond_to do |format|
         format.html { redirect_to areas_url }
@@ -77,6 +96,7 @@ class RecommendationsController < ApplicationController
       redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
       return
     end
+
   end
 
   private

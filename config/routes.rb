@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'users', to: 'users#index', as: :index
     patch "users/:id", to: "users#update"
     post 'users/:id/edit', to: 'users#update'
+    get 'notifications', to: 'notifications#show', as: :notifications_show
   end
 
 
@@ -41,6 +42,14 @@ Rails.application.routes.draw do
     get "/areas", to: redirect('login')
   end
   root to: redirect('login')
+
+  resources :notifications do
+    collection do
+      get 'mark_as_read'
+      get 'remove_all'
+    end
+
+  end
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

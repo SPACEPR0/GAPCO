@@ -42,6 +42,9 @@ class AreasController < ApplicationController
       redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
       return
     end
+
+    # Create notifications
+    Notification.create(recipient: @area.user, actor:current_user, action: " creó el área " + @area.name.to_s, notifiable: @area)
   end
 
   # PATCH/PUT /areas/1
@@ -62,11 +65,21 @@ class AreasController < ApplicationController
       redirect_to root_path, notice: "No tienes permisos para realizar esta acción"
       return
     end
+
+    # Create notifications
+    if (current_user.role === 0)then
+      Notification.create(recipient: @area.user, actor:current_user, action: " editó el área de " + @area.name.to_s, notifiable: @area)
+    else
+      Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " editó el área de " + @area.name.to_s, notifiable: @area)
+    end
   end
 
   # DELETE /areas/1
   # DELETE /areas/1.json
   def destroy
+    # Create notifications
+    Notification.create(recipient: @area.user, actor:current_user, action: " eliminó el área de " + @area.name.to_s, notifiable: @area.user)
+
     if (current_user.role == 0) then
       @area.destroy
       respond_to do |format|
@@ -80,7 +93,7 @@ class AreasController < ApplicationController
   end
 
   def report
-    
+
     #Se elimina todo
     FileUtils.rm_rf(Dir[Rails.root.join('pdfs', '*')])
 
@@ -111,7 +124,7 @@ class AreasController < ApplicationController
       #Se acomoda el plazo de la recomendación en caso de ser necesario
       if rec.time_beg > rec.time_limit then
         rec.time_beg, rec.time_limit = rec.time_limit, rec.time_beg
-      end 
+      end
       #Se buscarán evidencias en el período dado por el usuario para saber si generaremos portadas para evidencias
       @hay_evidencias = false
       rec.evidences.each do |recom|
@@ -122,7 +135,7 @@ class AreasController < ApplicationController
       end
 
       @recomendacion = rec #Se extrae la recomendación para hacer su pdf
-    
+
 
       #Se construye la portada de la recomendación.
       pdf = render_to_string pdf:'Report', template:'areas/report.pdf.erb', :page_height => '11in', :page_width => '8.5in'
@@ -139,7 +152,7 @@ class AreasController < ApplicationController
 
       #Se elimina la portada que acabamos de agregar al reporte porque ya no nos sirve
       File.delete(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')) if File.exist?(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'))
-      
+
       #Si anteriormente se encontraron evidencias dentro del período que nos dio el usuario, entonces se procede a hacer portadas de evidencias y agregarlas al reporte
       if @hay_evidencias then
 
@@ -150,7 +163,7 @@ class AreasController < ApplicationController
             evidencias_ordenadas.append(ev)
           end
         end
-       
+
         evidencias_ordenadas.sort_by!{ |a| a.day}
 
         #Una vez ordenadas las evidencias se procede a hacer el reporte
@@ -174,20 +187,20 @@ class AreasController < ApplicationController
 
             #Se elimina la portada de la evidencia con todo e imágenes porque ya no es util
             File.delete(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')) if File.exist?(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'))
-            
+
             #Ahora, se buscan las evidencias en pdf
             ev.evidencefiles.each do |f|
 
               if f.document.filename.to_s.include? "pdf" then
-                
-                IO.copy_stream(open(ActiveStorage::Blob.service.send(:path_for, f.document.key)), Rails.root.join('pdfs', 
+
+                IO.copy_stream(open(ActiveStorage::Blob.service.send(:path_for, f.document.key)), Rails.root.join('pdfs',
                 "evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"))
 
                 pdf = CombinePDF.new
                 pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
                 pdf << CombinePDF.load(Rails.root.join('pdfs',"evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"), allow_optional_content: true)
                 pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
-              
+
               end
             end
           end
@@ -201,11 +214,11 @@ class AreasController < ApplicationController
         File.delete(Rails.root.join('pdfs',file)) if File.exist?(Rails.root.join('pdfs',file))
       end
     end
-    
+
     #Luego, se muestra el pdf final para que se pueda descargar
     pdf_filename = Rails.root.join("pdfs", 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
     send_file(pdf_filename, :filename=>'Reporte_'+@reported_area.name.gsub(' ', '')+'.pdf', :type => "application/pdf", :disposition =>'inline' )
-        
+
   end
   helper_method :report
 
