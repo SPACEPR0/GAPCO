@@ -1,24 +1,31 @@
 <div id = "goal_<%= goal.id %>">
-    <%=goal.title%>
+    <%recommendation = Recommendation.find(goal.recommendation_id)%>
+    <% if (recommendation.goals.find_index(goal)) != nil%>
+    <% number = recommendation.number + "." + (recommendation.goals.find_index(goal) + 1).to_s %>
+    <%end%>
+    <b><h5 style="display:inline;"><%= number%>.</b>&nbsp<%=goal.title%></h5>
       <% if (current_user.role == 0) then %>
         <button data-toggle="modal" class="btn btn-link" data-target="#myupdategoal_<%= goal.id%>">
                 <span class="fa fa-pencil"></span>
         </button>
-        <%= link_to '<span class="fa fa-times"></span>'.html_safe, goal, method: :delete, remote: true %>
+        <%= link_to '<span class="fa fa-times"></span>'.html_safe, goal, method: :delete, remote: true, data: { confirm: '¿Está seguro?' } %>
       <%end%>
     <% content = goal.actions.split("\n") %>
-    <ol>
+    
+        <% i = 1 %>
         <% content.each do |action| %>
-        <li><%=action%></li>
+          <br><b>&nbsp;&nbsp;&nbsp;&nbsp;<%=number + "." +(i.to_s) + ". "%></b><%=action%>
+          <%i= i + 1%>
         <%end%>
-    </ol>
+        <br>&nbsp
+    
 
 
 
 
 
     <%= form_for(goal, :method => :put, remote: true) do |form| %>
-    <div class="modal fade" id="myupdategoal_<%= goal.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal" id="myupdategoal_<%= goal.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -28,13 +35,13 @@
           <div class="modal-body">
 
             <div class="field">
-              <% form.label :title %>Título: <br>
-              <%= form.text_field :title %>
+              <% form.label :title %>Meta: <br>
+              <%= form.text_area :title, class:"form-control", size: "30x4" %>
             </div>
-
+            <br>
             <div class="field">
-              <% form.label :actions %>Acciones: <br>
-              <%= form.text_area :actions, class:"form-control" %>
+              <% form.label :actions %>Acciones: (Separar las acciones con la tecla ENTER)<br>
+              <%= form.text_area :actions, class:"form-control", size: "30x8" %>
             </div>
 
           </div>

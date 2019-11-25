@@ -37,25 +37,29 @@
    <br>
 
    <div class="container">
-
-     <div class="p-3 mb-2 bg-light text-dark">
-     <div>
-      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#container_goals" aria-expanded="true" aria-controls="collapseOne">
-       METAS
-       </button>
-         <!-- Button trigger modal -->
-        <% if (current_user.role == 0) then %>
-        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#mynewgoal">
-            <span class="fa fa-plus">
-        </button>
-        <% end %>
+      <div class="card">
+          <div class="card-header">
+              <a class="card-link" data-toggle="collapse" href="#collapseOne">
+              <h5 style= "display: inline;">Metas</h5>
+              </a>
+              <% if (current_user.role == 0) then %>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#mynewgoal">
+                    <span class="fa fa-plus">
+                </button>
+              <% end %>
+          </div>
+          <div id="collapseOne" class="collapse show" >
+            <div class="card-body" id= "container_goals" >
+                      <% @recommendation.goals.each do |g| %>
+                        
+                            <%= render g %>
+                            
+                      <% end %>
+            </div>
+          </div>
       </div>
-
-      <div class="container in" id="container_goals">
-        <%= render @recommendation.goals %>
-      </div>
-    </div>
   </div>
+  <br>
 
    <div class="container-fluid">
      <table class="table table-hover" style="width: 80%;" align="center">

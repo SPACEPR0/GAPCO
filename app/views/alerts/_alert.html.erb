@@ -2,7 +2,7 @@
     <tr id = "alert_<%= alert.id %>">
         <td colspan="2"><%=alert.content%>
         <br>
-        <b>Fecha límite: <%=alert.expiration.strftime("%d/%m/%Y")%></b>
+        <b>Fecha límite: <%if alert.expiration !=nil%><%=alert.expiration.strftime("%d/%m/%Y")%><%end%></b>
         
         </td>
         <th>

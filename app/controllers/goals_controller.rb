@@ -54,6 +54,7 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1
   # PATCH/PUT /goals/1.json
   def update
+    @recommendation = Recommendation.find(@goal.recommendation_id)
     if (current_user.role == 0) then
       respond_to do |format|
         if @goal.update(goal_params)
