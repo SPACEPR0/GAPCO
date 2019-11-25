@@ -21,6 +21,8 @@
 
 
 <div class="form-group" style="width: 80%">
+
+
       <%= form_with(model: @evidence, local: true) do |form| %>
       <% if @evidence.errors.any? %>
         <div id="error_explanation">
@@ -53,27 +55,73 @@
             <% end %>
              <%= form.date_field (:day), required: true %>
           </div>
+
           <div class="field">
             <%= form.hidden_field :recommendation_id, :value => params[:recommendation_id] %>
           </div>
+
+          <div class="fields">
+            <div id="evidence_docs">
+              <div class="tile" style="cursor:default;">
+                <div class="form-actions">
+                  <%= link_to_add_file('', form, :evidencefiles, id: 'add_input_ref')%>
+                </div>
+                <%= form.fields_for :evidencefiles do |builder| %>
+                <%= render 'evidencefile', f: builder %>
+                <% end %>
+              </div>
+            </div>
+          </div>
           <br>
           <br>
+
           <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
             <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, Recommendation.find(params[:recommendation_id]) %>
            <div class="input-group">
              <div class="input-group-prepend">
-               <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
-                 <i class="icon-ok icon-white"></i> Guardar evidencia
-               <% end %>
+                 <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>
+                   <i class="icon-ok icon-white"></i> Guardar evidencia
+                 <% end %>
              </div>
            </div>
          </div>
 
-          <div>
-
-          </div>
       <%end%>
       <br>
    </div>
  </div>
 </div>
+
+<script type="text/javascript">
+  function file_input_change(sel){
+    console.log('filefield on load')
+    $(sel).closest('div').hide();
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      console.log('reader on load');
+      var tile = $('#evidence_docs').find('.tile').last();
+      tile.prepend('<img src="' + e.target.result + '">');
+      tile.find('.remove_record')[0].style = 'visibility: visible;';
+      $('#add_input_ref').click();
+    };
+    reader.readAsDataURL(sel.files[0]);
+  }
+
+  $(document).on('turbolinks:load', function(){
+
+    $('form').on('click', '.remove_record', function(event){
+      $(this).prev('input[type=hidden]').val('1');
+      $(this).closest('.tile').hide();
+      return event.preventDefault();
+    });
+
+    $('form').on('click', '.add_fields', function(event){
+      console.log('clicked');
+      var regexp, time;
+      time = new Date().getTime();
+      regexp = new RegExp($(this).data('id'), 'g');
+      $('#evidence_docs').append('<div class="tile">' + $(this).data('fields').replace(regexp, time) + "</div>");
+      return event.preventDefault();
+    });
+  });
+</script>

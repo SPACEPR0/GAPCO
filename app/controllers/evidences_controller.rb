@@ -16,10 +16,12 @@ class EvidencesController < ApplicationController
   # GET /evidences/new
   def new
     @evidence = Evidence.new
+    @evidence.evidencefiles.build
   end
 
   # GET /evidences/1/edit
   def edit
+    @evidence.evidencefiles.build
   end
 
   # POST /evidences
@@ -87,6 +89,6 @@ class EvidencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def evidence_params
-      params.require(:evidence).permit(:title, :description, :recommendation_id, :day)
+      params.require(:evidence).permit(:title, :description, :recommendation_id, :day, evidencefiles_attributes: [:document, :_destroy])
     end
 end
