@@ -21,7 +21,7 @@
            <div>
              <% a = Area.all.length%>
              <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
+               <i class="icon-ok icon-white"></i> Número del área <font color="red">   (Obligatorio)</font>
              <% end %>
                <%= form.text_field :number, value: (a + 1).to_s, class: 'form-control' %>
            </div>

@@ -31,7 +31,6 @@ class RecommendationsController < ApplicationController
       @recommendation = Recommendation.new(recommendation_params)
       respond_to do |format|
         if @recommendation.save
-
           format.html { redirect_to @recommendation.area }
           format.json { render :show, status: :created, location: @recommendation.area }
         else

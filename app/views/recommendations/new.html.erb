@@ -10,8 +10,6 @@
 
 <div class="container">
 
-
-
  <div class="form-group" style="width: 80%">
        <%= form_with(model: @recommendation, local: true) do |form| %>
            <div>
@@ -35,11 +33,11 @@
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Fecha de inicio
              <% end %>
-               <%= form.date_field :time_beg %>
+               <%= form.date_field :time_beg, required: true %>
                <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Fecha límite
              <% end %>
-               <%= form.date_field :time_limit %>
+               <%= form.date_field :time_limit, required: true %>
            </div>
            <br>
            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
@@ -52,13 +50,8 @@
               </div>
             </div>
           </div>
-
        <%end%>
        <br>
-
-
-
     </div>
   </div>
-
-    </div>
+ </div>
