@@ -33,8 +33,4 @@ yarn-debug.log*
 # Ignore application configuration
 /config/application.yml
 db/*.sqlite3.*
-# exclude everything
-pdfs/*
 
-# exception to the rule
-!pdfs/.gitkeep 
