@@ -81,6 +81,7 @@ class AreasController < ApplicationController
     Notification.create(recipient: @area.user, actor:current_user, action: " eliminó el área de " + @area.name.to_s, notifiable: @area.user)
 
     if (current_user.role == 0) then
+      unlink_notifs_area @area, @area.user
       @area.destroy
       respond_to do |format|
         format.html { redirect_to areas_url }

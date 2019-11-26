@@ -27,7 +27,6 @@
   </head>
  <body>
 
-
    <!-- Side bar -->
    <div class="w3-sidebar w3-bar-block w3-card w3-animate-right"  style="display:none;right:0;" id="mySidebar">
       <button class="w3-bar-item w3-button w3-large"> <div onclick="w3_close()" style="opacity: 1" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'" href="#" role="button" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-angle-double-right"></span> </button>
@@ -79,6 +78,30 @@
          <a class="navbar-brand"><%= link_to 'GAPCO'.html_safe, root_path%></a>
        </form>
        <form class="form-inline my-2 my-lg-0" style="align:right">
+
+         <div class="dropdown" style="margin-right: 50px;" style="text-align: center;">
+           <button class="btn btn btn-outline-secundary" dropdown-toggle type="button" data-toggle="dropdown"> MIS ÁREAS
+             <span class="caret"></span></button>
+             <ul class="dropdown-menu">
+              <% current_user.areas.each do |area| %>
+              <div class="dropdown-item"><%= link_to area.name, area %></div>
+              <% end %>
+             </ul>
+           </div>
+         <div class="dropdown" style="margin-right:50px;" style="text-align: center;">
+           <button class="btn btn btn-outline-secundary" dropdown-toggle type="button" data-toggle="dropdown"> MIS RECOMENDACIONES
+             <span class="caret"></span></button>
+             <ul class="dropdown-menu">
+              <% current_user.areas.each do |area| %>
+               <li class="dropdown-header"><%= area.name %></li>
+                 <% area.recommendations.each do |recommendation| %>
+                 <div class="dropdown-item" style="max-width: 300px; overflow: hidden; text-overflow: ellipsis;" ><%= link_to recommendation.name, recommendation %></div>
+                 <% end %>
+              <% end %>
+             </ul>
+           </div>
+
+
          <a id='demo'><font <%if current_user.notifications.unread.length>0 then%>color="red"<%end%>> <%= current_user.notifications.unread.length %></font> </a>
          <div class="nav-item btn-group" data-behavior="notifications">
            <div href='' style="opacity: 1" onmouseover = "this.style.opacity = .5" onmouseout = "this.style.opacity = 1"  class="nav-link" id="notificationsDropdown" role="button" data-toggle="dropdown"><a></a> <span class="fa fa-bell-o"></span></div>
@@ -98,30 +121,20 @@
                  </div>
                </div>
              <% end %>
-             <a class="dropdown-item"><%= link_to 'Ver notificaciones', notifications_show_url %> <% if current_user.notifications.unread.length > 5 then %> (<%= current_user.notifications.unread.length - 5 %> nuevas) <%end%></a>
+             <div class="dropdown-item" style="margin-bottom: 10px; text-align: center;"><%= link_to 'Ver notificaciones', notifications_show_url %> <% if current_user.notifications.unread.length > 5 then %> (<%= current_user.notifications.unread.length - 5 %> nuevas) <%end%></div>
             </div>
            </div>
          </div>
 
 
          <div class="dropdown">
-         <div style="opacity: 1; margin-right: 50px;" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-cogs"></span></div>
-           <div class="dropdown-menu">
-             <a class="dropdown-item"><%= link_to 'Ver usuarios', index_url %></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item" href="#"></a>
+           <div style="opacity: 1; margin-right: 50px;" onmouseover = "this.style.opacity = '.5'" onmouseout = "this.style.opacity = '1'"  class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><%= current_user.firstname %><span style="margin-left: 5px" class="fa fa-user-o"></span></div><div class="dropdown-menu dropdown-menu-right">
+             <div class="dropdown-item" style="margin-bottom: 10px; text-align: center;" ><%= link_to 'Ver usuarios', index_url %></div>
              <% if current_user.role == 0 %>
-               <a class="dropdown-item"><%= link_to 'Crear cuenta nueva', :sign_up %></a>
-               <a class="dropdown-item" href="#"></a>
-               <a class="dropdown-item" href="#"></a>
-               <a class="dropdown-item" href="#"></a>
+               <div class="dropdown-item" style="margin-bottom:10px; text-align: center;"><%= link_to 'Crear cuenta nueva', :sign_up %></div>
              <%end%>
-             <a class="dropdown-item"><%= link_to  "Editar mi cuenta", :edit_myaccount %></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item" href="#"></a>
-             <a class="dropdown-item"><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %></a>
+             <div class="dropdown-item" style="margin-bottom: 10px; text-align: center;"><%= link_to  "Editar mi cuenta", :edit_myaccount %></div>
+             <div class="dropdown-item" style="margin-bottom: 10px; text-align: center;"><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %></div>
            </div>
          </div>
 
@@ -151,10 +164,6 @@
        <div class="modal-body">
         <%=render partial: 'alerts/form' %>
        </div>
-
-
-
-
      </div>
    </div>
   </div>

@@ -85,7 +85,8 @@ class RecommendationsController < ApplicationController
       else
         Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una recomendación al área de " + @recommendation.area.name.to_s, notifiable: @recommendation.area)
       end
-      
+      unlink_notifs_recommendation @recommendation, @recommendation.area
+
       @recommendation.destroy
       respond_to do |format|
         format.html { redirect_to areas_url }

@@ -57,6 +57,9 @@ class UsersController < ApplicationController
 
   def destroy
     if (current_user.role == 0) then
+      Notification.where(notifiable: @user).each do |notification|
+        notification.destroy
+      end
       @user.destroy
 
       respond_to do |format|

@@ -50,8 +50,9 @@
       </thead>
       <tbody>
         <% current_user.notifications.reverse.each do |notification| %>
+
         <!-- Evidences notifications -->
-          <% if notification.action.include? "agregó una evidencia" or notification.action.include? "editó una evidencia" then %>
+        <% if notification.notifiable.is_a?(Evidence)%>
           <tr>
              <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
              <td><%= notification.action %></td>
@@ -74,27 +75,9 @@
 
           </tr>
           <% end %>
-          <% if notification.action.include? "eliminó una evidencia" then %>
-          <tr>
-             <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
-             <td><%= notification.action %></td>
-             <td>
-             <% unless notification.notifiable.nil? %>
-               <%= link_to notification.notifiable.area.name,  notification.notifiable %>
-             <% end %>
-           </td>
-           <td>
-             <% unless notification.notifiable.nil? %>
-               <%= link_to notification.notifiable.name,  notification.notifiable %>
-             <% end %>
-           </td>
-             <td></td>
-             <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
-          </tr>
-          <% end %>
 
           <!-- Recommendations notifications -->
-            <% if notification.action.include? "agregó una recomendación" or notification.action.include? "editó una recomendación" then %>
+          <% if notification.notifiable.is_a?(Recommendation)%>
             <tr>
                <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
                <td><%= notification.action %></td>
@@ -127,37 +110,11 @@
                <td></td>
                <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
             </tr>
-            <% end %>
 
-            <!-- Areas notifications -->
-              <% if notification.action.include? "creó el área" or notification.action.include? "editó el área de" then %>
-              <tr>
-                 <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
-                 <td><%= notification.action %></td>
-                 <td>
-                  <% unless notification.notifiable.nil? %>
-                    <%= link_to notification.notifiable.name,  notification.notifiable %>
-                  <% end %>
-                </td>
-                <td></td>
-               <td></td>
-                 <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
-
-              </tr>
-              <% end %>
-              <% if notification.action.include? "eliminó el área" then %>
-              <tr>
-                 <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
-                 <td><%= notification.action %></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
-              </tr>
-              <% end %>
+          <% end %>
 
               <!-- Goals notifications -->
-                <% if notification.action.include? "creó una meta" or notification.action.include? "editó una meta" then %>
+              <% if notification.notifiable.is_a?(Goal)%>
                 <tr>
                    <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
                    <td><%= notification.action %></td>
@@ -176,16 +133,21 @@
 
                 </tr>
                 <% end %>
-                <% if notification.action.include? "eliminó una meta" then %>
-                <tr>
-                   <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
-                   <td><%= notification.action %></td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
-                   <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
-                </tr>
-                <% end %>
+
+                <% if notification.notifiable.is_a?(User)%>
+                  <tr>
+                     <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+                     <td><%= notification.action %></td>
+                     <td>
+                    </td>
+                    <td>
+                   </td>
+                   <td>
+                  </td>
+                     <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+
+                  </tr>
+                  <% end %>
         <% end %>
       </tbody>
     </table>

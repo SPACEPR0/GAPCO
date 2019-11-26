@@ -91,6 +91,9 @@ class EvidencesController < ApplicationController
       else
         Notification.create(recipient: User.find_by(role: 0), actor:@evidence.recommendation.area.user, action: " eliminó una evidencia en " + @evidence.recommendation.name.to_s, notifiable: @recommendation)
       end
+
+      unlink_notifs_evidence @evidence, @evidence.recommendation
+
       @evidence.destroy
       respond_to do |format|
         format.html { redirect_to @recommendation }

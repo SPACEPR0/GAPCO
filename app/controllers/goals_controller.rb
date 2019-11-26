@@ -90,6 +90,8 @@ class GoalsController < ApplicationController
     end
 
     if (current_user.role == 0) then
+      unlink_notifs_goal @goal, @goal.recommendation
+
       @goal.destroy
       respond_to do |format|
         format.html { redirect_to goals_url, notice: 'Goal was successfully destroyed.' }
