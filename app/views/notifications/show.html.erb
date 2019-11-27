@@ -72,6 +72,7 @@
             <% end %>
           </td>
              <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+             <td> <%= notification.read_at%> </td>
 
           </tr>
           <% end %>
@@ -94,24 +95,10 @@
              <td>
             </td>
                <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+               <td> <%= notification.read_at%> </td>
 
             </tr>
             <% end %>
-            <% if notification.action.include? "eliminó una recomendación" then %>
-            <tr>
-               <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
-               <td><%= notification.action %></td>
-               <td>
-                 <% unless notification.notifiable.nil? %>
-                 <%= link_to notification.notifiable.name,  notification.notifiable %>
-                 <% end %>
-               </td>
-               <td></td>
-               <td></td>
-               <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
-            </tr>
-
-          <% end %>
 
               <!-- Goals notifications -->
               <% if notification.notifiable.is_a?(Goal)%>
@@ -130,6 +117,29 @@
                   </td>
                  <td></td>
                    <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+                   <td> <%= notification.read_at%> </td>
+
+                </tr>
+                <% end %>
+
+              <!-- Area notifications -->
+              <% if notification.notifiable.is_a?(Area)%>
+                <tr>
+                   <td><%= notification.actor.firstname%> <%= notification.actor.lastname %> </td>
+                   <td><%= notification.action %></td>
+                   <td>
+                    <% unless notification.notifiable.nil? %>
+                      <%= link_to notification.notifiable.name,  notification.notifiable %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% unless notification.notifiable.nil? %>
+                      <%= link_to notification.notifiable.name,  notification.notifiable %>
+                    <% end %>
+                  </td>
+                 <td></td>
+                   <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+                   <td> <%= notification.read_at%> </td>
 
                 </tr>
                 <% end %>
@@ -145,9 +155,12 @@
                    <td>
                   </td>
                      <td><%= notification.created_at.strftime("%d - %b - %y") %></td>
+                     <td> <%= notification.read_at%> </td>
 
                   </tr>
                   <% end %>
+
+
         <% end %>
       </tbody>
     </table>
