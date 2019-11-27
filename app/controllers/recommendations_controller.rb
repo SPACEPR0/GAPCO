@@ -16,6 +16,7 @@ class RecommendationsController < ApplicationController
 
   # GET /recommendations/new
   def new
+    @area_id = params[:area_id]
     @recommendation = Recommendation.new
   end
 
@@ -36,6 +37,7 @@ class RecommendationsController < ApplicationController
         else
           format.html { render :new }
           format.json { render json: @recommendation.errors, status: :unprocessable_entity }
+          @area_id = area.id
         end
       end
     else

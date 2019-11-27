@@ -12,11 +12,20 @@
 
  <div class="form-group" style="width: 80%">
        <%= form_with(model: @recommendation, local: true) do |form| %>
+          <div>
+            <%if @recommendation.errors.any?%>
+              <ul>
+                <% @recommendation.errors.full_messages.each do |message| %>
+                  <font color="crimson"><li><%= message %></li></font>
+                <%end%>
+              </ul>
+            <%end%>
+          </div>
            <div>
-            <%= form.hidden_field :area_id, :value => params[:area_id] %>
+            <%= form.hidden_field :area_id, :value => @area_id %>
            </div>
            <div>
-             <% a = Area.find(params[:area_id])%>
+             <% a = Area.find(@area_id)%>
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
@@ -29,19 +38,21 @@
              <% end %>
                <%= form.text_field :name, required: true, class: 'form-control' %>
            </div>
+           <br>
            <div>
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Fecha de inicio
              <% end %>
                <%= form.date_field :time_beg, required: true %>
+           
                <%= label_tag(type: 'tag') do %>
-               <i class="icon-ok icon-white"></i> Fecha límite
+              <i class="icon-ok icon-white"></i>Fecha límite
              <% end %>
                <%= form.date_field :time_limit, required: true %>
            </div>
            <br>
            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-             <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver al área</button>'.html_safe, Area.find(params[:area_id]) %>
+             <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver al área</button>'.html_safe, Area.find(@area_id) %>
             <div class="input-group">
               <div class="input-group-prepend">
                    <%= button_tag(type: 'submit', class: "btn btn-outline-primary") do %>

@@ -10,6 +10,7 @@ module GAPCO
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.active_model.i18n_customize_full_message = true
     config.time_zone = "Arizona"
     config.to_prepare do
       #Devise::RegistrationsController.layout "areas_layout"

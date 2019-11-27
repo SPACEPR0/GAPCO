@@ -22,6 +22,15 @@
  <div class="form-group" style="width: 80%">
    <h4>Editar recomendación:</h4>
        <%= form_with(model: @recommendation, local: true) do |form| %>
+       <div>
+        <%if @recommendation.errors.any?%>
+          <ul>
+            <% @recommendation.errors.full_messages.each do |message| %>
+              <font color="crimson"><li><%= message %></li></font>
+            <%end%>
+          </ul>
+        <%end%>
+      </div>
            <div>
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red"></font>
