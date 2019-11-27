@@ -41,7 +41,7 @@
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Responsable del área
              <% end %>
-             <%= form.select :user_id, User.all.collect { |u| [u.firstname, u.id] }, class:'form-control'%>
+             <%= form.select :user_id, User.all.collect { |u| [u.firstname+" "+u.lastname, u.id] }, class:'form-control'%>
            </div>
            <br>
            <br>
