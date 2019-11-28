@@ -56,8 +56,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.areas.each do |area|
+      area.update(user_id: current_user.id)
+    end
     if (current_user.role == 0) then
       Notification.where(notifiable: @user).each do |notification|
+        notification.destroy
+      end
+      Notification.where(actor: @user).each do |notification|
         notification.destroy
       end
       @user.destroy
