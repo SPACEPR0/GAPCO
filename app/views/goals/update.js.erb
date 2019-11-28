@@ -1,5 +1,9 @@
-$("#myupdategoal_<%= @goal.id %>").modal('hide');
+if ($(".goal_title").val() != ''){
+    $("#myupdategoal_<%= @goal.id %>").modal('hide');
 
-$("#container_goals").empty();
-$("#container_goals").append('<%= j render @recommendation.goals %>');
+    $("#container_goals").empty();
+    $("#container_goals").append('<%= j render @recommendation.goals %>');
+}else{
+    alert("Llene el campo obligatorio.")
+}
 
