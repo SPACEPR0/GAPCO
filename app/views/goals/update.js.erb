@@ -3,7 +3,8 @@ if ($(".goal_title").val() != ''){
 
     $("#container_goals").empty();
     $("#container_goals").append('<%= j render @recommendation.goals %>');
+    
 }else{
-    alert("Llene el campo obligatorio.")
+    alert("Llene el campo obligatorio.");
 }
 

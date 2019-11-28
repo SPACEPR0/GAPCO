@@ -29,7 +29,11 @@
              <%= label_tag(type: 'tag') do %>
                <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
-               <%= form.text_field :number, value: a.number.to_s + ".", class: 'form-control' %>
+              <%if params[:area_id] != nil %>
+                <%= form.text_field :number, value: a.number.to_s + ".", class: 'form-control' %>
+               <%else%>
+               <%= form.text_field :number, class: 'form-control' %>
+               <%end%>
            </div>
            <br>
            <div >
