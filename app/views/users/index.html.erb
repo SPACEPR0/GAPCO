@@ -29,8 +29,13 @@
            <th scope="col">
              Áreas asignadas
            </th>
-           <th scope="col">
-           </th>
+           <%if current_user.role == 0%>
+              <td><%= link_to '<span class="fa fa-plus"></span>'.html_safe, new_user_path() %></td>
+           <%else%>
+              <th scope="col">
+              </th>
+            <%end%>
+
            <th scope="col">
            </th>
          </tr>
@@ -71,6 +76,6 @@
      </table>
    </div>
    <div class="container-fluid" style="width: 70%;">
-     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, :back %>
+     <%= link_to '<button type="button" class="btn btn-outline-secondary">Volver</button>'.html_safe, root_path %>
    </div>
    </div>

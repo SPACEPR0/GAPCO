@@ -26,6 +26,8 @@
           <li>Nombre en blanco</li>
         <%elsif message == "Lastname can't be blank"%>
           <li>Apellido en blanco</li>
+        <%elsif message == "Email is invalid"%>
+          <li>El correo electrónico es inválido</li>
         <%else%>
           <li><%= message %></li>
         <%end%>

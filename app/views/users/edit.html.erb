@@ -34,6 +34,8 @@
                                 <li>La nueva contraseña es muy corta (Mínimo <%=@minimum_password_length%> caracteres)</li>
                             <%elsif message == "Password confirmation doesn't match Password"%>
                                 <li>La contraseña nueva y la de confirmación no coinciden</li>
+                            <%elsif message == "Email is invalid"%>
+                                <li>El correo electrónico es inválido</li>
                             <%else%>
                                 <li><%= message %></li>
                             <%end%>
