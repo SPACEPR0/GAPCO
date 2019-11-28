@@ -58,7 +58,9 @@
             <%end%>
            <% if current_user.role == 0 then %>
              <td><%= link_to '<span class="fa fa-pencil"></span>'.html_safe, edit_user_path(user) %></td>
-             <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, user, method: :delete, data: { confirm: '¿Está seguro que desea eliminar a '+user.firstname+' '+user.lastname+'?'} %></td>
+             <% if current_user != user then %>
+                <td><%= link_to '<span class="fa fa-times"></span>'.html_safe, user, method: :delete, data: { confirm: '¿Está seguro que desea eliminar a '+user.firstname+' '+user.lastname+'?'} %></td>
+             <%end%>
            <%else%>
              <td></td>
              <td></td>

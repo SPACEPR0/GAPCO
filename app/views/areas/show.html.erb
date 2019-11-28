@@ -12,10 +12,21 @@
            <%= @area.user.firstname%>
            <%= @area.user.lastname%>
          </p>
-         <p>
-           <strong>Descripción:</strong>
-           <%= @area.description%>
-         </p>
+
+         <%description_content = @area.description.split("\n")%>
+         <%if description_content.length > 0%>
+            <p><strong>Descripción:</strong> </p>
+
+                <%description_content.each do |paragraph|%>
+                  <%=paragraph%>
+                  <br/>
+              <%end%>
+          <%else%>
+            <p><strong>(Sin descripción)</strong> </p>
+            <br/>
+          <%end%>
+          <br/>
+
          <% if (current_user == @area.user || current_user.role == 0) then %>
             <button data-toggle="modal" align="right" type="button" class="btn btn-outline-primary" data-target="#myupdategoal_<%= @area.id%>">Generar reporte</button>
             

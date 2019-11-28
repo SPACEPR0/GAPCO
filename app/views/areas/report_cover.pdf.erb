@@ -70,13 +70,27 @@
         <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:40px; text-align:center;"><b><%=@reported_area.number%>.</b>  <%=@reported_area.name%></pre>
       </div>
       <br>
-       <div>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
-      </div>
+       
+       <%description_content = @reported_area.description.split("\n")%>
+       <%if description_content.length > 0%>
+          <div>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
+          </div>
 
-      <div>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;"><%=@reported_area.description%></pre>
-      </div>
+          <div>
+              <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;">
+                
+                <%description_content.each do |paragraph|%>
+                  <%=paragraph%>
+                  <br/>
+              <%end%>
+              </pre>
+          </div>
+        <%else%>
+            <div>
+               <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b></pre>
+          </div>
+        <%end%>
 
       <%if @reported_area.recommendations.length == 0%>
         <br><br><br><br><br>

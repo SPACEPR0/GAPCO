@@ -19,7 +19,9 @@ class NotificationsController < ApplicationController
 
   def mark_as_read
     Notification.where(recipient: current_user).each do |notification|
-      notification.update(read_at: Time.zone.now)
+      if notification.read_at.nil? then
+        notification.update(read_at: Time.zone.now)
+      end
     end
     head :no_content
   end

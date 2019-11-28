@@ -28,9 +28,13 @@
 <div class="form-group" style="width: 80%">
   <%if @evidence.description != "" %>
     <h4>Descripción</h4>
-    <p>
-      <%= @evidence.description %>
-    </p>
+    <%description_content = @evidence.description.split("\n")%>
+      <%description_content.each do |paragraph|%>
+        <%=paragraph%>
+        <br/>
+    <%end%>
+  <%else%>
+    <h4>(Sin descripción)</h4>
   <%end%>
 
   <div class="container" id="evidence_docs">
