@@ -17,7 +17,20 @@
         <br><br>
 
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;"><b>DESCRIPCIÓN:</b> <%=@evidencia.description%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;">
+                <%description_content = @evidencia.description.split("\n")%>
+                <%if description_content.length > 0%>
+                    <b>DESCRIPCIÓN:</b>
+                    <br/>
+                    <%description_content.each do |paragraph|%>
+                        <%=paragraph%>
+                        <br/>
+                    <%end%>
+                <%else%>
+                   <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b> </pre>
+                <%end%>
+                
+            </pre>
         </div>
         <br><br> <br><br><br>
         
