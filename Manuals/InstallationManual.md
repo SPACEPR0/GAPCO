@@ -163,10 +163,17 @@ bundle install
 ```
 Está instrucción instalará todas las _gems_ que requiere el sistema GAPCO para funcionar.
 
-Ahora, es importante ejecutar las migraciones para su base de datos:
+Ahora, es importante crear la base de datos y ejecutar las migraciones:
 
 ```
+rails db:create
+```
+```
 rake db:migrate
+```
+Ahora cree el usuario administrador del sistema:
+```
+rails runner "dbAdmin.rb"
 ```
 
 ## Paso 6: Ejecutar el servidor
@@ -178,6 +185,6 @@ rails s
 __Importante:__ El usuario administrador (con el rol de coordinador) por default en la base de datos es:
 ```
 admin@test.com
-spacepro
+gapcoadmin
 ```
 Es necesario que cuando entre al sistema por primera vez, cambie tanto como el correo como la contraseña.
