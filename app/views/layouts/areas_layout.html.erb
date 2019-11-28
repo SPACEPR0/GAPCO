@@ -109,17 +109,19 @@
 
            <div class="dropdown-menu dropdown-menu-right">
            <% current_user.notifications.last(5).reverse.each do |notification| %>
-                 <div class="dropdown-item">
-                 <%= notification.actor.firstname %>
-                 <% if notification.notifiable then %>
-                  <%= link_to notification.action, notification.notifiable %>
-                 <% else %>
-                 <%= notification.action %>
-                 <% end %>
-                 <div style="align: right">
-                   <%= notification.created_at.strftime("%d - %b - %y -- %T") %>
+             <% unless notification.actor.nil? %>
+                   <div class="dropdown-item">
+                   <%= notification.actor.firstname %>
+                   <% if notification.notifiable then %>
+                    <%= link_to notification.action, notification.notifiable %>
+                   <% else %>
+                   <%= notification.action %>
+                   <% end %>
+                   <div style="align: right">
+                     <%= notification.created_at.strftime("%d - %b - %y -- %T") %>
+                   </div>
                  </div>
-               </div>
+               <% end %>
              <% end %>
              <div class="dropdown-item" style="margin-bottom: 10px; text-align: center;"><%= link_to 'Ver notificaciones', notifications_show_url %> <% if current_user.notifications.unread.length > 5 then %> (<%= current_user.notifications.unread.length - 5 %> nuevas) <%end%></div>
             </div>
@@ -144,8 +146,12 @@
    </div>
  </div>
 
+ <% if notice %>
+ <div class="alert alert-primary" role="alert">
+   <div class="notice"><%= notice %></div>
+ </div>
+ <% end%>
  <!-- Page content -->
-  <p class="notice"><%= notice %></p>
 
   <%= yield %>
 

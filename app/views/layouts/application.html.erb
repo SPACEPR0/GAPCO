@@ -24,11 +24,10 @@
 
   <body>
     <% if alert %>
-    <p class="alert"><%= alert %></p>
-    <% end %>
-    <% if notice %>
-
-    <% end %>
+    <div class="alert alert-danger" role="alert">
+      <div class="notice"><%= alert %></div>
+    </div>
+    <% end%>
 
     <%= yield %>
 
