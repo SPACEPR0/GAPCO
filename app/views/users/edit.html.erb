@@ -47,21 +47,21 @@
                     <%= label_tag(type: 'tag') do %>
                     <i class="icon-ok icon-white"></i> Nombre
                     <% end %>
-                    <%= form.text_field :firstname, class: 'form-control' %>
+                    <%= form.text_field :firstname,required: true, class: 'form-control' %>
                 </div>
 
                 <div>
                     <%= label_tag(type: 'tag') do %>
                     <i class="icon-ok icon-white"></i> Apellido
                     <% end %>
-                    <%= form.text_field :lastname, class: 'form-control' %>
+                    <%= form.text_field :lastname, required: true,class: 'form-control' %>
                 </div>
 
                 <div >
                     <%= label_tag(type: 'tag') do %>
                     <i class="icon-ok icon-white"></i> Correo electrónico
                     <% end %>
-                    <%= form.text_field :email, class: 'form-control' %>
+                    <%= form.text_field :email, required: true,class: 'form-control' %>
                 </div>
 
                 <div>
