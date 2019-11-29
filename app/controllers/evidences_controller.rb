@@ -63,7 +63,7 @@ class EvidencesController < ApplicationController
       Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " editó una evidencia en " + @evidence.recommendation.name.to_s, notifiable: @evidence)
     end
 
-    if (current_user.role == 0 || current_user = @evidence.recommendation.area.user) then
+    if (current_user.role == 0 || current_user == @evidence.recommendation.area.user) then
       respond_to do |format|
         if @evidence.update(evidence_params)
           format.html { redirect_to @evidence.recommendation }
@@ -83,7 +83,7 @@ class EvidencesController < ApplicationController
   # DELETE /evidences/1.json
   def destroy
     user = current_user
-    if (current_user.role == 0 || current_user = @evidence.recommendation.area.user) then
+    if (current_user.role == 0 || current_user == @evidence.recommendation.area.user) then
       @recommendation = @evidence.recommendation
       # Create notifications
       if (user.role === 0)then
