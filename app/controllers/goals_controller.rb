@@ -26,7 +26,7 @@ class GoalsController < ApplicationController
   def create
     if (current_user.role == 0) then
       @goal = Goal.new(goal_params)
-      @goal.recommendation.id= params[:recommendation_id]
+      @recommendation = Recommendation.find(@goal.recommendation_id)
 
       respond_to do |format|
         if @goal.save
@@ -36,7 +36,7 @@ class GoalsController < ApplicationController
         else
           format.html { render :new }
           format.json { render json: @goal.errors, status: :unprocessable_entity }
-          format.js
+          format.js {render 'goals/not_created'}
         end
       end
     else
@@ -64,7 +64,7 @@ class GoalsController < ApplicationController
         else
           format.html { render :edit }
           format.json { render json: @goal.errors, status: :unprocessable_entity }
-          format.js
+          format.js {render 'goals/not_updated'}
         end
       end
     else
@@ -83,6 +83,7 @@ class GoalsController < ApplicationController
   # DELETE /goals/1.json
   def destroy
     # Create notifications
+    @recommendation = Recommendation.find(@goal.recommendation_id)
     if (current_user.role === 0)then
       Notification.create(recipient: @goal.recommendation.area.user, actor:current_user, action: " eliminó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal.recommendation)
     else
