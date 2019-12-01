@@ -191,21 +191,21 @@
            <%= label_tag(type: 'tag') do %>
            <i class="icon-ok icon-white"></i> Nombre
            <% end %>
-           <%= f.text_field :firstname, class: 'form-control' %>
+           <%= f.text_field :firstname, required: true,class: 'form-control' %>
        </div>
 
        <div>
            <%= label_tag(type: 'tag') do %>
            <i class="icon-ok icon-white"></i> Apellido
            <% end %>
-           <%= f.text_field :lastname, class: 'form-control' %>
+           <%= f.text_field :lastname, required: true,class: 'form-control' %>
        </div>
 
        <div>
            <%= label_tag(type: 'tag') do %>
            <i class="icon-ok icon-white"></i> Correo electrónico
            <% end %>
-           <%= f.email_field :email, class: 'form-control' %>
+           <%= f.email_field :email, required: true,class: 'form-control' %>
        </div>
 
        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

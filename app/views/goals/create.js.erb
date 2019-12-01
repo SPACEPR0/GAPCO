@@ -1,17 +1,8 @@
-    
 
-if ($(".goal_title").val() != ''){
     $("#mynewgoal").modal('hide');
     $(".goal_title").val('');
     $(".goal_actions").val('');
-    try{
-        $("#container_goals").append('<%= j render @goal %>');
-        $("#goal_<%= @goal.id %>").hide().fadeIn(1000);
-    }catch(err){}
-    
+    $("#container_goals").empty();
+    $("#container_goals").append('<%= j render @recommendation.goals %>');
 
-}
-else{
-    alert("Llene el campo obligatorio")
-}
 

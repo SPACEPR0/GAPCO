@@ -89,9 +89,10 @@ class RecommendationsController < ApplicationController
       end
       unlink_notifs_recommendation @recommendation, @recommendation.area
 
+      area = Area.find(@recommendation.area_id)
       @recommendation.destroy
       respond_to do |format|
-        format.html { redirect_to areas_url }
+        format.html { redirect_to area }
         format.json { head :no_content }
       end
     else
