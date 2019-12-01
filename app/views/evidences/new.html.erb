@@ -94,13 +94,15 @@
 
 <script type="text/javascript">
   function file_input_change(sel){
-    console.log('filefield on load')
     $(sel).closest('div').hide();
     var reader = new FileReader();
     reader.onload = function (e) {
-      console.log('reader on load');
       var tile = $('#evidence_docs').find('.tile').last();
-      tile.prepend('<img src="' + e.target.result + '">');
+      if(sel.files[0].name.substr(sel.files[0].name.lastIndexOf('.')) == '.pdf'){
+        tile.prepend('<%= image_tag "doc-icon.png" %>');
+      } else {
+        tile.prepend('<img src="' + e.target.result + '">');
+      }
       tile.find('.remove_record')[0].style = 'visibility: visible;';
       $('#add_input_ref').click();
     };
@@ -116,7 +118,6 @@
     });
 
     $('form').on('click', '.add_fields', function(event){
-      console.log('clicked');
       var regexp, time;
       time = new Date().getTime();
       regexp = new RegExp($(this).data('id'), 'g');
