@@ -42,7 +42,7 @@
               <a class="card-link" data-toggle="collapse" href="#collapseOne">
               <h5 style= "display: inline;">Metas</h5>
               </a>
-              <% if (current_user.role == 0) then %>
+              <% if (current_user.role == 0 || current_user == @recommendation.area.user) then %>
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#mynewgoal">
                     <span class="fa fa-plus">
                 </button>

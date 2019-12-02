@@ -4,7 +4,7 @@
     <% number = recommendation.number + "." + (recommendation.goals.find_index(goal) + 1).to_s %>
     <%end%>
     <b><h5 style="display:inline;"><%= number%>.</b>&nbsp<%=goal.title%></h5>
-      <% if (current_user.role == 0) then %>
+      <% if (current_user.role == 0 || current_user == recommendation.area.user) then %>
         <button data-toggle="modal" class="btn btn-link" data-target="#myupdategoal_<%= goal.id%>">
                 <span class="fa fa-pencil"></span>
         </button>

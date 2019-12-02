@@ -24,10 +24,10 @@ class GoalsController < ApplicationController
   # POST /goals
   # POST /goals.json
   def create
-    if (current_user.role == 0) then
-      @goal = Goal.new(goal_params)
-      @recommendation = Recommendation.find(@goal.recommendation_id)
+    @goal = Goal.new(goal_params)
+    @recommendation = Recommendation.find(@goal.recommendation_id)
 
+    if (current_user.role == 0 || current_user == @recommendation.area.user) then
       respond_to do |format|
         if @goal.save
           format.html { redirect_to "recommendations/3", notice: 'Goal was successfully created.' }
@@ -55,7 +55,7 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1.json
   def update
     @recommendation = Recommendation.find(@goal.recommendation_id)
-    if (current_user.role == 0) then
+    if (current_user.role == 0 || current_user == @recommendation.area.user ) then
       respond_to do |format|
         if @goal.update(goal_params)
           format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
@@ -90,7 +90,7 @@ class GoalsController < ApplicationController
       Notification.create(recipient: User.find_by(role: 0), actor:current_user, action: " eliminó una meta a la recomendación de " + @goal.recommendation.area.name.to_s, notifiable: @goal.recommendation)
     end
 
-    if (current_user.role == 0) then
+    if (current_user.role == 0 || current_user == @recommendation.area.user) then
       unlink_notifs_goal @goal, @goal.recommendation
 
       @goal.destroy
