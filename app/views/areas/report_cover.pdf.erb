@@ -38,11 +38,11 @@
    <div style="margin-left:300px">
 
     <img style="margin-left:77px" src="<%=Rails.root.join('logos', 'logounison.png')%>" width="300px" height="300px">
-    <h1 style=" font-family: 'Lato'; sans-serif; margin-left:-150px; font-size:59px;">UNIVERSIDAD DE SONORA</h1>
-    <h2 style="font-family: 'Lato'; sans-serif; margin-left:-80px; font-size:45px;">UNIDAD REGIONAL CENTRO</h2>
+    <h1 style="margin-left:-144px; font-size:57px;">UNIVERSIDAD DE SONORA</h1>
+    <h2 style="margin-left:-90px; font-size:45px;">UNIDAD REGIONAL CENTRO</h2>
     
     <br>
-   <p style="margin-left:-140px; text-align:center; font-family:arial; font-size:30px">LICENCIATURA EN CIENCIAS DE LA COMPUTACIÓN</p>
+   <p style="margin-left:-139px; text-align:center; font-family:arial; font-size:30px">LICENCIATURA EN CIENCIAS DE LA COMPUTACIÓN</p>
     <br>
    <p style="margin-left:-160px; text-align:center; font-family:arial; font-size:30px">INFORME DE SEGUIMIENTO PARA LAS RECOMENDACIONES DEL ÁREA DE <%=@reported_area.name.upcase%></b></p>
     </div>
@@ -63,7 +63,7 @@
     </div>
     <div>
       <div>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>ÁREA</b></pre>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:50px; text-align:center;"><b>ÁREA</b></pre>
       </div>
 
       <div>
@@ -74,7 +74,7 @@
        <%description_content = @reported_area.description.split("\n")%>
        <%if description_content.length > 0%>
           <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:50px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
           </div>
 
           <div>
@@ -88,14 +88,14 @@
           </div>
         <%else%>
             <div>
-               <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:50px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b></pre>
+               <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:50px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b></pre>
           </div>
         <%end%>
 
       <%if @reported_area.recommendations.length == 0%>
         <br><br><br><br><br>
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:'Lato'; font-size:25px; text-align:center;"><u><b>(NO EXISTEN RECOMENDACIONES EN ESTA ÁREA)</b></u></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><u><b>(NO EXISTEN RECOMENDACIONES EN ESTA ÁREA)</b></u></pre>
         </div>
       <%end%>
 
