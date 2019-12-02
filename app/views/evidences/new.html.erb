@@ -19,6 +19,39 @@
 </div>
 <div class="container">
 
+  <div class="form-group" style="width: 80%">
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+            <h5 style= "display: inline;">Metas (Expandible)</h5>
+            </a>
+            
+        </div>
+        <div id="collapseOne" class="collapse" >
+          <div class="card-body" id= "container_goals" >
+                    <% @recommendation.goals.each do |goal| %>
+                      <div id = "goal_<%= goal.id %>">
+                        <% number = @recommendation.number + "." + (@recommendation.goals.find_index(goal) + 1).to_s %>
+                        <b><h5 style="display:inline;"><%= number%>.</b>&nbsp<%=goal.title%></h5>
+                        <% content = goal.actions.split("\n") %>
+                        
+                            <% i = 1 %>
+                            <% content.each do |action| %>
+                              <br><b>&nbsp;&nbsp;&nbsp;&nbsp;<%=number + "." +(i.to_s) + ". "%></b><%=action%>
+                              <%i= i + 1%>
+                            <%end%>
+                            <br>&nbsp
+                      </div>
+                    <% end %>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 <div class="form-group" style="width: 80%">
 
@@ -40,6 +73,13 @@
               <i class="icon-ok icon-white"></i> Título de la evidencia <font color="red">   (Obligatorio)</font>
             <% end %>
               <%= form.text_field :title, required: true, class: 'form-control' %>
+          </div>
+          <br>
+          <div>
+            <%= label_tag(type: 'tag') do %>
+              <i class="icon-ok icon-white"></i> Acción <font color="red">   (Obligatorio)</font>
+            <% end %>
+              <%= form.text_field :action, required: true, class: 'form-control' %>
           </div>
           <br>
           <div>
