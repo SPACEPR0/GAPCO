@@ -30,7 +30,7 @@
                <i class="icon-ok icon-white"></i> Número de la recomendación <font color="red">   (Obligatorio)</font>
              <% end %>
               <%if params[:area_id] != nil %>
-                <%= form.text_field :number, value: a.number.to_s + ".", class: 'form-control' %>
+                <%= form.text_field :number, class: 'form-control' %>
                <%else%>
                <%= form.text_field :number, class: 'form-control' %>
                <%end%>
