@@ -121,7 +121,7 @@
             <%@recomendacion.goals.each do |goal|%>
               <%j=1%>
               <div style="margin-left:60px; width:auto;">
-                <%goal_index=@recomendacion.number.to_s+i.to_s+"."%>
+                <%goal_index=@recomendacion.number.to_s+"."+i.to_s+"."%>
                 <% content = goal.actions.split("\n") %>
                 <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b><%=goal_index%></b> <%=goal.title%></pre>
                 <div style="margin-left:60px; width:auto; ">
