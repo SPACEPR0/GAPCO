@@ -112,6 +112,26 @@ class AreasController < ApplicationController
     @evidencia #Evidencia actual
     @hay_evidencias #Bandera para indicar si la recomendación tiene evidencias que se puedan mostrar
 
+    #Se toma la primer recomendación para pegarla junto con la portada y no desperdiciar el espacio
+
+    if @reported_area.recommendations.length > 0
+      @recomendacion = @reported_area.recommendations[0]
+      #Se ajusta el período de la primer recomendación en caso de ser necesario
+      if @recomendacion.time_beg > @recomendacion.time_limit then
+        @recomendacion.time_beg, @recomendacion.time_limit = @recomendacion.time_limit, @recomendacion.time_beg
+      end
+
+      #Se buscarán evidencias en el período dado por el usuario para saber si generaremos portadas para evidencias en la PRIMER RECOMENDACIÓN
+      @hay_evidencias = false
+      @recomendacion.evidences.each do |recom|
+        if recom.day.between?(@reported_area.report_date_1, @reported_area.report_date_2)
+          @hay_evidencias = true
+          break
+        end
+      end
+    end
+
+
     #SE HACE LA PORTADA DEL REPORTE
     pdf = render_to_string pdf:'Report', template:'areas/report_cover.pdf.erb', :page_height => '11in', :page_width => '8.5in'
     save_path=Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
@@ -135,73 +155,75 @@ class AreasController < ApplicationController
         end
       end
 
-      @recomendacion = rec #Se extrae la recomendación para hacer su pdf
+      if rec != @reported_area.recommendations[0]
+        @recomendacion = rec #Se extrae la recomendación para hacer su pdf
 
 
-      #Se construye la portada de la recomendación.
-      pdf = render_to_string pdf:'Report', template:'areas/report.pdf.erb', :page_height => '11in', :page_width => '8.5in'
-      save_path=Rails.root.join('pdfs', 'portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')
-      File.open(save_path, 'wb') do |file|
-        file << pdf
-      end
-
-      #Se mezcla la portada de la recomendación con el reporte que hasta este momento existe
-      pdf = CombinePDF.new
-      pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
-      pdf << CombinePDF.load(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'), allow_optional_content: true)
-      pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
-
-      #Se elimina la portada que acabamos de agregar al reporte porque ya no nos sirve
-      File.delete(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')) if File.exist?(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'))
-
-      #Si anteriormente se encontraron evidencias dentro del período que nos dio el usuario, entonces se procede a hacer portadas de evidencias y agregarlas al reporte
-      if @hay_evidencias then
-
-        #Se recorren las evidencias para guardarlas en un arreglo y después ordenarlas respecto a las fechas
-        evidencias_ordenadas = []
-        rec.evidences.each do |ev|
-          if ev.day.between?(@reported_area.report_date_1, @reported_area.report_date_2)
-            evidencias_ordenadas.append(ev)
-          end
+        #Se construye la portada de la recomendación.
+        pdf = render_to_string pdf:'Report', template:'areas/report.pdf.erb', :page_height => '11in', :page_width => '8.5in'
+        save_path=Rails.root.join('pdfs', 'portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')
+        File.open(save_path, 'wb') do |file|
+          file << pdf
         end
 
-        evidencias_ordenadas.sort_by!{ |a| a.day}
+        #Se mezcla la portada de la recomendación con el reporte que hasta este momento existe
+        pdf = CombinePDF.new
+        pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
+        pdf << CombinePDF.load(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'), allow_optional_content: true)
+        pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
 
-        #Una vez ordenadas las evidencias se procede a hacer el reporte
-        evidencias_ordenadas.each do |ev|
-          @evidencia = ev
-          #SE DECIDE SI SE VA A MOSTRAR LA EVIDENCIA ACTUAL PARA CONSTRUIR LAS PORTADAS NECESARIAS
-          if ev.day.between?(@reported_area.report_date_1, @reported_area.report_date_2)
+        #Se elimina la portada que acabamos de agregar al reporte porque ya no nos sirve
+        File.delete(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')) if File.exist?(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'))
 
-            #Se hace la portada de la evidencia con todo e imágenes
-            pdf = render_to_string pdf:'Report', template:'areas/evidence.pdf.erb', :page_height => '11in', :page_width => '8.5in'
-            save_path=Rails.root.join('pdfs', 'portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')
-            File.open(save_path, 'wb') do |file|
-              file << pdf
+        #Si anteriormente se encontraron evidencias dentro del período que nos dio el usuario, entonces se procede a hacer portadas de evidencias y agregarlas al reporte
+        if @hay_evidencias then
+
+          #Se recorren las evidencias para guardarlas en un arreglo y después ordenarlas respecto a las fechas
+          evidencias_ordenadas = []
+          rec.evidences.each do |ev|
+            if ev.day.between?(@reported_area.report_date_1, @reported_area.report_date_2)
+              evidencias_ordenadas.append(ev)
             end
+          end
 
-            #Se agrega esta portada de evidencia con todo e imágenes al reporte que existe hasta el momento
-            pdf = CombinePDF.new
-            pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
-            pdf << CombinePDF.load(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'), allow_optional_content: true)
-            pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
+          evidencias_ordenadas.sort_by!{ |a| a.day}
 
-            #Se elimina la portada de la evidencia con todo e imágenes porque ya no es util
-            File.delete(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')) if File.exist?(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'))
+          #Una vez ordenadas las evidencias se procede a hacer el reporte
+          evidencias_ordenadas.each do |ev|
+            @evidencia = ev
+            #SE DECIDE SI SE VA A MOSTRAR LA EVIDENCIA ACTUAL PARA CONSTRUIR LAS PORTADAS NECESARIAS
+            if ev.day.between?(@reported_area.report_date_1, @reported_area.report_date_2)
 
-            #Ahora, se buscan las evidencias en pdf
-            ev.evidencefiles.each do |f|
-              if f.document.attachment then
-                if f.document.filename.to_s.include? "pdf" then
+              #Se hace la portada de la evidencia con todo e imágenes
+              pdf = render_to_string pdf:'Report', template:'areas/evidence.pdf.erb', :page_height => '11in', :page_width => '8.5in'
+              save_path=Rails.root.join('pdfs', 'portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')
+              File.open(save_path, 'wb') do |file|
+                file << pdf
+              end
 
-                  IO.copy_stream(open(ActiveStorage::Blob.service.send(:path_for, f.document.key)), Rails.root.join('pdfs',
-                  "evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"))
+              #Se agrega esta portada de evidencia con todo e imágenes al reporte que existe hasta el momento
+              pdf = CombinePDF.new
+              pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
+              pdf << CombinePDF.load(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'), allow_optional_content: true)
+              pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
 
-                  pdf = CombinePDF.new
-                  pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
-                  pdf << CombinePDF.load(Rails.root.join('pdfs',"evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"), allow_optional_content: true)
-                  pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
+              #Se elimina la portada de la evidencia con todo e imágenes porque ya no es util
+              File.delete(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf')) if File.exist?(Rails.root.join('pdfs','portada'+@reported_area.to_s.gsub(' ', '')+@reported_area.recommendations.index(rec).to_s+'.pdf'))
 
+              #Ahora, se buscan las evidencias en pdf
+              ev.evidencefiles.each do |f|
+                if f.document.attachment then
+                  if f.document.filename.to_s.include? "pdf" then
+
+                    IO.copy_stream(open(ActiveStorage::Blob.service.send(:path_for, f.document.key)), Rails.root.join('pdfs',
+                    "evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"))
+
+                    pdf = CombinePDF.new
+                    pdf << CombinePDF.load(Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf'), allow_optional_content: true)
+                    pdf << CombinePDF.load(Rails.root.join('pdfs',"evidence#{rec.to_s.gsub(' ', '')}_#{ev.to_s.gsub(' ', '')}.pdf"), allow_optional_content: true)
+                    pdf.save Rails.root.join('pdfs', 'reporte'+@reported_area.to_s.gsub(' ', '')+'.pdf')
+
+                  end
                 end
               end
             end

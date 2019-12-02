@@ -61,6 +61,7 @@
     <div style="display:block; clear:both; page-break-after:always;">
         
     </div>
+
     <div>
       <div>
         <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:50px; text-align:center;"><b>ÁREA</b></pre>
@@ -92,14 +93,66 @@
           </div>
         <%end%>
 
+        <br><br><br>
+
       <%if @reported_area.recommendations.length == 0%>
         <br><br><br><br><br>
         <div>
             <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><u><b>(NO EXISTEN RECOMENDACIONES EN ESTA ÁREA)</b></u></pre>
         </div>
+      <%else%>
+        <h1 style="sans-serif; font-family:arial; font-size:50px" align="center">RECOMENDACIÓN</h1>
+    
+         <div style="width:100%;"> 
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:40px; text-align:justify;"><b><%=@recomendacion.number%></b> <%=@recomendacion.name%></pre>
+            <%i = 1%>
+            <br><br><br>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:30px; text-align:center;"><b>PLAZO:</b> <%=@recomendacion.time_beg.strftime("%d/%m/%y")%>  -  <%=@recomendacion.time_limit.strftime("%d/%m/%y")%></pre>
+
+            <br><br><br>
+
+            <%if @recomendacion.goals.length == 0%>
+              
+              <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:25px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN METAS EN ESTA RECOMENDACIÓN)</b></u></pre>
+              
+            <%else%>
+              <h1 style="sans-serif; font-size:50px; font-family:arial;"  align="center">METAS Y ACCIONES</h1>
+            <%end%>
+            <%@recomendacion.goals.each do |goal|%>
+              <%j=1%>
+              <div style="margin-left:60px; width:auto;">
+                <%goal_index=@recomendacion.number.to_s+i.to_s+"."%>
+                <% content = goal.actions.split("\n") %>
+                <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b><%=goal_index%></b> <%=goal.title%></pre>
+                <div style="margin-left:60px; width:auto; ">
+
+                    <%if content.length == 0%>
+                        <div>
+                            <pre style="width:100%; margin-left:-60px; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><u><b>(NO EXISTEN ACCIONES EN ESTA META)</b></u></pre>
+                        </div>
+                    <%end%>
+                    <% content.each do |action| %>
+                            <%action_index = goal_index+j.to_s+"."%>
+                            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b><%=action_index%></b> <%=action%></pre>
+                            <%j+=1%>
+                    <%end%>
+                </div>
+                <br><br>
+                <%i +=1%>
+              </div>
+            <%end%>
+
+            <%comparador = @hay_evidencias.to_s%>
+            <%if comparador == "false" then%>
+                <div>
+                    <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:25px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN EVIDENCIAS REPORTADAS EN EL PERÍODO ESTABLECIDO)</b></u></pre>
+                </div>
+            <%end%>
+
+          </div>        
+        <br/><br/><br/>
       <%end%>
-
-
+      
     </div>
 
 </body>
