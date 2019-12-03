@@ -17,9 +17,6 @@
         <strong>Responsable:</strong> <%=@evidence.recommendation.area.user.firstname%> <%=@evidence.recommendation.area.user.lastname%>
      </p>
      <p>
-        <strong>Acción:</strong> <%=@evidence.action%>
-     </p>
-     <p>
         <strong>Fecha:</strong> <%=@evidence.day.strftime("%d/%m/%Y")%>
      </p>
   </div>
@@ -27,6 +24,18 @@
 </div>
 <div class="container">
 
+<div class="form-group" style="width: 80%">
+  <% nums = @evidence.action.split(".")%>
+  <% meta_num = nums[-2].to_i - 1%>
+  <% accion_num = nums[-1].to_i - 1%>
+  <% meta = @evidence.recommendation.goals[meta_num].title %>
+  <% acciones = @evidence.recommendation.goals[meta_num].actions.split("\n") %>
+  <strong>Meta:</strong> <%= meta %> 
+  <br>
+  <strong>Acción:</strong> <%= acciones[accion_num]%>
+  <br>
+  <strong>Número de acción:</strong> <%=@evidence.action%>
+</div>
 
 <div class="form-group" style="width: 80%">
   <%if @evidence.description != "" %>
