@@ -7,17 +7,36 @@
 </head>
 <body>
 
-    <h1 style="sans-serif; font-family:arial; font-size:50px" align="center">EVIDENCIA</h1>
-    <br>
+    <h1 style="sans-serif; font-family:arial; font-size:40px" align="center">EVIDENCIA</h1>
 
     <div style="width:100%;" >
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
         </div>
-        <br><br>
+        <br>
 
+        <%numero_evidencia_separado = @evidencia.action.split(".")%>
+        <%num_de_rec = numero_evidencia_separado[0]+"."+numero_evidencia_separado[1]%>
+        <%num_de_meta = numero_evidencia_separado[2].to_i%>
+        <%num_de_accion = numero_evidencia_separado[3].to_i%>
+
+        <%recomendacion = nil%>
+        <%@reported_area.recommendations.each do |recom|%>
+            <%if recom.number.include? num_de_rec%>
+                <%recomendacion = recom%>
+                <%break%>
+            <%end%>
+        <%end%>
+
+        <%@accion = recomendacion.goals[num_de_meta-1].actions.split("\n")[num_de_accion-1]%>
+        
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:justify;">
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b>ACCIÓN:</b> <br> <u><%=@evidencia.action%></u>: <%=@accion%></pre>
+        </div>
+        <br>
+        
+        <div>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;">
                 <%description_content = @evidencia.description.split("\n")%>
                 <%if description_content.length > 0%>
                     <b>DESCRIPCIÓN:</b>
@@ -27,15 +46,15 @@
                         <br/>
                     <%end%>
                 <%else%>
-                   <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b> </pre>
+                   <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b> </pre>
                 <%end%>
-
             </pre>
         </div>
-        <br><br> <br><br><br>
+
+        <br><br>
 
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:35px; text-align:center;"><b>Fecha:</b> <%=@evidencia.day.strftime("%d/%m/%y")%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><b>Fecha:</b> <%=@evidencia.day.strftime("%d/%m/%y")%></pre>
 
         </div>
         <br><br><br>
