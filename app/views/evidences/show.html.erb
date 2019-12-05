@@ -28,8 +28,12 @@
   <% nums = @evidence.action.split(".")%>
   <% meta_num = nums[-2].to_i - 1%>
   <% accion_num = nums[-1].to_i - 1%>
+  <% meta = ''%>
+  <% acciones = ''%>
+  <% if @evidence.recommendation.goals[meta_num] != nil%>
   <% meta = @evidence.recommendation.goals[meta_num].title %>
   <% acciones = @evidence.recommendation.goals[meta_num].actions.split("\n") %>
+  <%end%>
   <strong>Meta:</strong> <%= meta %> 
   <br>
   <strong>Acción:</strong> <%= acciones[accion_num]%>
