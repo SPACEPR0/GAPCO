@@ -15,6 +15,20 @@
   max-width: 100%; max-height: 100%;
   transform: translate(-50%, -50%);
 }
-div.selectable-tile:hover {
-  opacity: 0.7;
+.img-overlay {
+  position: absolute;
+  bottom: 0px;
+  background: rgb(0, 0, 0);
+  color: #f1f1f1;
+  width: 100%;
+  transition: 0.3s ease;
+  opacity: 0;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  text-align: center;
+  word-wrap: break-word;
+}
+div.tile:hover .img-overlay{
+  opacity:0.8;
 }

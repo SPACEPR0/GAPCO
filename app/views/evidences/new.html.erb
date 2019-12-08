@@ -25,7 +25,7 @@
             <a class="card-link" data-toggle="collapse" href="#collapseOne">
             <h5 style= "display: inline;">Metas (Expandible)</h5>
             </a>
-            
+
         </div>
         <div id="collapseOne" class="collapse" >
           <div class="card-body" id= "container_goals" >
@@ -34,7 +34,7 @@
                         <% number = @recommendation.number + "." + (@recommendation.goals.find_index(goal) + 1).to_s %>
                         <b><h5 style="display:inline;"><%= number%>.</b>&nbsp<%=goal.title%></h5>
                         <% content = goal.actions.split("\n") %>
-                        
+
                             <% i = 1 %>
                             <% content.each do |action| %>
                               <br><b>&nbsp;&nbsp;&nbsp;&nbsp;<%=number + "." +(i.to_s) + ". "%></b><%=action%>
@@ -138,6 +138,7 @@
     var reader = new FileReader();
     reader.onload = function (e) {
       var tile = $('#evidence_docs').find('.tile').last();
+      tile.prepend('<div class="img-overlay"><b>'+sel.files[0].name+'</b></div>');
       if(sel.files[0].name.substr(sel.files[0].name.lastIndexOf('.')) == '.pdf'){
         tile.prepend('<%= image_tag "doc-icon.png" %>');
       } else {
