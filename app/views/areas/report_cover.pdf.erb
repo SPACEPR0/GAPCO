@@ -64,21 +64,21 @@
 
     <div>
       <div>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:40px; text-align:center;"><b>ÁREA</b></pre>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:27px; text-align:center;"><b>ÁREA</b></pre>
       </div>
 
       <div>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:30px; text-align:center;"><b><%=@reported_area.number%>.</b>  <%=@reported_area.name%></pre>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><b><%=@reported_area.number%>.</b>  <%=@reported_area.name%></pre>
       </div>
        
        <%description_content = @reported_area.description.split("\n")%>
        <%if description_content.length > 0%>
           <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:40px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:27px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
           </div>
 
           <div>
-              <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;">
+              <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;">
                 
                 <%description_content.each do |paragraph|%>
                   <%=paragraph%>
@@ -88,7 +88,7 @@
           </div>
         <%else%>
             <div>
-               <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:40px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b></pre>
+               <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b></pre>
           </div>
         <%end%>
 
@@ -97,39 +97,39 @@
       <%if @reported_area.recommendations.length == 0%>
         <br><br><br><br><br>
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><u><b>(NO EXISTEN RECOMENDACIONES EN ESTA ÁREA)</b></u></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><u><b>(NO EXISTEN RECOMENDACIONES EN ESTA ÁREA)</b></u></pre>
         </div>
       <%else%>
         <br><br><br><br>
 
-        <h1 style="sans-serif; font-family:arial; font-size:40px"; align="center">RECOMENDACIÓN</h1>
+        <h1 style="sans-serif; font-family:arial; font-size:27px"; align="center">RECOMENDACIÓN</h1>
     
          <div style="width:100%;"> 
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b><%=@recomendacion.number%></b> <%=@recomendacion.name%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b><%=@recomendacion.number%></b> <%=@recomendacion.name%></pre>
             <%i = 1%>
             <br>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><b>PLAZO:</b> <%=@recomendacion.time_beg.strftime("%d/%m/%y")%>  -  <%=@recomendacion.time_limit.strftime("%d/%m/%y")%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><b>PLAZO:</b> <%=@recomendacion.time_beg.strftime("%d/%m/%y")%>  -  <%=@recomendacion.time_limit.strftime("%d/%m/%y")%></pre>
 
             <br><br>
 
             <%if @recomendacion.goals.length == 0%>
               
-              <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:25px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN METAS EN ESTA RECOMENDACIÓN)</b></u></pre>
+              <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:20px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN METAS EN ESTA RECOMENDACIÓN)</b></u></pre>
               
             <%else%>
-              <h1 style="sans-serif; font-size:40px; font-family:arial;"  align="center">METAS Y ACCIONES</h1>
+              <h1 style="sans-serif; font-size:27px; font-family:arial;"  align="center">METAS Y ACCIONES</h1>
             <%end%>
             <%@recomendacion.goals.each do |goal|%>
               <%j=1%>
               <div style="margin-left:60px; width:auto;">
                 <%goal_index=@recomendacion.number.to_s+"."+i.to_s+"."%>
                 <% content = goal.actions.split("\n") %>
-                <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b><%=goal_index%></b> <%=goal.title%></pre>
+                <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b><%=goal_index%></b> <%=goal.title%></pre>
                 <div style="margin-left:60px; width:auto; ">
 
                     <%if content.length == 0%>
                         <div>
-                            <pre style="width:100%; margin-left:-60px; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><u><b>(NO EXISTEN ACCIONES EN ESTA META)</b></u></pre>
+                            <pre style="width:100%; margin-left:-60px; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><u><b>(NO EXISTEN ACCIONES EN ESTA META)</b></u></pre>
                         </div>
                     <%end%>
                     <% content.each do |action| %>
@@ -146,14 +146,14 @@
             <%comparador = @hay_evidencias.to_s%>
             <%if comparador == "false" then%>
                 <div>
-                    <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:25px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN EVIDENCIAS REPORTADAS EN EL PERÍODO ESTABLECIDO)</b></u></pre>
+                    <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:20px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN EVIDENCIAS REPORTADAS EN EL PERÍODO ESTABLECIDO)</b></u></pre>
                 </div>
             <%else%>
-              <br><br><br><br>
-              <h1 style="sans-serif; font-family:arial; font-size:40px" align="center">EVIDENCIA</h1>
+              <br><br>
+              <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">EVIDENCIA</h1>
               <div style="width:100%;" >
                   <div>
-                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
+                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
                   </div>
                   <br>
 
@@ -170,15 +170,23 @@
                       <%end%>
                   <%end%>
 
+                  <%@num_meta = numero_evidencia_separado[0]+"."+numero_evidencia_separado[1]+"."+numero_evidencia_separado[2]%>
+                  <%@meta = recomendacion.goals[num_de_meta-1].title%>
                   <%@accion = recomendacion.goals[num_de_meta-1].actions.split("\n")[num_de_accion-1]%>
                   
+                  
                   <div>
-                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;"><b>ACCIÓN:</b> <br> <u><%=@evidencia.action%></u>: <%=@accion%></pre>
+                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>META:</b> <br> <%=@num_meta.to_s%>. <%=@meta%></pre>
+                  </div>
+                  <br>
+
+                  <div>
+                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>ACCIÓN:</b> <br> <%=@evidencia.action%>. <%=@accion%></pre>
                   </div>
                   <br>
                   
                   <div>
-                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:justify;">
+                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;">
                           <%description_content = @evidencia.description.split("\n")%>
                           <%if description_content.length > 0%>
                               <b>DESCRIPCIÓN:</b>
@@ -188,7 +196,7 @@
                                   <br/>
                               <%end%>
                           <%else%>
-                            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b> </pre>
+                            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:15px; text-align:center;"><b>(SIN DESCRIPCIÓN)</b> </pre>
                           <%end%>
                       </pre>
                   </div>
@@ -196,14 +204,14 @@
                   <br><br>
 
                   <div>
-                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:25px; text-align:center;"><b>Fecha:</b> <%=@evidencia.day.strftime("%d/%m/%y")%></pre>
+                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><b>Fecha:</b> <%=@evidencia.day.strftime("%d/%m/%y")%></pre>
 
                   </div>
                   <br><br><br>
 
                   <%if @evidencia.evidencefiles.length == 0%>
                       <div>
-                          <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:25px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN ARCHIVOS CARGADOS EN ESTA EVIDENCIA)</b></u></pre>
+                          <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:20px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN ARCHIVOS CARGADOS EN ESTA EVIDENCIA)</b></u></pre>
                       </div>
                   <%end%>
 
