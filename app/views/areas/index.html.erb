@@ -35,6 +35,7 @@
          </tr>
        </thead>
        <tbody>
+          <% @areas.order(number: :asc) %>
           <% @areas.each do |area| %>
            <tr>
               <td><%= link_to area.number, area %>. </td>

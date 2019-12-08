@@ -43,6 +43,7 @@ class AreasController < ApplicationController
       return
     end
 
+    areas.order(number: :asc)
     # Create notifications
     Notification.create(recipient: @area.user, actor:current_user, action: " creó el área " + @area.name.to_s, notifiable: @area)
   end

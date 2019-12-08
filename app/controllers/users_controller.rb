@@ -41,6 +41,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
+          RegistrationMailer.registration_email(@user, @user.password).deliver_later
           #redirect_to root_path
           format.html { redirect_to @user, notice: 'El usuario ha sido creada exitosamente.' }
           format.json { render :show, status: :created, location: @user }

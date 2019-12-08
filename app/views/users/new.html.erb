@@ -69,10 +69,7 @@
             </div>
 
             <div>
-                <%= label_tag(type: 'tag') do %>
-                <i class="icon-ok icon-white"></i> Contraseña <em>(Mínimo 6 caracteres)</em>  <font color="red">   (Obligatorio)</font><br />
-                <% end %>
-                <%= form.text_field :password, required: true, class: 'form-control' %>
+                 <%= form.hidden_field :password, :value => Devise.friendly_token.first(8) %>
             </div>
 
             <div>
