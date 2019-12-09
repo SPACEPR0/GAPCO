@@ -64,7 +64,7 @@
 
     <div>
       <div>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:27px; text-align:center;"><b>ÁREA</b></pre>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:27px; text-align:center;"><b>Área</b></pre>
       </div>
 
       <div>
@@ -74,7 +74,7 @@
        <%description_content = @reported_area.description.split("\n")%>
        <%if description_content.length > 0%>
           <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:27px; text-align:center;"><b>DESCRIPCIÓN</b></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:27px; text-align:center;"><b>Descripción</b></pre>
           </div>
 
           <div>
@@ -102,7 +102,7 @@
       <%else%>
         <br><br><br><br>
 
-        <h1 style="sans-serif; font-family:arial; font-size:27px"; align="center">RECOMENDACIÓN</h1>
+        <h1 style="sans-serif; font-family:arial; font-size:27px"; align="center">Recomendación</h1>
     
          <div style="width:100%;"> 
             <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b><%=@recomendacion.number%></b> <%=@recomendacion.name%></pre>
@@ -117,7 +117,7 @@
               <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:20px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN METAS EN ESTA RECOMENDACIÓN)</b></u></pre>
               
             <%else%>
-              <h1 style="sans-serif; font-size:27px; font-family:arial;"  align="center">METAS Y ACCIONES</h1>
+              <h1 style="sans-serif; font-size:27px; font-family:arial;"  align="center">Metas y acciones</h1>
             <%end%>
             <%@recomendacion.goals.each do |goal|%>
               <%j=1%>
@@ -150,7 +150,7 @@
                 </div>
             <%else%>
               <br><br>
-              <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">EVIDENCIA</h1>
+              <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">Evidencia</h1>
               <div style="width:100%;" >
                   <div>
                       <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
@@ -182,7 +182,7 @@
                       <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;">
                           <%description_content = @evidencia.description.split("\n")%>
                           <%if description_content.length > 0%>
-                              <b>DESCRIPCIÓN:</b>
+                              <b>Descripción</b>
                               <br/>
                               <%description_content.each do |paragraph|%>
                                   <%=paragraph%>

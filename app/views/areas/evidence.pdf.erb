@@ -7,11 +7,11 @@
 </head>
 <body>
 
-    <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">EVIDENCIA</h1>
+    <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">Evidencia</h1>
 
     <div style="width:100%;" >
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>TÍTULO: </b> <%=@evidencia.title%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>Título: </b> <%=@evidencia.title%></pre>
         </div>
         <br>
 
@@ -32,7 +32,7 @@
 
         <br>
         <div>
-            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>ACCIÓN:</b> <br> <%=@evidencia.action%>. <%=@accion%></pre>
+            <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>Acción:</b> <br> <%=@evidencia.action%>. <%=@accion%></pre>
         </div>
         <br>
         
@@ -40,7 +40,7 @@
             <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;">
                 <%description_content = @evidencia.description.split("\n")%>
                 <%if description_content.length > 0%>
-                    <b>DESCRIPCIÓN:</b>
+                    <b>Descripción:</b>
                     <br/>
                     <%description_content.each do |paragraph|%>
                         <%=paragraph%>

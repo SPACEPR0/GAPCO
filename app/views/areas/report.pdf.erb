@@ -7,13 +7,13 @@
 </head>
 <body>
     
-    <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">RECOMENDACIÓN</h1>
+    <h1 style="sans-serif; font-family:arial; font-size:27px" align="center">Recomendación</h1>
     
     <div style="width:100%;"> 
         <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b><%=@recomendacion.number%></b> <%=@recomendacion.name%></pre>
         <%i = 1%>
         <br>
-        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><b>PLAZO:</b> <%=@recomendacion.time_beg.strftime("%d/%m/%y")%>  -  <%=@recomendacion.time_limit.strftime("%d/%m/%y")%></pre>
+        <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:center;"><b>Plazo:</b> <%=@recomendacion.time_beg.strftime("%d/%m/%y")%>  -  <%=@recomendacion.time_limit.strftime("%d/%m/%y")%></pre>
 
         <br><br><br>
 
@@ -22,7 +22,7 @@
             <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-size:20px; font-family:arial; text-align:center;"><u><b>(NO EXISTEN METAS EN ESTA RECOMENDACIÓN)</b></u></pre>
             
         <%else%>
-            <h1 style="sans-serif; font-size:27px; font-family:arial;"  align="center">METAS Y ACCIONES</h1>
+            <h1 style="sans-serif; font-size:27px; font-family:arial;"  align="center">Metas y acciones</h1>
         <%end%>
         <%@recomendacion.goals.each do |goal|%>
             <%j=1%>
