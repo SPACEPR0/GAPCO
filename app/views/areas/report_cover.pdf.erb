@@ -158,9 +158,9 @@
                   <br>
 
                   <%numero_evidencia_separado = @evidencia.action.split(".")%>
-                  <%num_de_rec = numero_evidencia_separado[0]+"."+numero_evidencia_separado[1]%>
-                  <%num_de_meta = numero_evidencia_separado[2].to_i%>
-                  <%num_de_accion = numero_evidencia_separado[3].to_i%>
+                  <%num_de_rec = numero_evidencia_separado[0]+"."+numero_evidencia_separado[1]+"."+numero_evidencia_separado[2]%>
+                  <%num_de_meta = numero_evidencia_separado[3].to_i%>
+                  <%num_de_accion = numero_evidencia_separado[4].to_i%>
 
                   <%recomendacion = nil%>
                   <%@reported_area.recommendations.each do |recom|%>
@@ -170,15 +170,8 @@
                       <%end%>
                   <%end%>
 
-                  <%@num_meta = numero_evidencia_separado[0]+"."+numero_evidencia_separado[1]+"."+numero_evidencia_separado[2]%>
-                  <%@meta = recomendacion.goals[num_de_meta-1].title%>
                   <%@accion = recomendacion.goals[num_de_meta-1].actions.split("\n")[num_de_accion-1]%>
                   
-                  
-                  <div>
-                      <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>META:</b> <br> <%=@num_meta.to_s%>. <%=@meta%></pre>
-                  </div>
-                  <br>
 
                   <div>
                       <pre style="width:100%; overflow:hidden; word-break:normal; white-space:normal; font-family:arial; font-size:20px; text-align:justify;"><b>ACCIÓN:</b> <br> <%=@evidencia.action%>. <%=@accion%></pre>
