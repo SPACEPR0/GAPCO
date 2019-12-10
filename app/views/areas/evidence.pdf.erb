@@ -17,13 +17,18 @@
 
         <%numero_evidencia_separado = @evidencia.action.split(".")%>
         <%num_de_rec = numero_evidencia_separado[0]+"."+numero_evidencia_separado[1]+"."+numero_evidencia_separado[2]%>
-        <%num_de_meta = numero_evidencia_separado[2].to_i%>
-        <%num_de_accion = numero_evidencia_separado[3].to_i%>
+        <%num_de_meta = numero_evidencia_separado[3].to_i%>
+        <%num_de_accion = numero_evidencia_separado[4].to_i%>
+        <%puts "SE BUSCARÁ LA RECOMENDACIÓN NÚMERO: "+num_de_rec.to_s%>
+        <%puts "Numero de recomendacion: "+num_de_rec.to_s%>
+        <%puts "Numero de meta: "+num_de_meta.to_s%>
+        <%puts "Numero de acción: "+num_de_accion.to_s%>
 
         <%recomendacion = nil%>
         <%@reported_area.recommendations.each do |recom|%>
             <%if recom.number.include? num_de_rec%>
                 <%recomendacion = recom%>
+                 <%puts "SE ENCONTRÓ LA RECOMENDACIÓN:"+num_de_rec%>
                 <%break%>
             <%end%>
         <%end%>
